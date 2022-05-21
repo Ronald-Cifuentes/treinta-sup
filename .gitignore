@@ -32,3 +32,4 @@ yalc.lock
 # firebase
 firebase-debug.
 .firebase
+.npmrc
