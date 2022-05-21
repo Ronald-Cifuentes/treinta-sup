@@ -1,0 +1,9 @@
+{
+  "extends": "@30sas/typescript-config-react",
+  "compilerOptions": {
+    "paths": {
+      "__tests__/*": ["../__tests__/*"],
+      "__mocks__/*": ["../__mocks__/*"]
+    }
+  }
+}
