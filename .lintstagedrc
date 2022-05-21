@@ -1,0 +1,6 @@
+{
+     "src/**/*.{ts,tsx,json}": [
+        "yarn prettier --fix",
+        "git add ."
+    ]
+}
