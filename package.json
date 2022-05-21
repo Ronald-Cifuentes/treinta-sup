@@ -1,0 +1,137 @@
+{
+  "name": "treinta-suppliers-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@30sas/web-ui-kit-core": "0.7.1-beta.196",
+    "@30sas/web-ui-kit-icons": "0.4.1-beta.25",
+    "@30sas/web-ui-kit-theme": "0.6.1-beta.4",
+    "@30sas/web-ui-kit-utils": "0.5.2-beta.11",
+    "@datadog/browser-rum": "4.6.1",
+    "@splitsoftware/splitio-react": "1.3.0",
+    "@types/ua-parser-js": "0.7.36",
+    "amplitude-js": "8.13.1",
+    "axios": "0.23.0",
+    "axios-retry": "^3.2.5",
+    "buffer": "^6.0.3",
+    "change-case": "4.1.2",
+    "date-fns": "^2.16.1",
+    "dayjs": "1.10.7",
+    "eslint-plugin-prettier": "4.0.0",
+    "firebase": "9.6.8",
+    "formik": "2.2.9",
+    "i18next": "21.5.3",
+    "i18next-browser-languagedetector": "6.1.3",
+    "jest-sonar-reporter": "2.0.0",
+    "ramda": "0.27.2",
+    "react": "17.0.2",
+    "react-debounce-input": "3.2.5",
+    "react-dom": "17.0.2",
+    "react-facebook-pixel": "1.0.4",
+    "react-gtm-module": "2.0.11",
+    "react-helmet": "^6.1.0",
+    "react-i18next": "11.14.3",
+    "react-image-file-resizer": "0.4.7",
+    "react-query": "3.33.4",
+    "react-router-dom": "6.0.2",
+    "react-scripts": "5.0.1",
+    "react-styled-flexboxgrid": "3.2.1",
+    "recaptcha-v3": "^1.10.0",
+    "snakecase-keys": "5.1.2",
+    "styled-components": "5.3.1",
+    "ts-jest": "27.1.3",
+    "typescript": "4.4.3",
+    "ua-parser-js": "1.0.2",
+    "universal-cookie": "^4.0.4",
+    "url-search-params-polyfill": "8.1.1",
+    "uuid": "8.3.2",
+    "xlsx": "0.17.4",
+    "yup": "0.32.11"
+  },
+  "scripts": {
+    "clean": "rimraf node_modules",
+    "start": "cross-env GENERATE_SOURCEMAP=false PORT=3000 react-scripts start",
+    "build": "cross-env react-scripts build",
+    "prettier": "node_modules/.bin/prettier -l \"src/**/*.{ts,tsx}\"",
+    "lint:css": "stylelint 'src/**/*.tsx'",
+    "lint:ts": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:prettier": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "lint": "node_modules/eslint/bin/eslint.js '*/**/*.{ts,tsx}'",
+    "fix:eslint": "eslint --fix \"src/**/*.{ts,tsx}\"",
+    "fix:prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "fix": "npm run fix:eslint && npm run fix:prettier",
+    "test": "jest --config ./jest.config.js",
+    "test:watch": "jest --config ./jest.config.js --watch --notify",
+    "test:cov": "jest --coverage --silent",
+    "test-with-coverage": "node_modules/.bin/jest --config ./jest.config.js --coverage=true --maxWorkers=2 --silent",
+    "precommit": "lint-staged",
+    "prepare": "husky install"
+  },
+  "prettier": "@30sas/prettier-config",
+  "stylelint": {
+    "extends": "@30sas/stylelint-config"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": "@30sas/eslint-config-react",
+    "globals": {
+      "React": true,
+      "JSX": true
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "Edge 14",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@30sas/eslint-config-react": "0.4.4",
+    "@30sas/prettier-config": "0.4.2",
+    "@30sas/stylelint-config": "0.4.0",
+    "@30sas/typescript-config-react": "0.4.0",
+    "@testing-library/jest-dom": "5.14.1",
+    "@testing-library/react": "11.2.7",
+    "@testing-library/react-hooks": "7.0.2",
+    "@testing-library/user-event": "12.8.3",
+    "@types/amplitude-js": "8.0.2",
+    "@types/jest": "26.0.24",
+    "@types/node": "12.20.28",
+    "@types/react": "17.0.27",
+    "@types/react-gtm-module": "2.0.1",
+    "@types/styled-components": "5.1.15",
+    "@types/uuid": "8.3.3",
+    "@typescript-eslint/parser": "5.4.0",
+    "cross-env": "7.0.3",
+    "eslint-plugin-jest": "25.0.6",
+    "eslint-plugin-prettier": "4.0.0",
+    "husky": "7.0.4",
+    "jest-css-modules-transform": "4.3.0",
+    "lint-staged": "12.1.2",
+    "node-notifier": "10.0.1",
+    "prettier": "2.6.1",
+    "rimraf": "3.0.1",
+    "stylelint-custom-processor-loader": "0.6.0",
+    "use-reducer-logger": "1.0.2"
+  },
+  "engine-strict": true,
+  "engines": {
+    "node": "14",
+    "npm": "please-use-yarn",
+    "yarn": "1.X.X"
+  },
+  "lint-staged": {
+    "src/**/*.{md,ts,tsx,json}": [
+      "yarn fix:prettier",
+      "yarn lint",
+      "git add ."
+    ]
+  }
+}
