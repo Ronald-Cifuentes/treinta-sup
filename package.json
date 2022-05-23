@@ -48,6 +48,9 @@
     "xlsx": "0.17.4",
     "yup": "0.32.11"
   },
+  "resolutions": {
+    "@types/react": "17.0.27"
+  },
   "scripts": {
     "clean": "rimraf node_modules",
     "start": "cross-env GENERATE_SOURCEMAP=false PORT=3000 react-scripts start",
