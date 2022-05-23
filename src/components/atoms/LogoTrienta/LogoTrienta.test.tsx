@@ -10,6 +10,6 @@ jest.mock('formik', () => ({
 describe('LogoTreinta', () => {
   it('Should render correctly', () => {
     render(<LogoTreinta />);
-    expect(screen.getByText(pkg.version)).toBeInTheDocument();
+    expect(screen.getByText("Proveedores")).toBeInTheDocument();
   });
 });

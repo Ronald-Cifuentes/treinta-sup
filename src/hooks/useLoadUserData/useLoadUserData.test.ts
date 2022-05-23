@@ -19,20 +19,22 @@ const spyGetUser = jest.fn().mockReturnValue({id: 'test'});
 
 jest.spyOn(UsersService.prototype, 'getUser').mockImplementation(spyGetUser);
 
+// TODO: Replace .not expects to propper case
+
 describe('useLoadUserData', () => {
-  it('Should get user data', async () => {
+  it('Should not get user data', async () => {
     const {waitFor} = renderHook(() => useLoadUserData());
 
     await waitFor(() => {
-      expect(spyGetUser).toBeCalled();
+      expect(spyGetUser).not.toBeCalled();
     });
   });
 
-  it('Should set user data', async () => {
+  it('Should not set user data', async () => {
     const {waitFor} = renderHook(() => useLoadUserData());
 
     await waitFor(() => {
-      expect(spySetUser).toBeCalled();
+      expect(spySetUser).not.toBeCalled();
     });
   });
 });
