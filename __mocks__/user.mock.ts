@@ -30,10 +30,10 @@ export const user = {
 
 export const userConfig = {
   uid: 'LKkhRyoVyeVQziHjpko603k1Avg2',
-  email: 'jersson@treinta.co',
-  displayName: 'Jersson Morales',
+  email: 'carlos.equiz@treinta.co',
+  displayName: 'Carlos Equiz',
   photoURL:
-    'https://lh3.googleusercontent.com/a-/AOh14GjuSVrTx9MO8Bx7btvu9wuxLbcoYundsIr2TXTU=s96-c',
+    'https://lh3.google.com/u/0/ogw/ADea4I4ovVvP5PeVEIkmqfVJYemXEpBN5VZVYKZJJNRk=s64-c-mo',
   phoneNumber: null,
   authMethod: 1,
   providerData: [{providerId: 'google'}],
