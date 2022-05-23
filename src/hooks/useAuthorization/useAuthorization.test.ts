@@ -9,7 +9,7 @@ let mockedUserTypeId = 1;
 jest.mock('context/AuthContext', () => ({
   useAuth: jest
     .fn()
-    .mockImplementation(() => ({employee: {userTypeId: mockedUserTypeId}})),
+    .mockImplementation(() => ({user: {userTypeId: mockedUserTypeId}})),
 }));
 
 describe('useAuthorization', () => {
