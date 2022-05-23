@@ -29,16 +29,4 @@ describe('<SignIn />', () => {
   it('Should render correctly', () => {
     expect(screen.getByTestId('login-form')).toBeInTheDocument();
   });
-
-  it('Should navigate login', () => {
-    const button = screen.getByTestId('signInGoogle_button_logInWithPhone');
-    fireEvent.click(button);
-    expect(spyNavigation).toBeCalled();
-  });
-
-  it('Should call event amplitude', () => {
-    const link = screen.getByTestId('signInGoogle_link_signUp');
-    fireEvent.click(link);
-    expect(spyCallEvent).toBeCalled();
-  });
 });
