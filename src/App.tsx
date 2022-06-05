@@ -15,6 +15,7 @@ import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
 import {ToastProvider as ToastDashboardProvider} from 'context/ToastContext/ToastContext';
 import {Routes} from './routes';
 import {GlobalStyle} from './config/GlobalStyle';
+import '@fortawesome/fontawesome-free'
 
 const queryClient = new QueryClient({
   defaultOptions: {
