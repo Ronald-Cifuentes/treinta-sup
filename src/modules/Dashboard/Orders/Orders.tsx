@@ -1,9 +1,12 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {ColorProps} from '@30sas/web-ui-kit-theme';
 import {DashboardLayout} from 'components/templates';
-import {columns, rowsWithComponents} from '../../../components/atoms/SpecialTable/Mocks';
-import SpecialTable from '../../../components/atoms/SpecialTable';
+import SpecialTableWithPagination from 'components/molecules/SpecialTableWithPagination/SpecialTableWithPagination';
+import {optionsTabs} from './Mocks'
+import SpecialLineTabs from 'components/atoms/SpecialLineTabs';
+import FiltersAndReport from './components/molecules/FiltersAndReport/FiltersAndReport';
+import '@fortawesome/fontawesome-free'
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
@@ -11,22 +14,27 @@ const LINE_PROPS: ColorProps = {
 };
 
 export const Orders: FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation()
+  const [date, setDate] = useState<Date | Object >()
+  const [tab, setTab] = useState<number>(0)
+
+  const handleOnChangeDate = (value: Record<string, Date>) => {
+    setDate(value)
+  }
+
+  const handleOnChangeLineTabs = (value: React.SetStateAction<number>) => {
+    setTab(value)
+  }
 
   return (
     <DashboardLayout
       title={t('orders.title')}
       fancyLineProps={LINE_PROPS}
       sizeFancyLine="0.5px">
-      <SpecialTable
-        columns={columns}
-        rows={rowsWithComponents}
-        styleContainer={{
-          boxShadow: '2px 4px 8px rgba(34, 38, 42, 0.05)',
-          marginTop: '40px',
-          marginBottom: '56px',
-        }}
-      />
+        <FiltersAndReport onChange={handleOnChangeDate}/>
+        <SpecialLineTabs optionsTabs={optionsTabs} onChange={handleOnChangeLineTabs}/>
+        <SpecialTableWithPagination date={date} tab={tab}/>
     </DashboardLayout>
   );
 };
+
