@@ -1,0 +1,83 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.17.6'
+
+      - name: Setup npmrc
+        run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
+
+      - uses: deptno/action-aws-ssm-to-dotenv@v1.3.1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }} # required
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }} # required
+          AWS_DEFAULT_REGION: us-east-1 # required
+        with:
+          ssm-path: /treinta-suppliers-app/staging # required
+          format: dotenv
+          output: .env.development
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: build
+
+      - name: Upload source maps
+        env:
+          DATADOG_API_KEY: ${{ secrets.WEB_API_KEY_DATA_DOG }}
+        run: |
+          npx @datadog/datadog-ci sourcemaps upload build \
+          --project-path=./src/ \
+          --service=treinta-web-app \
+          --release-version=1.0.4 \
+          --minified-path-prefix=https://web.treinta.co/static/js/
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STG }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build
+          path: build
+
+      - name: Deploy aws
+        uses: reggionick/s3-deploy@v3
+        with:
+          folder: build
+          bucket: treinta-web-stg
+          bucket-region: ${{ secrets.S3_BUCKET_REGION_OREGON }}
+          dist-id: ${{ secrets.CLOUDFRONT_ID_STG_WEB }}
+          invalidation: /*
+          delete-removed: true
+          no-cache: true
+          private: true
