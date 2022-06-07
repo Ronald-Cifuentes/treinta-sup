@@ -20,7 +20,7 @@ jobs:
       - name: Setup npmrc
         run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
 
-      - uses: deptno/action-aws-ssm-to-dotenv@v1.3.1
+      - uses: deptno/action-aws-ssm-to-dotenv@v1.3.2
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STG }} # required
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }} # required
