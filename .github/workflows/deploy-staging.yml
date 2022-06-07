@@ -28,7 +28,7 @@ jobs:
         with:
           ssm-path: /treinta-suppliers-app/stg # required
           format: dotenv
-          output: .env.development
+          output: .env
 
       - name: Install dependencies
         run: yarn
