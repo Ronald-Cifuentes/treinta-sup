@@ -25,7 +25,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }} # required
           AWS_DEFAULT_REGION: us-east-1 # required
         with:
-          ssm-path: /treinta-suppliers-app/staging # required
+          ssm-path: /treinta-suppliers-app/stg # required
           format: dotenv
           output: .env.development
 
