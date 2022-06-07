@@ -33,12 +33,7 @@ export const DashboardProvider: FC = ({children}) => {
       (!user || !loadedSession) &&
       sessionStarted &&
       !userConfig?.showOnBoarding,
-    [
-      user,
-      userConfig,
-      loadedSession,
-      sessionStarted,
-    ],
+    [user, userConfig, loadedSession, sessionStarted],
   );
 
   const setParams = (params?: ParamsTypes): void => {

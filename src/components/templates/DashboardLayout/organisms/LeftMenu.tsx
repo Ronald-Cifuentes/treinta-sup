@@ -44,16 +44,16 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <LogoTreinta isSmall />
         </a>
         <Box margin="32px 0">
-            <LinkButton
-              icon={DocumentIcon}
-              label={t('left-menu.orders')}
-              href={ROUTES.ORDERS}
-            />
-            <LinkButton
-              icon={PackageIcon}
-              label={t('left-menu.inventory')}
-              href={ROUTES.INVENTORY}
-            />
+          <LinkButton
+            icon={DocumentIcon}
+            label={t('left-menu.orders')}
+            href={ROUTES.ORDERS}
+          />
+          <LinkButton
+            icon={PackageIcon}
+            label={t('left-menu.inventory')}
+            href={ROUTES.INVENTORY}
+          />
         </Box>
         <Gap />
         <Divider />

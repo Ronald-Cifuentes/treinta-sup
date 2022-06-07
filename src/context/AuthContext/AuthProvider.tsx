@@ -98,11 +98,10 @@ export const AuthProvider: FC = ({children}) => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt: 'select_account'});
     try {
-      
       signInWithPopup(auth, provider);
     } catch (error) {
       sessionStorage.removeItem(USER_CONFIG_KEY);
-    } 
+    }
   };
 
   const getTokenFromJwt = async (token: string): Promise<void> => {

@@ -18,32 +18,185 @@ function createData(
   createdAt: string,
   updatedAt: string,
   deliveryDate: string,
-  value: number
+  value: number,
 ) {
-  return { id, status, customer, phone, createdAt, updatedAt, deliveryDate, value };
+  return {
+    id,
+    status,
+    customer,
+    phone,
+    createdAt,
+    updatedAt,
+    deliveryDate,
+    value,
+  };
 }
 
 const rows = [
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
-  createData('A159845', 'Entregado', 'Carlos Perez', 3015918524, '04/05/2022', '04/05/2022', '04/05/2022', 1500.50),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
+  createData(
+    'A159845',
+    'Entregado',
+    'Carlos Perez',
+    3015918524,
+    '04/05/2022',
+    '04/05/2022',
+    '04/05/2022',
+    1500.5,
+  ),
 ];
 
 export const Orders: FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   return (
     <DashboardLayout
@@ -59,7 +212,7 @@ export const Orders: FC = () => {
         itemBottom={{
           label: '500 ventas por cobrar',
           subLabel: '20 clientes',
-          value: '305000585'
+          value: '305000585',
         }}
         labelColor="success"
         labelColorType="400"
@@ -68,7 +221,6 @@ export const Orders: FC = () => {
       <Divider></Divider>
       <Divider></Divider>
       <Divider></Divider>
-
     </DashboardLayout>
   );
 };

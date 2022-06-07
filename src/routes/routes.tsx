@@ -16,7 +16,7 @@ const getRoutes = (getI18nRoute): Route[] => [
   {
     path: getI18nRoute(ROUTES.ORDERS),
     element: <Orders />,
-    isPrivate: true
+    isPrivate: true,
   },
   {
     path: '*',

@@ -2,15 +2,11 @@ import {FC} from 'react';
 
 import {useTheme} from 'hooks';
 
-import {
-  ParentContainer,
-} from './EmptyList.styled';
+import {ParentContainer} from './EmptyList.styled';
 import {EmptyListProps} from './types';
-import { Grid } from '@30sas/web-ui-kit-core';
+import {Grid} from '@30sas/web-ui-kit-core';
 
-export const EmptyList: FC<EmptyListProps> = ({
-  height = '40vh',
-}) => {
+export const EmptyList: FC<EmptyListProps> = ({height = '40vh'}) => {
   const theme = useTheme();
   return (
     <ParentContainer container style={{height}}>
