@@ -12,7 +12,6 @@ import {USER_DATA_KEY} from 'config/constants';
 import {UsersService} from 'services/users/users.services';
 
 import {UserData} from './types';
-import {User} from 'services/models/User';
 
 const cookie = new Cookie();
 const userService = new UsersService();

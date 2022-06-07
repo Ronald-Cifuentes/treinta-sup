@@ -1,8 +1,6 @@
-import {fireEvent, render, screen} from '__tests__/test-utils';
+import {render, screen} from '__tests__/test-utils';
 
 import {EmptyList} from './EmptyList';
-
-const onClickHander = jest.fn();
 
 jest.mock('context/DashboardContext/DashboardContext', () => ({
   useDashboard: jest.fn().mockImplementation(() => ({

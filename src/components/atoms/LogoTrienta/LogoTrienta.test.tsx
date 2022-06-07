@@ -1,6 +1,5 @@
 import {screen, render} from '__tests__/test-utils';
 
-import pkg from '../../../../package.json';
 import {LogoTreinta} from './LogoTrienta';
 
 jest.mock('formik', () => ({

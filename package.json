@@ -59,7 +59,7 @@
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:ts": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:prettier": "prettier --check \"src/**/*.{ts,tsx}\"",
-    "lint": "node_modules/eslint/bin/eslint.js '*/**/*.{ts,tsx}'",
+    "lint": "node_modules/eslint/bin/eslint.js --fix '*/**/*.{ts,tsx}'",
     "fix:eslint": "eslint --fix \"src/**/*.{ts,tsx}\"",
     "fix:prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
     "fix": "npm run fix:eslint && npm run fix:prettier",

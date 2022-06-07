@@ -10,12 +10,12 @@ import {
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
-import {Permissions, LanguagesMap} from 'config/constants';
+import {LanguagesMap} from 'config/constants';
 import {ROUTES} from 'routes/types';
 import {useAuth} from 'context/AuthContext';
 import {LogoTreinta} from 'components/atoms';
 import {SUPPORT_LINK} from 'config/constants/parameters';
-import {useAuthorization, useRoutes} from 'hooks';
+import {useRoutes} from 'hooks';
 
 import {CloseSession} from '../atoms/CloseSession';
 import {LinkButton} from '../molecules/LinkButton/LinkButton';
@@ -32,8 +32,6 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleCloseSessionModal = (): void => setOpenModal(false);
   const handleConfirm = async (): Promise<void> => await logOut();
-
-  const hasPermissionInventory = useAuthorization(Permissions.INVENTORY_ALL);
 
   const {getI18nRoute} = useRoutes();
 
