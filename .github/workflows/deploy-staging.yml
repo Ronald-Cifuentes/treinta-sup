@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - staging
+      - chores/ci
 
 jobs:
   build:
@@ -74,9 +75,8 @@ jobs:
         uses: reggionick/s3-deploy@v3
         with:
           folder: build
-          bucket: treinta-web-stg
+          bucket: treinta-suppliers-app-stg
           bucket-region: ${{ secrets.S3_BUCKET_REGION_OREGON }}
-          dist-id: ${{ secrets.CLOUDFRONT_ID_STG_WEB }}
           invalidation: /*
           delete-removed: true
           no-cache: true
