@@ -29,7 +29,6 @@ jobs:
           ssm-path: /treinta/stg/treinta-suppliers-app
           get-children: true
           decryption: false
-          mask-values: true
 
       - name: Install dependencies
         run: yarn
@@ -62,16 +61,15 @@ jobs:
           name: build
           path: build
 
-      - uses: IP-Sentinel/actions-aws-ssm-params-to-env@v1.2.1
+      - uses: deptno/action-aws-ssm-to-dotenv@v1.3.2
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STG }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }}
-          AWS_DEFAULT_REGION: us-west-2
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STG }} # required
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }} # required
+          AWS_DEFAULT_REGION: ap-northeast-2 # required
         with:
-          ssm-path: /treinta/stg/treinta-suppliers-app
-          get-children: true
-          decryption: false
-          mask-values: true
+          ssm-path: /treinta/stg/treinta-suppliers-app/DISTRIBUTION_ID
+          format: shell
+          output: .env
 
       - name: Deploy aws
         uses: reggionick/s3-deploy@v3
