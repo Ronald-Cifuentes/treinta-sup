@@ -60,6 +60,15 @@ jobs:
         with:
           name: build
           path: build
+      
+      - uses: deptno/action-aws-ssm-to-dotenv@v1.3.1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STG }} # required
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }} # required
+          AWS_DEFAULT_REGION: ${{ secrets.S3_BUCKET_REGION_OREGON }} # required
+        with:
+          ssm-path: /treinta-suppliers-app/stg # required
+          format: shell
 
       - name: Deploy aws
         uses: reggionick/s3-deploy@v3
@@ -67,6 +76,7 @@ jobs:
           folder: build
           bucket: treinta-suppliers-app-stg
           bucket-region: ${{ secrets.S3_BUCKET_REGION_OREGON }}
+          dist-id: ${{ env.DISTRIBUTION_ID }}
           invalidation: /*
           delete-removed: true
           no-cache: true
