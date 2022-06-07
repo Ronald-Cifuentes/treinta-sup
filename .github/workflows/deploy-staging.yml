@@ -28,6 +28,7 @@ jobs:
         with:
           ssm-path: /treinta/stg/treinta-suppliers-app
           format: dotenv
+          decryption: true
           output: .env
       
       - name: Validate env
