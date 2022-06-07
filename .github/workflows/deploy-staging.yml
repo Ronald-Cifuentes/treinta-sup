@@ -44,16 +44,6 @@ jobs:
           name: build
           path: build
 
-      - name: Upload source maps
-        env:
-          DATADOG_API_KEY: ${{ secrets.WEB_API_KEY_DATA_DOG }}
-        run: |
-          npx @datadog/datadog-ci sourcemaps upload build \
-          --project-path=./src/ \
-          --service=treinta-web-app \
-          --release-version=1.0.4 \
-          --minified-path-prefix=https://web.treinta.co/static/js/
-
   deploy:
     name: Deploy
     needs: build
