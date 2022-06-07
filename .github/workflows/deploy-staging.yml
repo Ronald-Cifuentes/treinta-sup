@@ -29,6 +29,9 @@ jobs:
           ssm-path: /treinta-suppliers-app/stg # required
           format: dotenv
           output: .env
+      
+      - name: Validating env vars
+        run: echo "$REACT_APP_PROJECT_ID" && echo "$REACT_APP_API_KEY_FIREBASE"
 
       - name: Install dependencies
         run: yarn
