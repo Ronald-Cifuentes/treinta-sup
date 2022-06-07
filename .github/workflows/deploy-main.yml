@@ -19,15 +19,16 @@ jobs:
       - name: Setup npmrc
         run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
 
-      - uses: deptno/action-aws-ssm-to-dotenv@v1.3.1
+      - uses: almerindo/action-env-from-aws-ssm@v1.2.1
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }} # required
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }} # required
-          AWS_DEFAULT_REGION: us-east-1 # required
+          AWS_DEFAULT_REGION: us-west-2 # required
         with:
-          ssm-path: /treinta-suppliers-app/prd # required
+          ssm-path: /treinta/prd/treinta-suppliers-app
           format: dotenv
-          output: .env.development
+          decryption: true
+          output: .env
 
       - name: Install dependencies
         run: yarn
@@ -95,23 +96,23 @@ jobs:
           name: build
           path: build
 
-      - name: Upload source maps
+      - uses: almerindo/action-env-from-aws-ssm@v1.2.1
         env:
-          DATADOG_API_KEY: ${{ secrets.WEB_API_KEY_DATA_DOG }}
-        run: |
-          npx @datadog/datadog-ci sourcemaps upload build \
-          --project-path=./src/ \
-          --service=treinta-web-app \
-          --release-version=1.0.4 \
-          --minified-path-prefix=https://web.treinta.co/static/js/
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          AWS_DEFAULT_REGION: us-west-2
+        with:
+          ssm-path: /treinta/prd/treinta-suppliers-app
+          format: shell
+          output: .env
 
       - name: Deploy aws
         uses: reggionick/s3-deploy@v3
         with:
           folder: build
-          bucket: treinta-web-prd
+          bucket: treinta-suppliers-app-prd
           bucket-region: ${{ secrets.S3_BUCKET_REGION_OREGON }}
-          dist-id: ${{ secrets.CLOUDFRONT_ID_PRD_WEB }}
+          dist-id: ${{ env.DISTRIBUTION_ID }}
           invalidation: /*
           delete-removed: true
           no-cache: true
