@@ -1,6 +1,5 @@
 import {FC} from 'react';
-import {InfoIcon} from '@30sas/web-ui-kit-icons';
-import {useTranslation, Trans} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {Typography} from '@30sas/web-ui-kit-core';
 import {useAuth} from 'context/AuthContext';
 import {LogoTreinta} from 'components/atoms';
@@ -9,7 +8,7 @@ import {WhatsappButton} from 'components/molecules';
 import {Events, LanguagesMap} from 'config/constants';
 import {EventProvider} from 'providers/event-provider';
 
-import {Links, LogoGoogle, AlertSession, ButtonGoogle} from './SignIn.styled';
+import {LogoGoogle, ButtonGoogle} from './SignIn.styled';
 
 export const SignIn: FC = () => {
   const {t, i18n} = useTranslation();

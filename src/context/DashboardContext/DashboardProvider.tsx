@@ -2,7 +2,6 @@ import logger from 'use-reducer-logger';
 import {Backdrop} from '@30sas/web-ui-kit-core';
 import {FC, useMemo, useReducer} from 'react';
 
-import {useLoadUserData} from 'hooks';
 import {
   Screens,
   ToastLocations,
@@ -33,12 +32,7 @@ export const DashboardProvider: FC = ({children}) => {
       (!user || !loadedSession) &&
       sessionStarted &&
       !userConfig?.showOnBoarding,
-    [
-      user,
-      userConfig,
-      loadedSession,
-      sessionStarted,
-    ],
+    [user, userConfig, loadedSession, sessionStarted],
   );
 
   const setParams = (params?: ParamsTypes): void => {

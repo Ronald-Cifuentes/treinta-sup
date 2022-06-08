@@ -1,0 +1,120 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      # TODO: Change to main
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.17.6'
+
+      - name: Setup npmrc
+        run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
+
+      - uses: almerindo/action-env-from-aws-ssm@v1.2.1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }} # required
+          AWS_DEFAULT_REGION: us-west-2 # required
+        with:
+          ssm-path: /treinta/prd/treinta-suppliers-app
+          format: dotenv
+          decryption: true
+          output: .env
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: build
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone project from the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.17.6'
+
+      - name: Setup npmrc
+        run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build packages
+        run: CI=true yarn test
+
+      - name: Set branch name
+        id: set-branch
+        run: echo "branch_name=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
+
+      - name: Get branch
+        run: git fetch origin ${{ env.branch_name }}
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build
+          path: build
+
+      - uses: almerindo/action-env-from-aws-ssm@v1.2.1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          AWS_DEFAULT_REGION: us-west-2
+        with:
+          ssm-path: /treinta/prd/treinta-suppliers-app
+          format: shell
+          output: .env
+
+      - name: Deploy aws
+        uses: reggionick/s3-deploy@v3
+        with:
+          folder: build
+          bucket: treinta-suppliers-app-prd
+          bucket-region: ${{ secrets.S3_BUCKET_REGION_OREGON }}
+          dist-id: ${{ env.DISTRIBUTION_ID }}
+          invalidation: /*
+          delete-removed: true
+          no-cache: true
+          private: true

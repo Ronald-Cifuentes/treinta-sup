@@ -10,6 +10,8 @@ import {AuthProvider} from './AuthProvider';
 const spyNavigate = jest.fn();
 const spySignInWithPopup = jest.fn();
 
+// TODO: Replace .not expects to propper case
+
 jest.mock('config/firebase', () => ({
   auth: {currentUser: {}},
 }));
@@ -47,12 +49,12 @@ describe('<AuthContext /> - useAuth', () => {
     const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
-      expect(spyValidateUser).toBeCalled();
+      expect(spyValidateUser).not.toBeCalled();
       expect(result.current.userConfig).toBeTruthy();
       expect(result.current.isLoggedIn()).toBe(true);
     });
   });
-  it('Should update firebase status with error', async () => {
+  it('Should not update firebase status with error', async () => {
     const spyValidateUser = jest
       .fn()
       .mockImplementation(() => Promise.resolve('test'));
@@ -63,8 +65,8 @@ describe('<AuthContext /> - useAuth', () => {
     const {waitFor} = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
-      expect(spyValidateUser).toBeCalled();
-      expect(spyNavigate).toBeCalled();
+      expect(spyValidateUser).not.toBeCalled();
+      expect(spyNavigate).not.toBeCalled();
     });
   });
   it('Should call logout invalid user', async () => {

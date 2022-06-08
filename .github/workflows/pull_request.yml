@@ -1,0 +1,62 @@
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone project from the repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.17.6'
+
+      - name: Setup npmrc
+        run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone project from the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.17.6'
+
+      - name: Setup npmrc
+        run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGE_TOKEN }}\n@30sas:registry=https://npm.pkg.github.com/" > ~/.npmrc
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build packages
+        run: CI=true yarn test
+      
+      - name: Set branch name
+        id: set-branch
+        run: echo "branch_name=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
+      
+      - name: Get branch
+        run: git fetch origin ${{ env.branch_name }}
+      
+      # TODO: Enable SonarCloud Scan when project is finally setup
+      # - name: SonarCloud Scan
+      #   uses: sonarsource/sonarcloud-github-action@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

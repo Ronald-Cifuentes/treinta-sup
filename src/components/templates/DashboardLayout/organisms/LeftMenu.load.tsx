@@ -7,6 +7,6 @@ interface ILeftMenuLoadProps {
   onDrawerToggle: () => void;
 }
 
-export const LeftMenuLoad: FC<ILeftMenuLoadProps> = props => {
-  return <LeftMenu {...props} />;
-};
+export const LeftMenuLoad: FC<ILeftMenuLoadProps> = props => (
+  <LeftMenu {...props} />
+);

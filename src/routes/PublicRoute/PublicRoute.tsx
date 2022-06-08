@@ -6,7 +6,6 @@ import {useAuth} from 'context/AuthContext';
 import {useIsMobile} from 'hooks/useIsMobile';
 import {DASHBOARD_HOME} from 'config/constants';
 
-
 export const PublicRoute: FC = ({children}) => {
   const {isLoggedIn, userConfig} = useAuth();
   const navigate = useNavigate();
