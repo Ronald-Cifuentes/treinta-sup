@@ -14,14 +14,12 @@ import {auth} from 'config/firebase';
 import {LogProvider} from 'providers/log-provider';
 import {getDateUtc, isAfterOneWeekUtc} from 'utils';
 import {useInitConfigs, useNavigateI18n} from 'hooks';
-import {UsersService} from 'services/users/users.services';
 import {USER_CONFIG_KEY, USER_DATA_KEY} from 'config/constants';
 
 import {AuthContextType} from './types';
 import {AuthContext} from './AuthContext';
 
 const cookie = new Cookie();
-const userService = new UsersService();
 
 const loadUserConfig = (): UserConfig => {
   const data = sessionStorage.getItem(USER_CONFIG_KEY);
@@ -98,11 +96,10 @@ export const AuthProvider: FC = ({children}) => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt: 'select_account'});
     try {
-      
       signInWithPopup(auth, provider);
     } catch (error) {
       sessionStorage.removeItem(USER_CONFIG_KEY);
-    } 
+    }
   };
 
   const getTokenFromJwt = async (token: string): Promise<void> => {

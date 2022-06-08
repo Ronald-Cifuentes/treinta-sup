@@ -4,12 +4,12 @@ import {Permissions} from 'config/constants';
 
 import {useAuthorization} from './useAuthorization';
 
-let mockedUserTypeId = 1;
+const mockedUserTypeId = 1;
 
 jest.mock('context/AuthContext', () => ({
   useAuth: jest
     .fn()
-    .mockImplementation(() => ({employee: {userTypeId: mockedUserTypeId}})),
+    .mockImplementation(() => ({user: {userTypeId: mockedUserTypeId}})),
 }));
 
 describe('useAuthorization', () => {

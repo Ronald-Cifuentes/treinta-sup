@@ -8,7 +8,6 @@ import {useAuth} from 'context/AuthContext';
 import {useIsMobile} from 'hooks/useIsMobile';
 import {useRoutes, useNavigateI18n} from 'hooks';
 
-
 export const PrivateRoute: FC = ({children}) => {
   const {isAuthReady, isLoggedIn, userConfig} = useAuth();
   const navigate = useNavigateI18n();
