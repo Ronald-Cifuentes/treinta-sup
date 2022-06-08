@@ -26,32 +26,29 @@ const queryClient = new QueryClient({
     },
   },
 });
-const App: FC = () => {
+const App: FC = () => (
   // const errorHandler = (error: Error, info): void => {
   //  // TODO: Add datadog rum
   //  console.error(error, info);
   // };
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={TreintaTheme}>
-        <GlobalStyle />
-        <Router>
-          <ConfigProvider>
-            <HeadTags>
-              <AuthProvider>
-                <ToastDashboardProvider>
-                  <DashboardProvider>
-                    <Routes />
-                  </DashboardProvider>
-                </ToastDashboardProvider>
-              </AuthProvider>
-            </HeadTags>
-          </ConfigProvider>
-        </Router>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
-};
-
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={TreintaTheme}>
+      <GlobalStyle />
+      <Router>
+        <ConfigProvider>
+          <HeadTags>
+            <AuthProvider>
+              <ToastDashboardProvider>
+                <DashboardProvider>
+                  <Routes />
+                </DashboardProvider>
+              </ToastDashboardProvider>
+            </AuthProvider>
+          </HeadTags>
+        </ConfigProvider>
+      </Router>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 export default App;

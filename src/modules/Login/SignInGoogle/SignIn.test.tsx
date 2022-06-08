@@ -1,4 +1,4 @@
-import {render, screen, fireEvent} from '__tests__/test-utils';
+import {render, screen} from '__tests__/test-utils';
 
 import {SignIn} from './SignIn';
 

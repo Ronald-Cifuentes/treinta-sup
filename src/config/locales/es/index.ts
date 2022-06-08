@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { StoreTypeKeys } from 'config/constants';
+import {StoreTypeKeys} from 'config/constants';
 
 export const es = {
   commons: {
@@ -242,7 +242,7 @@ export const es = {
     },
   },
   orders: {
-    title: 'Gestiona tus órdenes'
+    title: 'Gestiona tus órdenes',
   },
   onboarding: {
     'title-name': '¿Cuál es tu nombre?',

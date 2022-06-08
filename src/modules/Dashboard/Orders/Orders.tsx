@@ -37,4 +37,3 @@ export const Orders: FC = () => {
     </DashboardLayout>
   );
 };
-

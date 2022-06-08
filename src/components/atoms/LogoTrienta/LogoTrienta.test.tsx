@@ -1,6 +1,5 @@
 import {screen, render} from '__tests__/test-utils';
 
-import pkg from '../../../../package.json';
 import {LogoTreinta} from './LogoTrienta';
 
 jest.mock('formik', () => ({
@@ -10,6 +9,6 @@ jest.mock('formik', () => ({
 describe('LogoTreinta', () => {
   it('Should render correctly', () => {
     render(<LogoTreinta />);
-    expect(screen.getByText("Proveedores")).toBeInTheDocument();
+    expect(screen.getByText('Proveedores')).toBeInTheDocument();
   });
 });
