@@ -91,15 +91,18 @@ export const AuthProvider: FC = ({children}) => {
       state: message ? {alertLogOut: message} : undefined,
     });
   };
-
-  const googleSignIn = (): void => {
+  
+  
+  const googleSignIn = async (): Promise<void> => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt: 'select_account'});
-    try {
-      signInWithPopup(auth, provider);
-    } catch (error) {
-      sessionStorage.removeItem(USER_CONFIG_KEY);
-    }
+    signInWithPopup(auth, provider).then((result:any) => {
+      var token = result?.user?.accessToken;
+      localStorage.setItem("accessToken",`${token}`)
+      }).catch(function(error) {
+        console.log(error)
+        sessionStorage.removeItem(USER_CONFIG_KEY);
+      }); 
   };
 
   const getTokenFromJwt = async (token: string): Promise<void> => {
