@@ -1,1 +1,1 @@
-export { default } from "./SpecialPagination"
+export * from './SpecialPagination';

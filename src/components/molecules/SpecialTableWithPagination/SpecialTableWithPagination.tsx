@@ -1,49 +1,45 @@
-import {FC, useState, useEffect, ChangeEvent} from 'react'
-import SpecialPagination from 'components/atoms/SpecialPagination'
-import SpecialTable from 'components/atoms/SpecialTable'
-import {columns} from 'components/atoms/SpecialTable/Mocks'
-import {Dropdown, TreintaDropdownOptions, TreintaDropdownType} from '@30sas/web-ui-kit-core';
-import { getData, getDataMock, optionsRowsPerPage } from './Mocks'
+import {FC, useState, ChangeEvent} from 'react';
+import {SpecialPagination} from 'components/atoms/SpecialPagination';
+import {
+  Dropdown,
+  TreintaDropdownOptions,
+  TreintaDropdownType,
+} from '@30sas/web-ui-kit-core';
+import {TableMui} from 'modules/Dashboard/Orders/components/atoms/TableMui';
+import {optionsRowsPerPage} from './SpecialTableWithPagination.mock';
+import {PropTypesSpecialTableWithPagination} from './types';
+import {
+  EmptyBlock,
+  LayoutHeader,
+  WrapperDropdownDate,
+  WrapperDropdownFrecuency,
+} from './SpecialTableWithPagination.styled';
 
-export interface PropTypes {
-  dropDownDefaultValue?: number
-  initPagination?: number
-  totalItems?: number
-  date?: string | Object
-  tab?: number
-}
+export const SpecialTableWithPagination: FC<
+  PropTypesSpecialTableWithPagination
+> = ({
+  formattedData,
+  dropDownDefaultValue = 8,
+  itemsByPage,
+  setItemsByPage,
+  handleSpecialPagination,
+  initPagination = 1,
+  totalItems = 20,
+  date,
+  tab,
+}) => {
+  const handleDropDown = (value: TreintaDropdownOptions): void => {
+    setItemsByPage && setItemsByPage(parseInt(value.value as string));
+  };
 
-const SpecialTableWithPagination:FC<PropTypes> = ({dropDownDefaultValue = 5, initPagination = 1, totalItems = 20, date, tab}) => {
-  const [page, setPage] = useState(initPagination)
-  const [itemsByPage, setItemsByPage] = useState(dropDownDefaultValue)
-  const [response, setResponse] = useState([])
-
-  const handleDropDown  = (value: TreintaDropdownOptions, event: ChangeEvent<unknown>) => {
-    setItemsByPage(parseInt(value.value as string))
-  }
-
-  const handleSpecialPagination = (event: ChangeEvent<unknown>, value: number) => {
-    setPage(value)
-  }
-
-  useEffect(() => {
-    getData({page, itemsByPage, setResponse, date, tab})
-  }, [page, itemsByPage, date, tab])
-  
+  const count =
+    totalItems && itemsByPage && Math.ceil(totalItems / itemsByPage);
 
   return (
     <div data-testid="special-table-with-pagination">
-      <SpecialTable
-        columns={columns}
-        rows={response}
-        styleContainer={{
-          boxShadow: '2px 4px 8px rgba(34, 38, 42, 0.05)',
-          marginTop: '40px',
-          marginBottom: '56px',
-        }}
-      />
-      <div style={{display: "flex", justifyContent: "space-between"}}>
-        <div style={{display: "flex", width: "33%", alignItems: "center"}}>
+      <TableMui formattedData={formattedData} pageSize={totalItems} />
+      <LayoutHeader>
+        <WrapperDropdownFrecuency>
           <Dropdown
             AlingMenu="right"
             dropdownOptions={optionsRowsPerPage}
@@ -51,17 +47,15 @@ const SpecialTableWithPagination:FC<PropTypes> = ({dropDownDefaultValue = 5, ini
             errorText="Error text"
             placeholder="Filas por página: "
             defaultValue={`Filas por página: ${dropDownDefaultValue}`}
-            typeRenderItem={TreintaDropdownType["OnlyLetter"]}
+            typeRenderItem={TreintaDropdownType['OnlyLetter']}
             onChange={handleDropDown}
           />
-        </div>
-        <div style={{display: "flex", width: "33%", alignItems: "center", justifyContent: "center"}}>
-          <SpecialPagination count={Math.ceil(totalItems / itemsByPage)} onChange={handleSpecialPagination}/>
-        </div>
-        <div style={{display: "flex", width: "33%", alignItems: "center"}}></div>
-      </div>
+        </WrapperDropdownFrecuency>
+        <WrapperDropdownDate>
+          <SpecialPagination count={count} onChange={handleSpecialPagination} />
+        </WrapperDropdownDate>
+        <EmptyBlock />
+      </LayoutHeader>
     </div>
-  )
-}
-
-export default SpecialTableWithPagination
+  );
+};

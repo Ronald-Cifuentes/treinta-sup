@@ -23,7 +23,7 @@ export class ApiConfig {
       process.env.REACT_APP_MAX_TIMEOUT || axios.defaults.timeout,
     ) as number;
     const instance = axios.create({
-      baseURL: process.env.REACT_APP_ORCHESTRATOR_URL,
+      baseURL: process.env.REACT_APP_B2B_SUPPLIERS_URL,
       timeout,
       ...config,
     });
@@ -35,6 +35,10 @@ export class ApiConfig {
   static initInterceptors(instance: AxiosInstance): void {
     instance.interceptors.response.use(
       (response: AxiosResponse) => {
+        const token = localStorage.getItem('dataRes');
+        if (token) {
+          response.headers.Authorization = `Bearer ${token}`;
+        }
         if (response.status === 401) {
           localStorage.clear();
           sessionStorage.clear();
@@ -69,10 +73,10 @@ export class ApiConfig {
     if (token) {
       return {
         Authorization: `Bearer ${token}`,
-        'x-api-key': process.env.REACT_APP_ORCHESTRATOR_API_KEY || '',
+        'x-api-key': process.env.REACT_APP_B2B_SERVICE_API_KEY || '',
       };
     } else {
-      return {'x-api-key': process.env.REACT_APP_ORCHESTRATOR_API_KEY || ''};
+      return {'x-api-key': process.env.REACT_APP_B2B_SERVICE_API_KEY || ''};
     }
   }
 }

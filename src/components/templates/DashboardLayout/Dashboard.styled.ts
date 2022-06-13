@@ -45,7 +45,8 @@ export const Title = styled(Typography)`
 export const ContentContainer = styled(Box)<StyledBox>`
   background-color: ${({theme}): string => theme.colors.gray[100]};
   margin-top: 64px;
-  padding: ${({$withoutPadding}) => $withoutPadding ? 0 : "38.5px 32px 282px 16px"};
+  padding: ${({$withoutPadding}) =>
+    $withoutPadding ? 0 : '38.5px 32px 282px 16px'};
   flex-grow: 1;
   ${({$withoutPadding}) =>
     $withoutPadding

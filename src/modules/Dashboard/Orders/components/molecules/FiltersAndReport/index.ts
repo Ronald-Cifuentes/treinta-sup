@@ -1,1 +1,1 @@
-export {default} from './FiltersAndReport'
+export * from './FiltersAndReport';

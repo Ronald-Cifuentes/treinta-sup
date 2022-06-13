@@ -1,1 +1,1 @@
-export { default } from "./SpecialTable"
+export {default} from './SpecialTable';
