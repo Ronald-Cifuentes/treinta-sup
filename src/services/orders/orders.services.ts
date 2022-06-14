@@ -1,7 +1,7 @@
-import {AxiosResponse} from 'axios';
+import { AxiosResponse } from 'axios';
 
-import {Order} from 'services/models';
-import {ApiProvider} from 'providers/api-provider';
+import { Order } from 'services/models';
+import { ApiProvider } from 'providers/api-provider';
 
 export interface PropTypesGetOrders {
   page: number;
@@ -26,14 +26,7 @@ export class OrderServices {
   }: PropTypesGetOrders): Promise<AxiosResponse<Order[]>> {
     const pageParam = page ? `&page=${page}` : '';
     const sizeParam = size ? `&size=${size}` : '';
-    const dateParam =
-      dateFrom === dateTo
-        ? dateFrom
-          ? `&dateFrom=${dateFrom}`
-          : ''
-        : dateFrom && dateTo
-        ? `&dateFrom=${dateFrom}&dateTo=${dateTo}`
-        : '';
+    const dateParam = dateFrom && dateTo ? `&dateFrom=${dateFrom}&dateTo=${dateTo}` : '';
     const statusIdParam = statusId ? `&statusId=${statusId}` : '';
     return this.api.get<Order[]>(
       `/orders?=${pageParam}${sizeParam}${dateParam}${statusIdParam}`,

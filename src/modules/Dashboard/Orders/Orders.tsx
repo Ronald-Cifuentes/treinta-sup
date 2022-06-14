@@ -3,19 +3,20 @@ import {useTranslation} from 'react-i18next';
 import {ColorProps} from '@30sas/web-ui-kit-theme';
 import {DashboardLayout} from 'components/templates';
 import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
-import SpecialLineTabs from 'components/atoms/SpecialLineTabs';
+import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
 import {useOrders} from 'hooks/useOrders';
 import {ApiMock, optionsTabs} from './Orders.mock';
 import {FiltersAndReport} from './components/molecules/FiltersAndReport';
 import {CalendarFromTo} from './components/molecules/FiltersAndReport/types';
 import {format} from 'date-fns';
+import {CalendarsInput} from '@30sas/web-ui-kit-core';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
   gradient: '500',
 };
 
-const dropDownDefaultValue = 8;
+const dropDownDefaultValue = 25;
 
 export const Orders: FC = () => {
   const {t} = useTranslation();
@@ -42,8 +43,8 @@ export const Orders: FC = () => {
   // });
 
   const handleOnChangeDate = (value: any): void => {
-    const from = value?.start ? value?.start : value;
-    const to = value?.end ? value?.end : value;
+    const from = value?.dateOne ? value?.dateOne : value;
+    const to = value?.dateTwo ? value?.dateTwo : value;
 
     setDate({
       from: format(new Date(from), 'yyyy-MM-dd'),
@@ -63,6 +64,10 @@ export const Orders: FC = () => {
   ): void => {
     setPage(value);
   };
+
+  /**TODO
+   * BUG DE FECHA ANTERIOR A LA SELECCIONADA
+   */
 
   return (
     <DashboardLayout
