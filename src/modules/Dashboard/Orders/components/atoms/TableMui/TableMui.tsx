@@ -70,7 +70,6 @@ export const TableMui: FC<PropTypesTableMui> = ({
     selectionModel: GridSelectionModel,
     details: GridCallbackDetails,
   ): void => {
-    console.log({selectionModel, details: JSON.stringify(details)});
     if (selectionModel.length > 0) {
       setCountCheckboxesSelected(selectionModel.length);
       setItemsSelected(selectionModel);
@@ -81,14 +80,12 @@ export const TableMui: FC<PropTypesTableMui> = ({
   };
 
   const handleChangeStates = e => {
-    console.log('value', e.target.value);
     setOpenModal(true);
   };
 
   const handleBtnYes = () => {
     setLoading(true);
     setTimeout(() => {
-      console.log('funciona');
       setOpenChangeStates(false);
       setLoading(false);
     }, 2000);
