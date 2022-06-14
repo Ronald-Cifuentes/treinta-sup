@@ -6,7 +6,11 @@ import {
   DocumentIcon,
   PackageIcon,
   LogoutBracketIcon,
+  UserCircleIcon,
+  FavoriteProfileIcon,
+  StarsProfileIcon,
 } from '@30sas/web-ui-kit-icons';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
@@ -19,7 +23,15 @@ import {useRoutes} from 'hooks';
 
 import {CloseSession} from '../atoms/CloseSession';
 import {LinkButton} from '../molecules/LinkButton/LinkButton';
-import {Box, Gap} from './LeftMenu.styled';
+import {
+  Box,
+  Gap,
+  SubtitleSidebar,
+  UserBox,
+  UserIcon,
+  UserName,
+} from './LeftMenu.styled';
+import jwt_decode from 'jwt-decode';
 
 interface ILeftMenuProps {
   mobileOpen: boolean;
@@ -32,16 +44,25 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleCloseSessionModal = (): void => setOpenModal(false);
   const handleConfirm = async (): Promise<void> => await logOut();
+  const accessToken = JSON.stringify(localStorage.getItem('accessToken'));
+  const User: any = jwt_decode(accessToken);
 
   const {getI18nRoute} = useRoutes();
 
   return (
     <>
       <DrawerLeft mobileOpen={mobileOpen} onClose={onDrawerToggle}>
-        <a href={getI18nRoute(ROUTES.ORDERS)}>
-          <LogoTreinta isSmall />
-        </a>
-        <Box margin="32px 0">
+        <LogoTreinta isSmall />
+        <UserBox>
+          <UserIcon>
+            <AccountCircleIcon sx={{width: '100%', height: '100%'}} />
+          </UserIcon>
+          <UserName>{User.name.slice(0, 20)}</UserName>
+        </UserBox>
+
+        <SubtitleSidebar>Gestiona tus ventas</SubtitleSidebar>
+
+        <Box>
           <LinkButton
             icon={DocumentIcon}
             label={t('left-menu.orders')}
@@ -53,19 +74,27 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
             href={ROUTES.INVENTORY}
           />
         </Box>
+
+        <SubtitleSidebar>Gestiona tus contactos</SubtitleSidebar>
+
+        <div>
+          <LinkButton
+            icon={StarsProfileIcon}
+            label={t('left-menu.clients')}
+            externalLink={SUPPORT_LINK}
+            labelColorTypes="700"
+            target="_blank"
+          />
+        </div>
+
         <Gap />
+
         <Divider />
+
         <LinkButton
           icon={FaqIcon}
-          label={t('left-menu.support')}
+          label={t('left-menu.help')}
           externalLink={SUPPORT_LINK}
-          labelColorTypes="700"
-          target="_blank"
-        />
-        <LinkButton
-          icon={DetailIcon}
-          label={t('left-menu.terms')}
-          externalLink={LanguagesMap[i18n.language].TERMS_AND_CONDITIONS}
           labelColorTypes="700"
           target="_blank"
         />
