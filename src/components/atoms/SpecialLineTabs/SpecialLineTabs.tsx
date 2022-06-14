@@ -1,10 +1,10 @@
 import {FC, SyntheticEvent, useState} from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import {Box, Tabs, Tab, Popover, MenuItem} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import ButtonMenu from '../ButtonMenu';
-import {optionsButtonMenu} from './SpecialLineTabs.mock';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {PropTypesLineTabs} from './types';
+import {BtnDropdown} from './SpecialLineTabs.styled';
 
 const useStyles = makeStyles({
   root: {
@@ -14,6 +14,7 @@ const useStyles = makeStyles({
       textTransform: 'capitalize',
       fontWeight: '400',
       color: '#67737E',
+      minHeight: 0,
     },
     '& .Mui-selected': {
       color: '#1A2732',
@@ -30,35 +31,33 @@ const useStyles = makeStyles({
       height: '4px',
       borderRadius: '4px 4px 0px 0px',
     },
+    '& .MuiTab-labelIcon': {
+      flexDirection: 'row-reverse',
+    },
+    '& .MuiTab-iconWrapper': {
+      margin: 0,
+      padding: 0,
+      border: 0,
+    },
   },
 });
 
-export interface ArrayLineTabs {
-  key?: string;
-  label?: string;
-  value?: string;
-}
-
-export interface PropTypesLineTabs {
-  optionsTabs?: Array<ArrayLineTabs>;
-  onChange?: (value: React.SetStateAction<number>) => void;
-}
-
-const LineTabs: FC<PropTypesLineTabs> = ({optionsTabs = [], onChange}) => {
+export const SpecialLineTabs: FC<PropTypesLineTabs> = ({
+  optionsTabs = [],
+  onChange,
+}) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [buttonMenu, setButtonMenu] = useState<string | null>();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     onChange && onChange(newValue);
     setValue(newValue);
   };
 
-  const handleButtonMenu = (
-    value: React.SetStateAction<string | null | undefined>,
-  ) => {
-    setButtonMenu(value);
-    console.log(value);
+  const handleClick = event => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
   };
 
   return (
@@ -66,23 +65,33 @@ const LineTabs: FC<PropTypesLineTabs> = ({optionsTabs = [], onChange}) => {
       className={classes.root}
       sx={{maxWidth: {xs: 320, sm: 480, lg: 1148, xl: 1360}}}>
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+        <ButtonMenu
+          optionsMenu={optionsTabs}
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+        />
         <Tabs
           sx={{maxWidth: {xs: 320, sm: 480, lg: 920}}}
           value={value}
           onChange={handleChange}>
           {optionsTabs.map((item, ind) => (
-            <Tab key={ind} label={item.label} value={ind} />
+            <Tab
+              key={`tab-${item.value}`}
+              label={item.label}
+              value={parseInt(item.value || '')}
+              icon={
+                item?.dropdownList && (
+                  <BtnDropdown
+                    onClick={handleClick}
+                    value={parseInt(item.value || '')}>
+                    <KeyboardArrowDownIcon />
+                  </BtnDropdown>
+                )
+              }
+            />
           ))}
-          <ButtonMenu
-            items={optionsButtonMenu}
-            onChange={handleButtonMenu}
-            value={buttonMenu}
-          />
         </Tabs>
-        {buttonMenu}
       </Box>
     </Box>
   );
 };
-
-export default LineTabs;

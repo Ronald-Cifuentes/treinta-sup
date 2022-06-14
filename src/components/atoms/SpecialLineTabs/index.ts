@@ -1,1 +1,1 @@
-export {default} from './SpecialLineTabs';
+export * from './SpecialLineTabs';

@@ -1,14 +1,23 @@
-import {OrdersResponse} from 'hooks/useOrders';
+import { OrdersResponse } from 'hooks/useOrders';
 
 export const optionsTabs = [
-  {key: 'todos', label: 'Todos', value: '1'},
-  {key: 'recibidos', label: 'Recibidos', value: '2'},
-  {key: 'confirmados', label: 'Confirmados', value: '3'},
-  {key: 'preparados', label: 'Preparados', value: '4'},
-  {key: 'en ruta', label: 'En ruta', value: '5'},
-  {key: 'entregado', label: 'Entregado', value: '6'},
-  {key: 'cancelado', label: 'Cancelado', value: '7'},
-  {key: 'devueltos', label: 'Devueltos', value: '8'},
+  { key: 'ALL', label: 'Todos', value: '0' },
+  { key: 'PLACED', label: 'Recibidos', value: '1' },
+  { key: 'CONFIRM', label: 'Confirmados', value: '2' },
+  { key: 'PREPARED', label: 'Preparados', value: '3' },
+  { key: '', label: 'En ruta', value: '4' },
+  { key: 'entregado', label: 'Entregado', value: '5' },
+  { key: 'cancelado', label: 'Cancelado', value: '6' },
+  {
+    key: 'devueltos',
+    label: 'Devueltos',
+    value: '7',
+    dropdownList: [
+      { label: 'En proceso de devolución', value: '9' },
+      { label: 'Devuelto', value: '10' },
+      { label: 'Devolución parcial', value: '11' },
+    ]
+  },
 ];
 
 export const orders = [
@@ -295,7 +304,7 @@ interface x {
   dateTo?: string;
 }
 
-export const ApiMock = ({page, size}) => {
+export const ApiMock = ({ page, size }) => {
   const data: OrdersResponse = {
     pagination: {},
     items: [],
@@ -303,8 +312,6 @@ export const ApiMock = ({page, size}) => {
 
   let from = size * (page - 1);
   let to = size * page;
-
-  console.log({page, size, from, to});
 
   data.pagination.itemsNumber = orders.length;
   data.pagination.itemsByPage = size;
