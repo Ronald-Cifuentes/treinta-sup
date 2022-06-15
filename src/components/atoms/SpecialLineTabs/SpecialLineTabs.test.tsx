@@ -1,4 +1,4 @@
-import {render, screen, fireEvent, prettyDOM} from '__tests__/test-utils';
+import {render, screen} from '__tests__/test-utils';
 import {SpecialLineTabs} from './SpecialLineTabs';
 
 describe('<SpecialLineTabs/>', () => {
@@ -6,6 +6,5 @@ describe('<SpecialLineTabs/>', () => {
   test('#1. Exist', () => {
     render(<SpecialLineTabs />);
     const specialLineTabs = screen.getByTestId('special-line-tabs');
-    console.log(prettyDOM(specialLineTabs));
   });
 });

@@ -1,5 +1,5 @@
 import {ChangeEvent} from 'react';
-import {render, screen, fireEvent, prettyDOM} from '__tests__/test-utils';
+import {render, screen, fireEvent} from '__tests__/test-utils';
 import {SpecialPagination} from './SpecialPagination';
 
 describe('<SpecialPagination/>', () => {
@@ -7,7 +7,6 @@ describe('<SpecialPagination/>', () => {
   test('#1. Exist', () => {
     render(<SpecialPagination count={5} />);
     const pagination = screen.getByTestId('special-pagination');
-    console.log(prettyDOM(pagination));
   });
 
   // FUNCTIONAL TESTING
