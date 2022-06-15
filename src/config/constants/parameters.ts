@@ -1,4 +1,4 @@
-import { getUser } from "utils/infoUser";
+import {getUser} from 'utils/infoUser';
 
 export const ORIGIN_ID = 4;
 export const OTP_COUNT_DOWN = 30;
