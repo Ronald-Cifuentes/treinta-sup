@@ -1,6 +1,5 @@
 import {COUNTRIES} from '@30sas/web-ui-kit-utils';
 import {TreintaLogoIcon, TreintaLogoPtIcon} from '@30sas/web-ui-kit-icons';
-import {getUser} from 'utils/infoUser';
 
 export enum Languages {
   ES = 'es',
