@@ -1,7 +1,7 @@
 import {FC, SyntheticEvent, useState} from 'react';
 import {Box, Tabs, Tab, Popover, MenuItem} from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import ButtonMenu from '../ButtonMenu';
+import {PopUpMenu} from '../PopUpMenu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {PropTypesLineTabs} from './types';
 import {BtnDropdown} from './SpecialLineTabs.styled';
@@ -60,15 +60,20 @@ export const SpecialLineTabs: FC<PropTypesLineTabs> = ({
     setAnchorEl(event.currentTarget);
   };
 
+  const handlePopUpMenu = itemSelected => {
+    onChange && onChange(itemSelected.value);
+  };
+
   return (
     <Box
       className={classes.root}
       sx={{maxWidth: {xs: 320, sm: 480, lg: 1148, xl: 1360}}}>
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-        <ButtonMenu
+        <PopUpMenu
           optionsMenu={optionsTabs}
           anchorEl={anchorEl}
           setAnchorEl={setAnchorEl}
+          ctrlValue={handlePopUpMenu}
         />
         <Tabs
           sx={{maxWidth: {xs: 320, sm: 480, lg: 920}}}

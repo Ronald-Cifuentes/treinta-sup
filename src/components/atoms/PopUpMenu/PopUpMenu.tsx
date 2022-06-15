@@ -2,16 +2,18 @@ import {FC} from 'react';
 import {Popover, MenuItem} from '@mui/material';
 import {PropTypesButtonMenu} from './types';
 
-const ButtonMenu: FC<PropTypesButtonMenu> = ({
+export const PopUpMenu: FC<PropTypesButtonMenu> = ({
   optionsMenu = [],
   anchorEl,
   setAnchorEl = () => {},
+  ctrlValue = () => {},
 }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleMenuItemClick = menuItem => {
+    ctrlValue(menuItem);
     handleClose();
   };
 
@@ -37,7 +39,7 @@ const ButtonMenu: FC<PropTypesButtonMenu> = ({
                   <MenuItem
                     key={`MenuItem-${el.value}`}
                     value={el.value}
-                    onClick={() => handleMenuItemClick(el.value)}>
+                    onClick={() => handleMenuItemClick(el)}>
                     {el.label}
                   </MenuItem>
                 );
@@ -49,5 +51,3 @@ const ButtonMenu: FC<PropTypesButtonMenu> = ({
     </>
   );
 };
-
-export default ButtonMenu;

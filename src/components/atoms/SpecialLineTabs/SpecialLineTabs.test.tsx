@@ -1,5 +1,5 @@
 import {render, screen, fireEvent, prettyDOM} from '__tests__/test-utils';
-import SpecialLineTabs from './SpecialLineTabs';
+import {SpecialLineTabs} from './SpecialLineTabs';
 
 describe('<SpecialLineTabs/>', () => {
   // UI TESTING
