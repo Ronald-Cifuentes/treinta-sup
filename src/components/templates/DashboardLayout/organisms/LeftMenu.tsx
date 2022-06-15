@@ -40,8 +40,13 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleCloseSessionModal = (): void => setOpenModal(false);
   const handleConfirm = async (): Promise<void> => await logOut();
-  const accessToken = JSON.stringify(localStorage.getItem('accessToken'));
-  const User: TokenType = jwt_decode(accessToken);
+
+  const strAccessToken = localStorage.getItem('accessToken');
+  let User: TokenType | null = null;
+  if (!!strAccessToken) {
+    const accessToken: string = JSON.stringify(strAccessToken);
+    User = !!accessToken ? jwt_decode(accessToken) : null;
+  }
 
   return (
     <>
@@ -51,7 +56,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <UserIcon>
             <AccountCircleIcon sx={{width: '100%', height: '100%'}} />
           </UserIcon>
-          <UserName>{User.name.slice(0, 20)}</UserName>
+          <UserName>{!!User ? User?.name?.slice(0, 20) : null}</UserName>
         </UserBox>
 
         <SubtitleSidebar>Gestiona tus ventas</SubtitleSidebar>
