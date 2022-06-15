@@ -1,5 +1,6 @@
 import {COUNTRIES} from '@30sas/web-ui-kit-utils';
 import {TreintaLogoIcon, TreintaLogoPtIcon} from '@30sas/web-ui-kit-icons';
+import {getUser} from 'utils/infoUser';
 
 export enum Languages {
   ES = 'es',
@@ -22,8 +23,7 @@ export const LanguagesMap = {
       'https://api.whatsapp.com/send?phone=14327413593&text=Hola,%20estoy%20teniendo%20problemas%20en%20Treinta%20para%20PC.%20%C2%BFMe%20puedes%20ayudar?',
     WHATSAPP_LINK_SIGN_UP:
       'https://api.whatsapp.com/send?phone=14327413593&text=Hola,%20estoy%20teniendo%20problemas%20a%20la%20hora%20de%20registrarme%20en%20Treinta%20para%20PC.%20%C2%BFMe%20puedes%20ayudar?',
-    WHATSAPP_LINK_LOGIN:
-      'https://api.whatsapp.com/send?phone=14327413593&text=Hola,%20estoy%20teniendo%20problemas%20a%20la%20hora%20de%20iniciar%20sesi%C3%B3n%20en%20Treinta%20para%20PC.%20%C2%BFMe%20puedes%20ayudar?',
+    WHATSAPP_LINK_LOGIN: `https://api.whatsapp.com/send?phone=17864601367&text=Hola soy un proveedor y estoy teniendo problemas con el log in`,
   },
   [Languages.PT]: {
     LOCALE: 'pt-BR',

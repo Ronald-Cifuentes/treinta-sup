@@ -16,7 +16,7 @@ import {useAuth} from 'context/AuthContext';
 import {LogoTreinta} from 'components/atoms';
 import {SUPPORT_LINK} from 'config/constants/parameters';
 
-import jwt_decode from 'jwt-decode';
+import {getUser} from 'utils/infoUser';
 import {CloseSession} from '../atoms/CloseSession';
 import {LinkButton} from '../molecules/LinkButton/LinkButton';
 import {
@@ -27,8 +27,6 @@ import {
   UserIcon,
   UserName,
 } from './LeftMenu.styled';
-import {TokenType} from './types';
-
 interface ILeftMenuProps {
   mobileOpen: boolean;
   onDrawerToggle: () => void;
@@ -41,12 +39,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const handleCloseSessionModal = (): void => setOpenModal(false);
   const handleConfirm = async (): Promise<void> => await logOut();
 
-  const strAccessToken = localStorage.getItem('accessToken');
-  let User: TokenType | null = null;
-  if (strAccessToken) {
-    const accessToken: string = JSON.stringify(strAccessToken);
-    User = accessToken ? jwt_decode(accessToken) : null;
-  }
+  const User = getUser();
 
   return (
     <>
@@ -56,7 +49,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <UserIcon>
             <AccountCircleIcon sx={{width: '100%', height: '100%'}} />
           </UserIcon>
-          <UserName>{User ? User?.name?.slice(0, 20) : null}</UserName>
+          <UserName>{User?.name?.slice(0, 20)}</UserName>
         </UserBox>
 
         <SubtitleSidebar>Gestiona tus ventas</SubtitleSidebar>
@@ -80,7 +73,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <LinkButton
             icon={StarsProfileIcon}
             label={t('left-menu.clients')}
-            externalLink={SUPPORT_LINK}
+            externalLink={''}
             labelColorTypes="700"
             target="_blank"
           />
