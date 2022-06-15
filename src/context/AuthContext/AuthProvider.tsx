@@ -92,7 +92,7 @@ export const AuthProvider: FC = ({children}) => {
     });
   };
 
-  const googleSignIn = (): void => {
+  const googleSignIn = async (): Promise<void> => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt: 'select_account'});
     signInWithPopup(auth, provider)
