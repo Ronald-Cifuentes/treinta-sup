@@ -1,5 +1,4 @@
-import { ChangeEventHandler } from "react";
-
+import {ChangeEventHandler} from 'react';
 
 export interface PropTypesChangeStates {
   open?: boolean;

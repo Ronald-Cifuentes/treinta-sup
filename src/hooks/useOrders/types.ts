@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {AxiosResponse} from 'axios';
 import {
   RefetchOptions,
   QueryObserverResult,
   RefetchQueryFilters,
+  UseMutateAsyncFunction,
 } from 'react-query';
 
 export interface FormattedOrder {
@@ -19,16 +21,22 @@ export interface FormattedOrder {
 }
 
 export interface UseOrders {
-  isError: boolean;
-  isLoading: boolean;
-  isSuccess: boolean;
-  data: OrdersResponse;
-  setSelectedOrder: (value: string) => void;
-  selectedOrder: string;
-  dispatch: (value: ActionOrders) => void;
-  refreshOrders: <TPageData>(
+  isErrorRetrieve: boolean;
+  isLoadingRetrieve: boolean;
+  isSuccessRetrieve: boolean;
+  dataRetrieve: OrdersResponse;
+  dispatchRetrieve: (value: ActionOrders) => void;
+  refetchRetrieve: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
   ) => Promise<QueryObserverResult<unknown, unknown>>;
+  isErrorSetState: unknown;
+  isLoadingSetState: boolean;
+  mutateSetState: UseMutateAsyncFunction<
+    AxiosResponse<unknown, any>,
+    unknown,
+    Status,
+    unknown
+  >;
 }
 
 export interface ActionOrders {
@@ -68,4 +76,43 @@ export interface OrderProduct {
   field: string;
   order?: string;
   eventName?: string;
+}
+
+export interface TypePropsUseOrders {
+  page?: number;
+  size?: number;
+  statusId?: number;
+  dateFrom?: string | Date;
+  dateTo?: string | Date;
+}
+
+// export const Status = {
+//   Recibido: 1,
+//   Preparando: 2,
+//   'En Ruta': 3,
+//   Entregado: 4,
+//   Cancelado: 5,
+//   Retornando: 6,
+//   Confirmado: 7,
+//   'Devolución parcial': 8,
+//   Devuelto: 9,
+// } as const;
+
+// export type Values<T> = T[keyof T];
+
+export enum States {
+  Recibido = 1,
+  Preparando = 2,
+  'En Ruta' = 3,
+  Entregado = 4,
+  Cancelado = 5,
+  Retornando = 6,
+  Confirmado = 7,
+  'Devolución parcial' = 8,
+  Devuelto = 9,
+}
+
+export interface Status {
+  items?: Array<string | number>;
+  statusId?: number;
 }

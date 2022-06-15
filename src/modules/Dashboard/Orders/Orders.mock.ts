@@ -1,22 +1,22 @@
-import { OrdersResponse } from 'hooks/useOrders';
+import {OrdersResponse} from 'hooks/useOrders';
 
 export const optionsTabs = [
-  { key: 'ALL', label: 'Todos', value: '0' },
-  { key: 'PLACED', label: 'Recibidos', value: '1' },
-  { key: 'CONFIRM', label: 'Confirmados', value: '2' },
-  { key: 'PREPARED', label: 'Preparados', value: '3' },
-  { key: '', label: 'En ruta', value: '4' },
-  { key: 'entregado', label: 'Entregado', value: '5' },
-  { key: 'cancelado', label: 'Cancelado', value: '6' },
+  {key: 'ALL', label: 'Todos', value: '0'},
+  {key: 'PLACED', label: 'Recibidos', value: '1'},
+  {key: 'CONFIRM', label: 'Confirmados', value: '7'},
+  {key: 'PACKED', label: 'Preparados', value: '2'},
+  {key: 'SHIPPED', label: 'En ruta', value: '3'},
+  {key: 'DELIVERED', label: 'Entregado', value: '4'},
+  {key: 'CANCELED', label: 'Cancelado', value: '5'},
   {
-    key: 'devueltos',
-    label: 'Devueltos',
-    value: '7',
+    key: 'RETURNS',
+    label: 'Devoluciones',
+    value: '10',
     dropdownList: [
-      { label: 'En proceso de devolución', value: '9' },
-      { label: 'Devuelto', value: '10' },
-      { label: 'Devolución parcial', value: '11' },
-    ]
+      {key: 'RETURN_STARTED', label: 'En proceso de devolución', value: '6'},
+      {key: 'RETURNED', label: 'Devuelto', value: '9'},
+      {key: 'PARTIALLY_RETURNED', label: 'Devolución parcial', value: '8'},
+    ],
   },
 ];
 
@@ -296,15 +296,7 @@ export const orders = [
   },
 ];
 
-interface x {
-  page?: number;
-  size?: number;
-  statusId?: number;
-  dateFrom?: string;
-  dateTo?: string;
-}
-
-export const ApiMock = ({ page, size }) => {
+export const ApiMock = ({page, size}) => {
   const data: OrdersResponse = {
     pagination: {},
     items: [],

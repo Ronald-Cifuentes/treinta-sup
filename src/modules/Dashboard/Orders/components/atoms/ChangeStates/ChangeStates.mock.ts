@@ -1,9 +1,11 @@
 export const optionsChangeState = [
   {label: 'Recibido', value: 'Recibido'},
-  {label: 'Confirmado', value: 'Confirmado'},
-  {label: 'Preparado', value: 'Preparado'},
-  {label: 'En ruta', value: 'En ruta'},
+  {label: 'Preparando', value: 'Preparando'},
+  {label: 'En Ruta', value: 'En Ruta'},
   {label: 'Entregado', value: 'Entregado'},
   {label: 'Cancelado', value: 'Cancelado'},
-  {label: 'Devueltos', value: 'Devueltos'},
+  {label: 'Devueltos', value: 'Retornando'},
+  {label: 'Confirmado', value: 'Confirmado'},
+  {label: 'Devolución parcial', value: 'Devolución parcial'},
+  {label: 'Devuelto', value: 'Devuelto'},
 ];

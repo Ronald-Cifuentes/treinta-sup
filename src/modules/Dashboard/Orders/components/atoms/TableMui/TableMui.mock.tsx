@@ -77,3 +77,15 @@ export const columns: GridColDef[] = [
     renderCell: params => <Link to={`/ordenes/${params.value}`}>Detalle</Link>,
   },
 ];
+
+export const PointerStates = {
+  Recibido: 1,
+  Preparando: 2,
+  'En Ruta': 3,
+  Entregado: 4,
+  Cancelado: 5,
+  Retornando: 6,
+  Confirmado: 7,
+  'Devolución parcial': 8,
+  Devuelto: 9,
+};

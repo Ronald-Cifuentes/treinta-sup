@@ -23,10 +23,7 @@ export const SpecialTableWithPagination: FC<
   itemsByPage,
   setItemsByPage,
   handleSpecialPagination,
-  initPagination = 1,
   totalItems = 20,
-  date,
-  tab,
 }) => {
   const handleDropDown = (value: TreintaDropdownOptions): void => {
     setItemsByPage && setItemsByPage(parseInt(value.value as string));

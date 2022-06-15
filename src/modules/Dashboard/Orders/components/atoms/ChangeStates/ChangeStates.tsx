@@ -1,12 +1,6 @@
-import {FC, useState} from 'react';
+import {FC} from 'react';
 import {Snackbar} from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import {
-  Dropdown,
-  Popup,
-  TreintaDropdownOptions,
-  TreintaDropdownType,
-} from '@30sas/web-ui-kit-core';
 import {optionsChangeState} from './ChangeStates.mock';
 import {PropTypesChangeStates} from './types';
 import {
@@ -55,22 +49,14 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
       action={
         <LayoutDropdownClose>
           <WrapperDropDown>
-            {/* <Dropdown
-              AlingMenu="right"
-              dropdownOptions={optionsChangeState}
-              elementId="test"
-              errorText="Error text"
-              placeholder={optionsChangeState[0].label}
-              defaultValue={optionsChangeState[0].label}
-              typeRenderItem={TreintaDropdownType['OnlyLetter']}
-              onChange={handleChangeStates}
-            /> */}
             <SpecialSelect onChange={handleChangeStates}>
               <option value="" disabled defaultChecked>
                 Cambiar estado
               </option>
-              {optionsChangeState.map(item => (
-                <option value={item.value}>{item.label}</option>
+              {optionsChangeState.map((item, ind) => (
+                <option key={`option-${ind}`} value={item.value}>
+                  {item.label}
+                </option>
               ))}
             </SpecialSelect>
           </WrapperDropDown>

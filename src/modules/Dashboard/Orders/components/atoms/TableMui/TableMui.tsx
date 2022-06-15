@@ -1,13 +1,9 @@
 import {FC, useState} from 'react';
-import {
-  DataGrid,
-  GridCallbackDetails,
-  GridSelectionModel,
-} from '@mui/x-data-grid';
+import {DataGrid, GridSelectionModel} from '@mui/x-data-grid';
 import {format} from 'date-fns';
 import {ChangeStates} from '../ChangeStates';
 import {PropTypesTableMui} from './types';
-import {columns} from './TableMui.mock';
+import {columns, PointerStates} from './TableMui.mock';
 import {
   BodyModal,
   HeadModal,
@@ -16,6 +12,7 @@ import {
   WrapperButtonNo,
 } from './TableMui.styled';
 import {Backdrop, Button, Popup} from '@30sas/web-ui-kit-core';
+import {States, useOrders} from 'hooks/useOrders';
 
 const StylesTableMui = {
   border: 0,
@@ -60,40 +57,44 @@ export const TableMui: FC<PropTypesTableMui> = ({
   formattedData,
   pageSize = 8,
 }) => {
-  const [openChangeStates, setOpenChangeStates] = useState(false);
+  const [openModalChangeStates, setOpenModalChangeStates] = useState(false);
   const [countCheckboxesSelected, setCountCheckboxesSelected] = useState(0);
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalYesNo, setOpenModalYesNo] = useState(false);
   const [loading, setLoading] = useState(false);
   const [itemsSelected, setItemsSelected] = useState<GridSelectionModel>([]);
+  const [stateSelected, setStateSelected] = useState('');
+  const {mutateSetState, refetchRetrieve} = useOrders({});
 
-  const handleGrid = (
-    selectionModel: GridSelectionModel,
-    details: GridCallbackDetails,
-  ): void => {
+  const handleGrid = (selectionModel: GridSelectionModel): void => {
     if (selectionModel.length > 0) {
       setCountCheckboxesSelected(selectionModel.length);
       setItemsSelected(selectionModel);
-      setOpenChangeStates(true);
+      setOpenModalChangeStates(true);
     } else {
-      setOpenChangeStates(false);
+      setOpenModalChangeStates(false);
     }
   };
 
   const handleChangeStates = e => {
-    setOpenModal(true);
+    setStateSelected(e.target.value);
+    setOpenModalYesNo(true);
   };
 
-  const handleBtnYes = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setOpenChangeStates(false);
-      setLoading(false);
-    }, 2000);
-    setOpenModal(false);
+  const handleBtnYes = async () => {
+    await setLoading(true);
+    await mutateSetState({
+      items: Array.from(itemsSelected),
+      statusId: PointerStates[stateSelected],
+    });
+    await setOpenModalChangeStates(false);
+    await setOpenModalYesNo(false);
+    await setLoading(false);
+    // await refetchRetrieve();
+    window.location.reload();
   };
 
   const rows = formattedData?.items?.map(item => ({
-    id: item.id.slice(0, 8),
+    id: item.id,
     value: item.value,
     status: item.status,
     deliveryDate: format(new Date(item.deliveryDate), 'MM/dd/yyyy'),
@@ -119,15 +120,15 @@ export const TableMui: FC<PropTypesTableMui> = ({
         autoHeight={true}
       />
       <ChangeStates
-        open={openChangeStates}
-        setOpen={setOpenChangeStates}
+        open={openModalChangeStates}
+        setOpen={setOpenModalChangeStates}
         count={countCheckboxesSelected}
         handleChangeStates={handleChangeStates}
       />
       <Popup
         padding={'0px'}
-        onClose={() => setOpenModal(false)}
-        open={openModal}>
+        onClose={() => setOpenModalYesNo(false)}
+        open={openModalYesNo}>
         <LayoutModal>
           <HeadModal>¿Estás seguro de realizar los cambios?</HeadModal>
           <BodyModal>
@@ -146,7 +147,7 @@ export const TableMui: FC<PropTypesTableMui> = ({
                 textColorType="700"
                 textVariant="Mediumbold"
                 variant="secondary"
-                onClick={() => setOpenModal(false)}
+                onClick={() => setOpenModalYesNo(false)}
               />
             </WrapperButtonNo>
             <Button
