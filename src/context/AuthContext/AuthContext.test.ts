@@ -85,16 +85,4 @@ describe('<AuthContext /> - useAuth', () => {
       expect(spySignInWithPopup).toBeCalled();
     });
   });
-  it('Should get invalid token from jwt', async () => {
-    const spyRemoveIten = jest.fn();
-    jest
-      .spyOn(Storage.prototype, 'removeItem')
-      .mockImplementation(spyRemoveIten);
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
-
-    await waitFor(() => {
-      result.current.getTokenFromJwt('test');
-      expect(spyRemoveIten).toBeCalled();
-    });
-  });
 });

@@ -105,14 +105,6 @@ export const AuthProvider: FC = ({children}) => {
       });
   };
 
-  const getTokenFromJwt = async (token: string): Promise<void> => {
-    try {
-      await signInWithCustomToken(auth, token);
-    } catch (error) {
-      sessionStorage.removeItem(USER_CONFIG_KEY);
-    }
-  };
-
   const isLoggedIn = (): boolean => {
     const firebaseUser = auth.currentUser;
     return firebaseUser ? true : false;
