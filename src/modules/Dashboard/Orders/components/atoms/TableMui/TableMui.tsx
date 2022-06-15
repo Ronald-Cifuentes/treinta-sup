@@ -106,7 +106,7 @@ export const TableMui: FC<PropTypesTableMui> = ({
   }));
 
   return (
-    <TableMuiRoot>
+    <TableMuiRoot data-testid="table-mui">
       <DataGrid
         rows={rows || []}
         columns={columns}

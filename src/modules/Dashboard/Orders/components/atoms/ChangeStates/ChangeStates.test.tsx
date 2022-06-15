@@ -1,5 +1,6 @@
 import {render, screen, fireEvent, prettyDOM} from '__tests__/test-utils';
 import {ChangeStates} from './ChangeStates';
+jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));
 
 describe('<ChangeStates/>', () => {
   // UI TESTING

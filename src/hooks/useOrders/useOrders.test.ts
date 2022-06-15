@@ -1,13 +1,13 @@
 // import {ChangeEvent} from 'react';
 // import {renderHook, waitFor} from '__tests__/test-utils';
-import {orders} from '../../modules/Dashboard/Orders/Orders.mock';
+import { orders } from '../../modules/Dashboard/Orders/Orders.mock';
 
 // import {useOrders} from './useOrders';
 
 jest.mock('services/orders/orders.services', () => ({
   ProductServices: jest.fn().mockImplementation(() => ({
-    getOrders: () => ({data: orders}),
-    editOrders: () => ({data: {ordersWithErrors: []}}),
+    getOrders: () => ({ data: orders }),
+    editOrders: () => ({ data: { ordersWithErrors: [] } }),
     deleteOrders: jest.fn(),
     createOrders: (_: any, order: any) => ({
       ordersAffected: [order],
@@ -17,8 +17,14 @@ jest.mock('services/orders/orders.services', () => ({
 }));
 
 jest.mock('context/AuthContext', () => ({
-  useAuth: jest.fn().mockImplementation(() => ({store: {id: 'store-id'}})),
+  useAuth: jest.fn().mockImplementation(() => ({ store: { id: 'store-id' } })),
 }));
+
+describe('useOrders', () => {
+  test('#1', () => {
+    expect(1).toBe(1)
+  });
+});
 
 // describe('useOrders', () => {
 //   it('Should load initial products', async () => {

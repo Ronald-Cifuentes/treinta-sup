@@ -1,4 +1,4 @@
-import {FC, useState, ChangeEvent} from 'react';
+import {FC} from 'react';
 import {SpecialPagination} from 'components/atoms/SpecialPagination';
 import {
   Dropdown,

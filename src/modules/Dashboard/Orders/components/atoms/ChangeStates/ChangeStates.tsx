@@ -39,30 +39,31 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
   };
 
   return (
-    <Snackbar
-      data-testid="change-states"
-      className={classes.root}
-      open={open}
-      autoHideDuration={6000}
-      message={`${count} Seleccionados`}
-      sx={{bottom: {xs: 200, sm: 150}, left: {xs: 200, sm: 630}}}
-      action={
-        <LayoutDropdownClose>
-          <WrapperDropDown>
-            <SpecialSelect onChange={handleChangeStates}>
-              <option value="" disabled defaultChecked>
-                Cambiar estado
-              </option>
-              {optionsChangeState.map((item, ind) => (
-                <option key={`option-${ind}`} value={item.value}>
-                  {item.label}
+    <div data-testid="change-states">
+      <Snackbar
+        className={classes.root}
+        open={open}
+        autoHideDuration={6000}
+        message={`${count} Seleccionados`}
+        sx={{bottom: {xs: 200, sm: 150}, left: {xs: 200, sm: 630}}}
+        action={
+          <LayoutDropdownClose>
+            <WrapperDropDown>
+              <SpecialSelect onChange={handleChangeStates}>
+                <option value="" disabled defaultChecked>
+                  Cambiar estado
                 </option>
-              ))}
-            </SpecialSelect>
-          </WrapperDropDown>
-          <BtnClose onClick={handleOpen}>×</BtnClose>
-        </LayoutDropdownClose>
-      }
-    />
+                {optionsChangeState.map((item, ind) => (
+                  <option key={`option-${ind}`} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+              </SpecialSelect>
+            </WrapperDropDown>
+            <BtnClose onClick={handleOpen}>×</BtnClose>
+          </LayoutDropdownClose>
+        }
+      />
+    </div>
   );
 };

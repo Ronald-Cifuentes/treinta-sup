@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import {ROUTES} from 'routes/types';
-import {userConfig} from '__mocks__/user.mock';
-import {renderHook} from '__tests__/test-utils';
-import {UsersService} from 'services/users/users.services';
+import { ROUTES } from 'routes/types';
+import { userConfig } from '__mocks__/user.mock';
+import { renderHook } from '__tests__/test-utils';
+import { UsersService } from 'services/users/users.services';
 
-import {useAuth} from './AuthContext';
-import {AuthProvider} from './AuthProvider';
+import { useAuth } from './AuthContext';
+import { AuthProvider } from './AuthProvider';
 
 const spyNavigate = jest.fn();
 const spySignInWithPopup = jest.fn();
@@ -13,11 +13,11 @@ const spySignInWithPopup = jest.fn();
 // TODO: Replace .not expects to propper case
 
 jest.mock('config/firebase', () => ({
-  auth: {currentUser: {}},
+  auth: { currentUser: {} },
 }));
 jest.mock('@firebase/auth', () => ({
   GoogleAuthProvider: class {
-    setCustomParameters(): void {}
+    setCustomParameters(): void { }
   },
   signInWithPopup: jest.fn().mockImplementation(() => {
     spySignInWithPopup();
@@ -46,7 +46,7 @@ describe('<AuthContext /> - useAuth', () => {
       .spyOn(UsersService.prototype, 'validateUser')
       .mockImplementation(spyValidateUser);
 
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const { result, waitFor } = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       expect(spyValidateUser).not.toBeCalled();
@@ -62,7 +62,7 @@ describe('<AuthContext /> - useAuth', () => {
       .spyOn(UsersService.prototype, 'validateUser')
       .mockImplementation(spyValidateUser);
 
-    const {waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const { waitFor } = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       expect(spyValidateUser).not.toBeCalled();
@@ -70,7 +70,7 @@ describe('<AuthContext /> - useAuth', () => {
     });
   });
   it('Should call logout invalid user', async () => {
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const { result, waitFor } = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       result.current.logOut(ROUTES.LOGIN, '');
@@ -78,7 +78,7 @@ describe('<AuthContext /> - useAuth', () => {
     });
   });
   it('Should call sign in with google', async () => {
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const { result, waitFor } = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       result.current.googleSignIn();
@@ -90,7 +90,7 @@ describe('<AuthContext /> - useAuth', () => {
     jest
       .spyOn(Storage.prototype, 'removeItem')
       .mockImplementation(spyRemoveIten);
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const { result, waitFor } = renderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       result.current.getTokenFromJwt('test');
