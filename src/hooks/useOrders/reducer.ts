@@ -1,6 +1,4 @@
 import {Reducer} from 'react';
-
-import {Order} from 'services/models';
 import {ActionOrders, OrdersResponse} from './types';
 
 export const initialState: OrdersResponse = {
@@ -16,7 +14,10 @@ export const ORDERS_ACTIONS = {
   LIST: 'orders/list',
 };
 
-export const reducer = (state, {type, payload}) => {
+export const reducer: Reducer<OrdersResponse, ActionOrders> = (
+  state,
+  {type, payload},
+): OrdersResponse => {
   switch (type) {
     case ORDERS_ACTIONS.LIST:
       return {...state, ...payload};

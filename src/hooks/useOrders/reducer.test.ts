@@ -1,13 +1,8 @@
-import { Order } from 'services/models';
-import { orders } from '../../modules/Dashboard/Orders/Orders.mock';
-
-import { OrdersResponse } from './types';
-import { reducer, initialState, ORDERS_ACTIONS } from './reducer';
-
-const firstOrder = orders[0] as Order;
+import {items} from '../../modules/Dashboard/Orders/Orders.mock';
+import {reducer, initialState, ORDERS_ACTIONS} from './reducer';
 
 describe('useOrders reducer', () => {
-  it('Should add a order', () => {
+  it('#1. Should list orders', () => {
     expect(
       reducer(initialState, {
         type: ORDERS_ACTIONS.LIST,
@@ -16,13 +11,17 @@ describe('useOrders reducer', () => {
             pagesNumber: 1,
             itemsNumber: 1,
             itemsByPage: 1,
-            items: firstOrder,
           },
-        } as OrdersResponse,
+          items,
+        },
       }),
     ).toMatchObject({
-      ...initialState,
-      orders: [firstOrder],
+      pagination: {
+        pagesNumber: 1,
+        itemsNumber: 1,
+        itemsByPage: 1,
+      },
+      items,
     });
   });
 });

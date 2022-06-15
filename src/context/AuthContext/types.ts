@@ -7,7 +7,6 @@ export interface AuthContextType {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   googleSignIn: () => void;
-  getTokenFromJwt: (token: string) => Promise<void>;
   logOut: (routeToRedirect?: ROUTES, message?: string) => Promise<void>;
   isLoggedIn: () => boolean;
   isAuthReady: boolean;

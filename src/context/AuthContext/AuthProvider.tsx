@@ -3,7 +3,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithCustomToken,
 } from '@firebase/auth';
 import Cookie from 'universal-cookie';
 import {useState, FC, useEffect} from 'react';
@@ -92,9 +91,11 @@ export const AuthProvider: FC = ({children}) => {
     });
   };
 
+  /* eslint-disable require-await */
   const googleSignIn = async (): Promise<void> => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt: 'select_account'});
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     signInWithPopup(auth, provider)
       .then((result: any) => {
         const token = result?.user?.accessToken;
@@ -140,13 +141,6 @@ export const AuthProvider: FC = ({children}) => {
     onAuthStateChanged(auth, user => {
       if (user) {
         const [provider] = user.providerData;
-        // if (provider.providerId.includes('phone') !== true) {
-        //   const msgResponse = await userService.validateUser(user?.uid);
-        //   if (msgResponse) {
-        //     logOut(ROUTES.LOGIN, msgResponse);
-        //     return;
-        //   }
-        // }
         updateSessionUser(user as UserConfig, provider.providerId);
         setSessionStarted(true);
       }
@@ -160,7 +154,6 @@ export const AuthProvider: FC = ({children}) => {
     user,
     setUser,
     googleSignIn,
-    getTokenFromJwt,
     logOut,
     setLoadedSession,
     loadedSession,

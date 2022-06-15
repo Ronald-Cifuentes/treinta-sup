@@ -7,12 +7,16 @@ describe('<SpecialPagination/>', () => {
   test('#1. Exist', () => {
     render(<SpecialPagination count={5} />);
     const pagination = screen.getByTestId('special-pagination');
+    expect(pagination).toBeInTheDocument();
   });
 
   // FUNCTIONAL TESTING
   test('#2. Testing button Next and Before', () => {
     let page = -1;
-    const onChangeHandler = (event: ChangeEvent<unknown>, value: number) => {
+    const onChangeHandler = (
+      event: ChangeEvent<unknown>,
+      value: number,
+    ): void => {
       page = value;
     };
     render(<SpecialPagination count={5} onChange={onChangeHandler} />);

@@ -5,10 +5,13 @@ import {DashboardLayout} from 'components/templates';
 import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
 import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
 import {useOrders} from 'hooks/useOrders';
-import {ApiMock, optionsTabs} from './Orders.mock';
-import {FiltersAndReport} from './components/molecules/FiltersAndReport';
-import {CalendarFromTo} from './components/molecules/FiltersAndReport/types';
 import {format} from 'date-fns';
+import {optionsTabs} from './Orders.mock';
+import {FiltersAndReport} from './components/molecules/FiltersAndReport';
+import {
+  CalendarFromTo,
+  ReturnDate,
+} from './components/molecules/FiltersAndReport/types';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
@@ -26,7 +29,7 @@ export const Orders: FC = () => {
   const [page, setPage] = useState(1);
 
   const {dataRetrieve, refetchRetrieve} = useOrders({
-    page: page,
+    page,
     size: itemsByPage,
     statusId: tab,
     dateFrom: date?.from,
@@ -37,14 +40,9 @@ export const Orders: FC = () => {
     refetchRetrieve();
   }, [date, tab, itemsByPage, page]);
 
-  // const {data} = ApiMock({
-  //   page: page,
-  //   size: itemsByPage,
-  // });
-
-  const handleOnChangeDate = (value: any): void => {
-    const from = value?.dateOne ? value?.dateOne : value;
-    const to = value?.dateTwo ? value?.dateTwo : value;
+  const handleOnChangeDate = (value: ReturnDate): void => {
+    const from = value?.dateOne ? value?.dateOne : '';
+    const to = value?.dateTwo ? value?.dateTwo : '';
 
     setDate({
       from: format(new Date(from), 'yyyy-MM-dd'),
@@ -64,10 +62,6 @@ export const Orders: FC = () => {
   ): void => {
     setPage(value);
   };
-
-  /**TODO
-   * BUG DE FECHA ANTERIOR A LA SELECCIONADA
-   */
 
   return (
     <DashboardLayout

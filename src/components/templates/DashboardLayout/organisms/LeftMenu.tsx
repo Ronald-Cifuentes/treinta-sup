@@ -2,25 +2,21 @@
 import {Divider, DrawerLeft} from '@30sas/web-ui-kit-core';
 import {
   FaqIcon,
-  DetailIcon,
   DocumentIcon,
   PackageIcon,
   LogoutBracketIcon,
-  UserCircleIcon,
-  FavoriteProfileIcon,
   StarsProfileIcon,
 } from '@30sas/web-ui-kit-icons';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
-import {LanguagesMap} from 'config/constants';
 import {ROUTES} from 'routes/types';
 import {useAuth} from 'context/AuthContext';
 import {LogoTreinta} from 'components/atoms';
 import {SUPPORT_LINK} from 'config/constants/parameters';
-import {useRoutes} from 'hooks';
 
+import jwt_decode from 'jwt-decode';
 import {CloseSession} from '../atoms/CloseSession';
 import {LinkButton} from '../molecules/LinkButton/LinkButton';
 import {
@@ -31,7 +27,7 @@ import {
   UserIcon,
   UserName,
 } from './LeftMenu.styled';
-import jwt_decode from 'jwt-decode';
+import {TokenType} from './types';
 
 interface ILeftMenuProps {
   mobileOpen: boolean;
@@ -40,14 +36,12 @@ interface ILeftMenuProps {
 
 export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const {logOut} = useAuth();
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleCloseSessionModal = (): void => setOpenModal(false);
   const handleConfirm = async (): Promise<void> => await logOut();
   const accessToken = JSON.stringify(localStorage.getItem('accessToken'));
-  const User: any = jwt_decode(accessToken);
-
-  const {getI18nRoute} = useRoutes();
+  const User: TokenType = jwt_decode(accessToken);
 
   return (
     <>

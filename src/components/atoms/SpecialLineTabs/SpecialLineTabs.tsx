@@ -1,8 +1,8 @@
 import {FC, SyntheticEvent, useState} from 'react';
-import {Box, Tabs, Tab, Popover, MenuItem} from '@mui/material';
+import {Box, Tabs, Tab} from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import {PopUpMenu} from '../PopUpMenu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {PopUpMenu} from '../PopUpMenu';
 import {PropTypesLineTabs} from './types';
 import {BtnDropdown} from './SpecialLineTabs.styled';
 
@@ -50,53 +50,55 @@ export const SpecialLineTabs: FC<PropTypesLineTabs> = ({
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number): void => {
     onChange && onChange(newValue);
     setValue(newValue);
   };
 
-  const handleClick = event => {
+  const handleClick = (event): void => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
-  const handlePopUpMenu = itemSelected => {
+  const handlePopUpMenu = (itemSelected): void => {
     onChange && onChange(itemSelected.value);
   };
 
   return (
-    <Box
-      className={classes.root}
-      sx={{maxWidth: {xs: 320, sm: 480, lg: 1148, xl: 1360}}}>
-      <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-        <PopUpMenu
-          optionsMenu={optionsTabs}
-          anchorEl={anchorEl}
-          setAnchorEl={setAnchorEl}
-          ctrlValue={handlePopUpMenu}
-        />
-        <Tabs
-          sx={{maxWidth: {xs: 320, sm: 480, lg: 920}}}
-          value={value}
-          onChange={handleChange}>
-          {optionsTabs.map((item, ind) => (
-            <Tab
-              key={`tab-${item.value}`}
-              label={item.label}
-              value={parseInt(item.value || '')}
-              icon={
-                item?.dropdownList && (
-                  <BtnDropdown
-                    onClick={handleClick}
-                    value={parseInt(item.value || '')}>
-                    <KeyboardArrowDownIcon />
-                  </BtnDropdown>
-                )
-              }
-            />
-          ))}
-        </Tabs>
+    <div data-testid="special-line-tabs">
+      <Box
+        className={classes.root}
+        sx={{maxWidth: {xs: 320, sm: 480, lg: 1148, xl: 1360}}}>
+        <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+          <PopUpMenu
+            optionsMenu={optionsTabs}
+            anchorEl={anchorEl}
+            setAnchorEl={setAnchorEl}
+            ctrlValue={handlePopUpMenu}
+          />
+          <Tabs
+            sx={{maxWidth: {xs: 320, sm: 480, lg: 920}}}
+            value={value}
+            onChange={handleChange}>
+            {optionsTabs.map(item => (
+              <Tab
+                key={`tab-${item.value}`}
+                label={item.label}
+                value={parseInt(item.value || '')}
+                icon={
+                  item?.dropdownList && (
+                    <BtnDropdown
+                      onClick={handleClick}
+                      value={parseInt(item.value || '')}>
+                      <KeyboardArrowDownIcon />
+                    </BtnDropdown>
+                  )
+                }
+              />
+            ))}
+          </Tabs>
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 };

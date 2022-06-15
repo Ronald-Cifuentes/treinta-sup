@@ -10,5 +10,6 @@ describe('<SpecialTableWithPagination/>', () => {
     const specialTableWithPagination = screen.getByTestId(
       'special-table-with-pagination',
     );
+    expect(specialTableWithPagination).toBeInTheDocument();
   });
 });

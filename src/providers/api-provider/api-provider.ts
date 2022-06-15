@@ -81,7 +81,6 @@ export class ApiProvider {
     url: string,
     data?: unknown,
   ): Promise<AxiosResponse<T>> {
-    const serializedData = snakeCaseKeys(data);
     return await this.apiInstance.patch(url, data, {
       headers: await ApiConfig.addHeaders(url),
     });

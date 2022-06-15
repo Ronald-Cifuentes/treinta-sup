@@ -2,8 +2,8 @@ import {AxiosResponse} from 'axios';
 
 import {Order} from 'services/models';
 import {ApiProvider} from 'providers/api-provider';
-import {StatusResponse} from './types';
 import {Status} from 'hooks/useOrders';
+import {StatusResponse} from './types';
 
 export interface PropTypesGetOrders {
   page: number;
@@ -41,7 +41,7 @@ export class OrderServices {
     statusId,
   }: Status): Promise<AxiosResponse<StatusResponse>> {
     return this.api.patch(`/orders/status`, {
-      orders: items?.map(item => ({orderId: item, statusId: statusId})),
+      orders: items?.map(item => ({orderId: item, statusId})),
     });
   }
 }

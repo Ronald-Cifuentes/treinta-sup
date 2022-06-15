@@ -6,5 +6,6 @@ describe('<SpecialLineTabs/>', () => {
   test('#1. Exist', () => {
     render(<SpecialLineTabs />);
     const specialLineTabs = screen.getByTestId('special-line-tabs');
+    expect(specialLineTabs).toBeInTheDocument();
   });
 });

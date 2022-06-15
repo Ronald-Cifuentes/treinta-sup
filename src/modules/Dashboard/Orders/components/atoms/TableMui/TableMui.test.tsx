@@ -1,4 +1,4 @@
-import {render, screen, fireEvent, prettyDOM} from '__tests__/test-utils';
+import {render, screen} from '__tests__/test-utils';
 import {TableMui} from './TableMui';
 
 jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));

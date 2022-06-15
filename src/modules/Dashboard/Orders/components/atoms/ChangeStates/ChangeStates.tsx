@@ -53,8 +53,8 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
                 <option value="" disabled defaultChecked>
                   Cambiar estado
                 </option>
-                {optionsChangeState.map((item, ind) => (
-                  <option key={`option-${ind}`} value={item.value}>
+                {optionsChangeState.map(item => (
+                  <option key={`option-${item.value}`} value={item.value}>
                     {item.label}
                   </option>
                 ))}

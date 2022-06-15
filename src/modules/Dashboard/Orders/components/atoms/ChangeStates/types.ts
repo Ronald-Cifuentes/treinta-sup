@@ -1,8 +1,6 @@
-import {ChangeEventHandler} from 'react';
-
 export interface PropTypesChangeStates {
   open?: boolean;
   setOpen?: (boolean) => void;
-  handleChangeStates?: ChangeEventHandler<HTMLSelectElement>;
+  handleChangeStates?: React.ChangeEventHandler<HTMLSelectElement>;
   count?: number;
 }

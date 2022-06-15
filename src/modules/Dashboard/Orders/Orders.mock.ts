@@ -1,5 +1,3 @@
-import {OrdersResponse} from 'hooks/useOrders';
-
 export const optionsTabs = [
   {key: 'ALL', label: 'Todos', value: '0'},
   {key: 'PLACED', label: 'Recibidos', value: '1'},
@@ -20,7 +18,7 @@ export const optionsTabs = [
   },
 ];
 
-export const orders = [
+export const items = [
   {
     id: '3fa85f01-5717-4562-b3fc-2c963f66afa1',
     customerName: 'Viviana Olarte',
@@ -295,23 +293,3 @@ export const orders = [
     },
   },
 ];
-
-export const ApiMock = ({page, size}) => {
-  const data: OrdersResponse = {
-    pagination: {},
-    items: [],
-  };
-
-  let from = size * (page - 1);
-  let to = size * page;
-
-  data.pagination.itemsNumber = orders.length;
-  data.pagination.itemsByPage = size;
-  data.pagination.pagesNumber = orders.length / page;
-
-  data.items = orders.slice(from, to);
-
-  return {
-    data,
-  };
-};

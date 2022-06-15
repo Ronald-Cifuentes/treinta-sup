@@ -1,6 +1,8 @@
 import {FC, useState} from 'react';
 import {DataGrid, GridSelectionModel} from '@mui/x-data-grid';
 import {format} from 'date-fns';
+import {Backdrop, Button, Popup} from '@30sas/web-ui-kit-core';
+import {useOrders} from 'hooks/useOrders';
 import {ChangeStates} from '../ChangeStates';
 import {PropTypesTableMui} from './types';
 import {columns, PointerStates} from './TableMui.mock';
@@ -11,8 +13,6 @@ import {
   TableMuiRoot,
   WrapperButtonNo,
 } from './TableMui.styled';
-import {Backdrop, Button, Popup} from '@30sas/web-ui-kit-core';
-import {States, useOrders} from 'hooks/useOrders';
 
 const StylesTableMui = {
   border: 0,
@@ -63,7 +63,7 @@ export const TableMui: FC<PropTypesTableMui> = ({
   const [loading, setLoading] = useState(false);
   const [itemsSelected, setItemsSelected] = useState<GridSelectionModel>([]);
   const [stateSelected, setStateSelected] = useState('');
-  const {mutateSetState, refetchRetrieve} = useOrders({});
+  const {mutateSetState} = useOrders({});
 
   const handleGrid = (selectionModel: GridSelectionModel): void => {
     if (selectionModel.length > 0) {
@@ -75,12 +75,12 @@ export const TableMui: FC<PropTypesTableMui> = ({
     }
   };
 
-  const handleChangeStates = e => {
+  const handleChangeStates = (e): void => {
     setStateSelected(e.target.value);
     setOpenModalYesNo(true);
   };
 
-  const handleBtnYes = async () => {
+  const handleBtnYes = async (): Promise<void> => {
     await setLoading(true);
     await mutateSetState({
       items: Array.from(itemsSelected),
@@ -89,7 +89,6 @@ export const TableMui: FC<PropTypesTableMui> = ({
     await setOpenModalChangeStates(false);
     await setOpenModalYesNo(false);
     await setLoading(false);
-    // await refetchRetrieve();
     window.location.reload();
   };
 
@@ -126,7 +125,7 @@ export const TableMui: FC<PropTypesTableMui> = ({
         handleChangeStates={handleChangeStates}
       />
       <Popup
-        padding={'0px'}
+        padding="0px"
         onClose={() => setOpenModalYesNo(false)}
         open={openModalYesNo}>
         <LayoutModal>
