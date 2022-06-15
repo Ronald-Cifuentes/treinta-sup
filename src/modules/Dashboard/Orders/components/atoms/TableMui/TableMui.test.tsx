@@ -1,6 +1,8 @@
 import {render, screen, fireEvent, prettyDOM} from '__tests__/test-utils';
 import {TableMui} from './TableMui';
 
+jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));
+
 describe('<TableMui/>', () => {
   // UI TESTING
   test('#1 - Exist', () => {
