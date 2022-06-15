@@ -40,9 +40,9 @@ export const Orders: FC = () => {
     refetchRetrieve();
   }, [date, tab, itemsByPage, page]);
 
-  const handleOnChangeDate = (value: ReturnDate): void => {
-    const from = value?.dateOne ? value?.dateOne : '';
-    const to = value?.dateTwo ? value?.dateTwo : '';
+  const handleOnChangeDate = (value: ReturnDate | string): void => {
+    const from = typeof value == 'string' ? value : value?.dateOne;
+    const to = typeof value == 'string' ? value : value?.dateTwo;
 
     setDate({
       from: format(new Date(from), 'yyyy-MM-dd'),
