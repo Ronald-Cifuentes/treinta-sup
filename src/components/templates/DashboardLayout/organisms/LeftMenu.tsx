@@ -73,7 +73,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <LinkButton
             icon={StarsProfileIcon}
             label={t('left-menu.clients')}
-            externalLink={''}
+            externalLink=""
             labelColorTypes="700"
             target="_blank"
           />
