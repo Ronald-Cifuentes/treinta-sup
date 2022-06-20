@@ -22,4 +22,5 @@ export const EmptyBlock = styled.div`
   display: flex;
   width: 33%;
   align-items: center;
+  justify-content: flex-end;
 `;

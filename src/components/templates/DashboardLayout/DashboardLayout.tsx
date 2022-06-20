@@ -7,6 +7,7 @@ import {SharedRightBar} from 'components/organisms';
 import {useDashboard} from 'context/DashboardContext';
 import {useToast} from 'context/ToastContext/ToastContext';
 
+import {useParams} from 'react-router-dom';
 import {
   Title,
   ToastContent,
@@ -28,6 +29,7 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
   withoutPadding = false,
   RightBar: RightBarContent = () => null,
 }) => {
+  const {id} = useParams();
   const [mobileOpen, setMobileOpen] = useState(false);
   const {baseColor, gradient} = fancyLineProps;
   const {Toast} = useToast();
@@ -56,30 +58,39 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
           mobileOpen={mobileOpen}
           onDrawerToggle={handleDrawerToggle}
         />
-        <AppBar
-          onClose={handleDrawerToggle}
-          colorFancyLine={baseColor}
-          colorTypeFancyLine={gradient}
-          sizeFancyLine={sizeFancyLine}>
-          <HeaderContainer>
-            <HeaderRightContainer xs={5} md={6}>
-              <Title variant="XXLargebold" color="secondary" colorType="700">
-                {title}
-              </Title>
-            </HeaderRightContainer>
-            {LeftOptions && (
-              <HeaderLeftContainer xs={7} md={6}>
-                <LeftOptions />
-              </HeaderLeftContainer>
-            )}
-          </HeaderContainer>
-        </AppBar>
-        <ContentContainer
-          component="main"
-          sx={{flexGrow: 1}}
-          $withoutPadding={withoutPadding}>
-          {children}
-        </ContentContainer>
+        {id ? (
+          children
+        ) : (
+          <>
+            <AppBar
+              onClose={handleDrawerToggle}
+              colorFancyLine={baseColor}
+              colorTypeFancyLine={gradient}
+              sizeFancyLine={sizeFancyLine}>
+              <HeaderContainer>
+                <HeaderRightContainer xs={5} md={6}>
+                  <Title
+                    variant="XXLargebold"
+                    color="secondary"
+                    colorType="700">
+                    {title}
+                  </Title>
+                </HeaderRightContainer>
+                {LeftOptions && (
+                  <HeaderLeftContainer xs={7} md={6}>
+                    <LeftOptions />
+                  </HeaderLeftContainer>
+                )}
+              </HeaderContainer>
+            </AppBar>
+            <ContentContainer
+              component="main"
+              sx={{flexGrow: 1}}
+              $withoutPadding={withoutPadding}>
+              {children}
+            </ContentContainer>
+          </>
+        )}
       </LeftBar>
       <ToastContent>
         <Toast location={ToastLocations.GENERAL} />

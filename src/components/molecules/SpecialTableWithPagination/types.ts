@@ -1,7 +1,8 @@
-import {OrdersResponse} from 'hooks/useOrders';
+import React from 'react';
+import { GridColDef, GridSelectionModel } from '@mui/x-data-grid';
 
 export interface PropTypesSpecialTableWithPagination {
-  formattedData?: OrdersResponse;
+  formattedData?: Array<any>;
   dropDownDefaultValue?: number;
   setItemsByPage?: (value: number) => void;
   itemsByPage?: number;
@@ -10,4 +11,8 @@ export interface PropTypesSpecialTableWithPagination {
     page: number,
   ) => void;
   totalItems?: number;
+  ctrlButtons?: React.ReactElement;
+  handleGrid?: (selectionModel: GridSelectionModel) => void;
+  columns?: GridColDef[];
+  checkboxSelection?: boolean;
 }

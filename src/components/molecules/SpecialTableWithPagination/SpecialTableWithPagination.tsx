@@ -24,6 +24,10 @@ export const SpecialTableWithPagination: FC<
   setItemsByPage,
   handleSpecialPagination,
   totalItems = 20,
+  ctrlButtons,
+  handleGrid,
+  columns,
+  checkboxSelection,
 }) => {
   const handleDropDown = (value: TreintaDropdownOptions): void => {
     setItemsByPage && setItemsByPage(parseInt(value.value as string));
@@ -34,7 +38,13 @@ export const SpecialTableWithPagination: FC<
 
   return (
     <div data-testid="special-table-with-pagination">
-      <TableMui formattedData={formattedData} pageSize={totalItems} />
+      <TableMui
+        formattedData={formattedData}
+        pageSize={totalItems}
+        handleGrid={handleGrid}
+        columns={columns}
+        checkboxSelection={checkboxSelection}
+      />
       <LayoutHeader>
         <WrapperDropdownFrecuency>
           <Dropdown
@@ -51,7 +61,7 @@ export const SpecialTableWithPagination: FC<
         <WrapperDropdownDate>
           <SpecialPagination count={count} onChange={handleSpecialPagination} />
         </WrapperDropdownDate>
-        <EmptyBlock />
+        <EmptyBlock>{ctrlButtons}</EmptyBlock>
       </LayoutHeader>
     </div>
   );

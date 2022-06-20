@@ -1,18 +1,8 @@
-import {FC, useState} from 'react';
-import {DataGrid, GridSelectionModel} from '@mui/x-data-grid';
-import {format} from 'date-fns';
-import {Backdrop, Button, Popup} from '@30sas/web-ui-kit-core';
-import {useOrders} from 'hooks/useOrders';
-import {ChangeStates} from '../ChangeStates';
+import {FC} from 'react';
+import {DataGrid} from '@mui/x-data-grid';
+
 import {PropTypesTableMui} from './types';
-import {columns, PointerStates} from './TableMui.mock';
-import {
-  BodyModal,
-  HeadModal,
-  LayoutModal,
-  TableMuiRoot,
-  WrapperButtonNo,
-} from './TableMui.styled';
+import {TableMuiRoot} from './TableMui.styled';
 
 const StylesTableMui = {
   border: 0,
@@ -35,6 +25,7 @@ const StylesTableMui = {
   },
   '& .MuiDataGrid-cell': {
     fontSize: 16,
+    background: 'white',
   },
   '& .MuiDataGrid-columnHeaderCheckbox': {
     padding: '14px 0px',
@@ -56,113 +47,24 @@ const StylesTableMui = {
 export const TableMui: FC<PropTypesTableMui> = ({
   formattedData,
   pageSize = 8,
+  handleGrid,
+  columns,
+  checkboxSelection,
 }) => {
-  const [openModalChangeStates, setOpenModalChangeStates] = useState(false);
-  const [countCheckboxesSelected, setCountCheckboxesSelected] = useState(0);
-  const [openModalYesNo, setOpenModalYesNo] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [itemsSelected, setItemsSelected] = useState<GridSelectionModel>([]);
-  const [stateSelected, setStateSelected] = useState('');
-  const {mutateSetState} = useOrders({});
-
-  const handleGrid = (selectionModel: GridSelectionModel): void => {
-    if (selectionModel.length > 0) {
-      setCountCheckboxesSelected(selectionModel.length);
-      setItemsSelected(selectionModel);
-      setOpenModalChangeStates(true);
-    } else {
-      setOpenModalChangeStates(false);
-    }
-  };
-
-  const handleChangeStates = (e): void => {
-    setStateSelected(e.target.value);
-    setOpenModalYesNo(true);
-  };
-
-  const handleBtnYes = async (): Promise<void> => {
-    await setLoading(true);
-    await mutateSetState({
-      items: Array.from(itemsSelected),
-      statusId: PointerStates[stateSelected],
-    });
-    await setOpenModalChangeStates(false);
-    await setOpenModalYesNo(false);
-    await setLoading(false);
-    window.location.reload();
-  };
-
-  const rows = formattedData?.items?.map(item => ({
-    id: item.id,
-    value: item.value,
-    status: item.status,
-    deliveryDate: format(new Date(item.deliveryDate), 'MM/dd/yyyy'),
-    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy'),
-    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy'),
-    customerName: item.customerName,
-    phone: item.phone,
-    detail: item.id,
-  }));
-
   return (
     <TableMuiRoot data-testid="table-mui">
       <DataGrid
-        rows={rows || []}
-        columns={columns}
+        rows={formattedData || []}
+        columns={columns || []}
         pageSize={pageSize}
         rowsPerPageOptions={[5]}
-        checkboxSelection
+        checkboxSelection={checkboxSelection}
         disableSelectionOnClick
         onSelectionModelChange={handleGrid}
         sx={StylesTableMui}
         hideFooter={true}
         autoHeight={true}
       />
-      <ChangeStates
-        open={openModalChangeStates}
-        setOpen={setOpenModalChangeStates}
-        count={countCheckboxesSelected}
-        handleChangeStates={handleChangeStates}
-      />
-      <Popup
-        padding="0px"
-        onClose={() => setOpenModalYesNo(false)}
-        open={openModalYesNo}>
-        <LayoutModal>
-          <HeadModal>¿Estás seguro de realizar los cambios?</HeadModal>
-          <BodyModal>
-            <WrapperButtonNo>
-              <Button
-                borderColor="secondary"
-                borderColorType="700"
-                color="neutrals"
-                colorType="100"
-                hoverColor="secondary"
-                hoverColorType="100"
-                label="No"
-                rounded="xl"
-                size="medium"
-                textColor="secondary"
-                textColorType="700"
-                textVariant="Mediumbold"
-                variant="secondary"
-                onClick={() => setOpenModalYesNo(false)}
-              />
-            </WrapperButtonNo>
-            <Button
-              label="Sí"
-              rounded="xl"
-              size="medium"
-              textColor="primary"
-              textColorType="900"
-              textVariant="Mediumbold"
-              variant="primary"
-              onClick={handleBtnYes}
-            />
-          </BodyModal>
-        </LayoutModal>
-      </Popup>
-      <Backdrop open={loading} />
     </TableMuiRoot>
   );
 };

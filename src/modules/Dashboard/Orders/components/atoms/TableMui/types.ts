@@ -1,6 +1,9 @@
-import {OrdersResponse} from 'hooks/useOrders';
+import { GridColDef, GridSelectionModel } from '@mui/x-data-grid';
 
 export interface PropTypesTableMui {
-  formattedData?: OrdersResponse;
+  formattedData?: Array<any>;
   pageSize?: number;
+  handleGrid?: (selectionModel: GridSelectionModel) => void;
+  columns?: GridColDef[];
+  checkboxSelection?: boolean;
 }
