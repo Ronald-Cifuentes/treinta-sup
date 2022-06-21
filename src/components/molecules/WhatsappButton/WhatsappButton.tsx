@@ -25,9 +25,9 @@ export const WhatsappButton: FC<WhatsappButtonProps> = ({
             fill={theme.colors.neutrals[100]}
           />
         )}
-        color="tertiary"
+        color="success"
         colorType="600"
-        hoverColor="tertiary"
+        hoverColor="success"
         hoverColorType="500"
         size="medium"
         textColor="neutrals"
