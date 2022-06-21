@@ -1,7 +1,11 @@
-import { GridColDef, GridSelectionModel } from '@mui/x-data-grid';
+import {
+  GridColDef,
+  GridSelectionModel,
+  GridValidRowModel,
+} from '@mui/x-data-grid';
 
 export interface PropTypesTableMui {
-  formattedData?: Array<any>;
+  formattedData?: GridValidRowModel[];
   pageSize?: number;
   handleGrid?: (selectionModel: GridSelectionModel) => void;
   columns?: GridColDef[];

@@ -779,4 +779,32 @@ export const pt = {
     'label-sign-up': 'Você tem problemas com o registro?',
     'label-login': 'Você tem problemas para entrar em Trinta?',
   },
+  'detail-orders': {
+    title: 'Order',
+    'section-client': {
+      subtitle: 'Dados do cliente',
+      'first-name': 'Nome do cliente*',
+      'last-name': 'sobrenome do cliente*',
+      phone: 'Telefone*',
+      'document-type': 'Tipo de documento*',
+      document: 'Número do documento*',
+    },
+    'section-origin': {
+      subtitle: 'endereço de origem',
+      direction: 'endereço de origem*',
+      store: 'Adega de origem*',
+    },
+    'section-destination': {
+      subtitle: 'destino do pedido',
+      location: 'Localização*',
+      'delivery-address': 'Endereço de entrega*',
+      'address-detail': 'detalhe do endereço*',
+    },
+    'section-total': {
+      subtitle: 'Valor total dos pedidos',
+      'base-value': 'Valor base*',
+      'discount-value': 'valor de desconto*',
+      'total-value': 'valor total do pedido*',
+    },
+  },
 };

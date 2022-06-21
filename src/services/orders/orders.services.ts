@@ -3,15 +3,7 @@ import {AxiosResponse} from 'axios';
 import {Order} from 'services/models';
 import {ApiProvider} from 'providers/api-provider';
 import {Status} from 'hooks/useOrders';
-import {StatusResponse} from './types';
-
-export interface PropTypesGetOrders {
-  page: number;
-  size: number;
-  statusId: number;
-  dateFrom?: string | Date | undefined;
-  dateTo?: string | Date | undefined;
-}
+import {PropTypesGetOrders, StatusResponse} from './types';
 
 export class OrderServices {
   private api: ApiProvider;
@@ -32,7 +24,7 @@ export class OrderServices {
       dateFrom && dateTo ? `&dateFrom=${dateFrom}&dateTo=${dateTo}` : '';
     const statusIdParam = statusId ? `&statusId=${statusId}` : '';
     return this.api.get<Order[]>(
-      `/orders?${pageParam}${sizeParam}${dateParam}${statusIdParam}`,
+      `/suppliers/orders?${pageParam}${sizeParam}${dateParam}${statusIdParam}`,
     );
   }
 
@@ -40,7 +32,7 @@ export class OrderServices {
     items,
     statusId,
   }: Status): Promise<AxiosResponse<StatusResponse>> {
-    return this.api.patch(`/orders/status`, {
+    return this.api.patch(`/suppliers/orders/status`, {
       orders: items?.map(item => ({orderId: item, statusId})),
     });
   }

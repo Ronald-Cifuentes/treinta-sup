@@ -24,6 +24,8 @@ const StylesTableMui = {
     lineHeight: '20px',
   },
   '& .MuiDataGrid-cell': {
+    display: 'flex',
+    justifyContent: 'center',
     fontSize: 16,
     background: 'white',
   },
@@ -50,21 +52,19 @@ export const TableMui: FC<PropTypesTableMui> = ({
   handleGrid,
   columns,
   checkboxSelection,
-}) => {
-  return (
-    <TableMuiRoot data-testid="table-mui">
-      <DataGrid
-        rows={formattedData || []}
-        columns={columns || []}
-        pageSize={pageSize}
-        rowsPerPageOptions={[5]}
-        checkboxSelection={checkboxSelection}
-        disableSelectionOnClick
-        onSelectionModelChange={handleGrid}
-        sx={StylesTableMui}
-        hideFooter={true}
-        autoHeight={true}
-      />
-    </TableMuiRoot>
-  );
-};
+}) => (
+  <TableMuiRoot data-testid="table-mui">
+    <DataGrid
+      rows={formattedData || []}
+      columns={columns || []}
+      pageSize={pageSize}
+      rowsPerPageOptions={[5]}
+      checkboxSelection={checkboxSelection}
+      disableSelectionOnClick
+      onSelectionModelChange={handleGrid}
+      sx={StylesTableMui}
+      hideFooter={true}
+      autoHeight={true}
+    />
+  </TableMuiRoot>
+);

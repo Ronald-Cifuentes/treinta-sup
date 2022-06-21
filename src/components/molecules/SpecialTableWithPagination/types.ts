@@ -1,8 +1,12 @@
 import React from 'react';
-import { GridColDef, GridSelectionModel } from '@mui/x-data-grid';
+import {
+  GridColDef,
+  GridSelectionModel,
+  GridValidRowModel,
+} from '@mui/x-data-grid';
 
 export interface PropTypesSpecialTableWithPagination {
-  formattedData?: Array<any>;
+  formattedData?: GridValidRowModel[];
   dropDownDefaultValue?: number;
   setItemsByPage?: (value: number) => void;
   itemsByPage?: number;
