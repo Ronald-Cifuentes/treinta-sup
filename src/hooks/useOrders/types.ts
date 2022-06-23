@@ -86,20 +86,6 @@ export interface TypePropsUseOrders {
   dateTo?: string | Date;
 }
 
-// export const Status = {
-//   Recibido: 1,
-//   Preparando: 2,
-//   'En Ruta': 3,
-//   Entregado: 4,
-//   Cancelado: 5,
-//   Retornando: 6,
-//   Confirmado: 7,
-//   'Devolución parcial': 8,
-//   Devuelto: 9,
-// } as const;
-
-// export type Values<T> = T[keyof T];
-
 export enum States {
   Recibido = 1,
   Preparando = 2,
