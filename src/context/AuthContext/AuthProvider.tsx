@@ -3,10 +3,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithCustomToken,
 } from '@firebase/auth';
 import Cookie from 'universal-cookie';
-import {useState, FC, useEffect} from 'react';
+import {useState, FC, useEffect, useCallback} from 'react';
 
 import {User, UserConfig, AuthMethods} from 'services/models';
 import {ROUTES} from 'routes/types';
@@ -80,34 +79,31 @@ export const AuthProvider: FC = ({children}) => {
     LogProvider.getInstance().removeUser();
   };
 
-  const logOut = async (
-    routeToRedirect?: ROUTES,
-    message?: string,
-  ): Promise<void> => {
-    await signOut(auth);
-    cleanData();
-    navigate(routeToRedirect || ROUTES.LOGIN, {
-      replace: true,
-      state: message ? {alertLogOut: message} : undefined,
-    });
-  };
+  const logOut = useCallback(
+    async (routeToRedirect?: ROUTES, message?: string): Promise<void> => {
+      await signOut(auth);
+      cleanData();
+      navigate(routeToRedirect || ROUTES.LOGIN, {
+        replace: true,
+        state: message ? {alertLogOut: message} : undefined,
+      });
+    },
+    [navigate],
+  );
 
-  const googleSignIn = (): void => {
+  /* eslint-disable require-await */
+  const googleSignIn = async (): Promise<void> => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({prompt: 'select_account'});
-    try {
-      signInWithPopup(auth, provider);
-    } catch (error) {
-      sessionStorage.removeItem(USER_CONFIG_KEY);
-    }
-  };
-
-  const getTokenFromJwt = async (token: string): Promise<void> => {
-    try {
-      await signInWithCustomToken(auth, token);
-    } catch (error) {
-      sessionStorage.removeItem(USER_CONFIG_KEY);
-    }
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    signInWithPopup(auth, provider)
+      .then((result: any) => {
+        const token = result?.user?.accessToken;
+        localStorage.setItem('accessToken', `${token}`);
+      })
+      .catch(function () {
+        sessionStorage.removeItem(USER_CONFIG_KEY);
+      });
   };
 
   const isLoggedIn = (): boolean => {
@@ -120,7 +116,7 @@ export const AuthProvider: FC = ({children}) => {
       persistUserConfig(userConfig);
       initConfigs.setUser(userConfig, user?.id);
     }
-  }, [user, userConfig]);
+  }, [user, userConfig, initConfigs]);
 
   useEffect(() => {
     if (!loadedSession && user) {
@@ -139,19 +135,12 @@ export const AuthProvider: FC = ({children}) => {
         localStorage.setItem('expire-time', String(getDateUtc()));
       }
     }
-  }, [isAuthReady]);
+  }, [isAuthReady, initConfigs, logOut]);
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
       if (user) {
         const [provider] = user.providerData;
-        // if (provider.providerId.includes('phone') !== true) {
-        //   const msgResponse = await userService.validateUser(user?.uid);
-        //   if (msgResponse) {
-        //     logOut(ROUTES.LOGIN, msgResponse);
-        //     return;
-        //   }
-        // }
         updateSessionUser(user as UserConfig, provider.providerId);
         setSessionStarted(true);
       }
@@ -165,7 +154,6 @@ export const AuthProvider: FC = ({children}) => {
     user,
     setUser,
     googleSignIn,
-    getTokenFromJwt,
     logOut,
     setLoadedSession,
     loadedSession,

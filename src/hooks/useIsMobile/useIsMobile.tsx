@@ -17,7 +17,7 @@ export const useIsMobile = (): UseIsMobileProps => {
       // TODO: navigate to MOBILE route
       return navigate(ROUTES.HOME, {replace: true});
     }
-  }, []);
+  }, [device.type, navigate]);
 
   return {
     getOS,

@@ -28,6 +28,7 @@ yalc.lock
 
 # config
 .env
+yarn.lock
 
 # firebase
 firebase-debug.

@@ -20,7 +20,7 @@ export const PublicRoute: FC = ({children}) => {
     if (logged) {
       backTo ? navigate(backTo) : navigateI18n(DASHBOARD_HOME);
     }
-  }, [userConfig]);
+  }, [userConfig, backTo, navigateI18n, isLoggedIn, navigate]);
 
   return children as ReactElement;
 };

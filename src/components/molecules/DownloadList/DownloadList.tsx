@@ -61,7 +61,7 @@ export const DownloadList: FC<DownloadListProps> = ({moduleName}) => {
         `left-menu.${moduleName}`,
       ).toLocaleLowerCase()} ${t(`commons.in-excel`)}`,
       Icon: ExcelIcon,
-      color: TreintaTheme.colors.tertiary[700] as string,
+      color: TreintaTheme.colors.success[700] as string,
       downloadFX: handleDownloadReportExcel,
     },
   ];

@@ -1,5 +1,6 @@
 import {lazy} from 'react';
 
+import {Detail} from 'modules/Dashboard/Detail';
 import {Route, ROUTES} from './types';
 import {PrivateRoute} from './PrivateRoute/PrivateRoute';
 
@@ -16,6 +17,11 @@ const getRoutes = (getI18nRoute): Route[] => [
   {
     path: getI18nRoute(ROUTES.ORDERS),
     element: <Orders />,
+    isPrivate: true,
+  },
+  {
+    path: `${getI18nRoute(ROUTES.ORDERS)}/:id`,
+    element: <Detail />,
     isPrivate: true,
   },
   {

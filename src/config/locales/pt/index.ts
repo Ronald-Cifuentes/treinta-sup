@@ -190,6 +190,16 @@ export const pt = {
       description: 'Descrição',
     },
   },
+  orders: {
+    title: 'Gestiona tus órdenes',
+    table: {
+      rowsPerPage: 'Filas por página:',
+    },
+    changestates: {
+      'initial-state-dropdown': 'Alterar status',
+      'qty-selected': 'Selecionado',
+    },
+  },
   onboarding: {
     'title-name': 'Qual é o seu nome? ',
     'placeholder-name': 'Escreva seu nome',
@@ -231,6 +241,7 @@ export const pt = {
       providers:
         'No momento você pode administrar seus fornecedores a partir de seu Trinta APP',
     },
+    manageContacts: 'Gerencie seus contatos',
   },
   'bulk-upload': {
     'field-min-length': 'O valor deve ser maior a 0.',
@@ -778,5 +789,33 @@ export const pt = {
     'label-home': 'Precisa de ajuda?',
     'label-sign-up': 'Você tem problemas com o registro?',
     'label-login': 'Você tem problemas para entrar em Trinta?',
+  },
+  'detail-orders': {
+    title: 'Order',
+    'section-client': {
+      subtitle: 'Dados do cliente',
+      'first-name': 'Nome do cliente*',
+      'last-name': 'sobrenome do cliente*',
+      phone: 'Telefone*',
+      'document-type': 'Tipo de documento*',
+      document: 'Número do documento*',
+    },
+    'section-origin': {
+      subtitle: 'endereço de origem',
+      direction: 'endereço de origem*',
+      store: 'Adega de origem*',
+    },
+    'section-destination': {
+      subtitle: 'destino do pedido',
+      location: 'Localização*',
+      'delivery-address': 'Endereço de entrega*',
+      'address-detail': 'detalhe do endereço*',
+    },
+    'section-total': {
+      subtitle: 'Valor total dos pedidos',
+      'base-value': 'Valor base*',
+      'discount-value': 'valor de desconto*',
+      'total-value': 'valor total do pedido*',
+    },
   },
 };

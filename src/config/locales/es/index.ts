@@ -243,6 +243,13 @@ export const es = {
   },
   orders: {
     title: 'Gestiona tus órdenes',
+    table: {
+      rowsPerPage: 'Filas por página:',
+    },
+    changestates: {
+      'initial-state-dropdown': 'Cambiar estado',
+      'qty-selected': 'Seleccionado',
+    },
   },
   onboarding: {
     'title-name': '¿Cuál es tu nombre?',
@@ -286,6 +293,7 @@ export const es = {
       providers:
         'Por el momento puedes gestionar tus proveedores desde tu APP de Treinta',
     },
+    manageContacts: 'Gestiona tus contactos',
   },
   'bulk-upload': {
     'field-min-length': 'El valor debe ser mayor a 0.',
@@ -860,5 +868,33 @@ export const es = {
     'label-home': '¿Necesita ayuda?',
     'label-sign-up': '¿Tienes problemas con el registro?',
     'label-login': '¿Tienes problemas al ingresar a Treinta?',
+  },
+  'detail-orders': {
+    title: 'Orders',
+    'section-client': {
+      subtitle: 'Datos del cliente',
+      'first-name': 'Nombre del cliente*',
+      'last-name': 'Apellido del cliente*',
+      phone: 'Teléfono*',
+      'document-type': 'Tipo de documento*',
+      document: 'Número de documento*',
+    },
+    'section-origin': {
+      subtitle: 'Dirección de origen',
+      direction: 'Dirección de origen*',
+      store: 'Bodega de origen*',
+    },
+    'section-destination': {
+      subtitle: 'Destino de la orden',
+      location: 'Location*',
+      'delivery-address': 'Dirección de entrega*',
+      'address-detail': 'Detalle de dirección*',
+    },
+    'section-total': {
+      subtitle: 'Valor total de las ordenes',
+      'base-value': 'Valor base*',
+      'discount-value': 'Valor descuento*',
+      'total-value': 'Valor total del pedido*',
+    },
   },
 };

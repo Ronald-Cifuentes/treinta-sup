@@ -1,3 +1,5 @@
+import {getUser} from 'utils/infoUser';
+
 export const ORIGIN_ID = 4;
 export const OTP_COUNT_DOWN = 30;
 export const INCREMENTED_OTP_COUNT_DOWN = 90;
@@ -12,7 +14,10 @@ export enum TransactionTypes {
   SALE = 1,
   SPEND = 2,
 }
-export const SUPPORT_LINK = 'https://wa.me/+14327413593';
+export const SUPPORT_LINK = `https://api.whatsapp.com/send?phone=17864601367&text=Hola, soy el proveedor ${getUser()?.name?.slice(
+  0,
+  20,
+)} y necesito ayuda con…`;
 export const URL_APP_PLAY_STORE =
   'https://play.google.com/store/apps/details?id=com.treintaapp';
 export enum ContactTypes {
