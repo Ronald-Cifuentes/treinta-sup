@@ -197,6 +197,7 @@ export const pt = {
     },
     changestates: {
       'initial-state-dropdown': 'Alterar status',
+      'qty-selected': 'Selecionado',
     },
   },
   onboarding: {

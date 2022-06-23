@@ -248,6 +248,7 @@ export const es = {
     },
     changestates: {
       'initial-state-dropdown': 'Cambiar estado',
+      'qty-selected': 'Seleccionado',
     },
   },
   onboarding: {

@@ -46,7 +46,9 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
         className={classes.root}
         open={open}
         autoHideDuration={6000}
-        message={`${count} Seleccionados`}
+        message={`${count} ${t('orders.changestates.qty-selected')}${
+          count > 1 ? 's' : ''
+        }`}
         sx={{bottom: {xs: 200, sm: 150}, left: {xs: 200, sm: 630}}}
         action={
           <LayoutDropdownClose>
