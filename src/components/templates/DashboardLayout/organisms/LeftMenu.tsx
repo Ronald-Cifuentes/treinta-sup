@@ -39,7 +39,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const handleCloseSessionModal = (): void => setOpenModal(false);
   const handleConfirm = async (): Promise<void> => await logOut();
 
-  const User = getUser();
+  const user = getUser();
 
   return (
     <>
@@ -49,7 +49,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <UserIcon>
             <AccountCircleIcon sx={{width: '100%', height: '100%'}} />
           </UserIcon>
-          <UserName>{User?.name?.slice(0, 20)}</UserName>
+          <UserName>{user?.name?.slice(0, 20)}</UserName>
         </UserBox>
 
         <SubtitleSidebar>Gestiona tus ventas</SubtitleSidebar>
