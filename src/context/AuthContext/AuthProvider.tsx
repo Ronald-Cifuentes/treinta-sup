@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
 } from '@firebase/auth';
 import Cookie from 'universal-cookie';
-import {useState, FC, useEffect} from 'react';
+import {useState, FC, useEffect, useCallback} from 'react';
 
 import {User, UserConfig, AuthMethods} from 'services/models';
 import {ROUTES} from 'routes/types';
@@ -79,17 +79,17 @@ export const AuthProvider: FC = ({children}) => {
     LogProvider.getInstance().removeUser();
   };
 
-  const logOut = async (
-    routeToRedirect?: ROUTES,
-    message?: string,
-  ): Promise<void> => {
-    await signOut(auth);
-    cleanData();
-    navigate(routeToRedirect || ROUTES.LOGIN, {
-      replace: true,
-      state: message ? {alertLogOut: message} : undefined,
-    });
-  };
+  const logOut = useCallback(
+    async (routeToRedirect?: ROUTES, message?: string): Promise<void> => {
+      await signOut(auth);
+      cleanData();
+      navigate(routeToRedirect || ROUTES.LOGIN, {
+        replace: true,
+        state: message ? {alertLogOut: message} : undefined,
+      });
+    },
+    [navigate],
+  );
 
   /* eslint-disable require-await */
   const googleSignIn = async (): Promise<void> => {
@@ -116,7 +116,7 @@ export const AuthProvider: FC = ({children}) => {
       persistUserConfig(userConfig);
       initConfigs.setUser(userConfig, user?.id);
     }
-  }, [user, userConfig]);
+  }, [user, userConfig, initConfigs]);
 
   useEffect(() => {
     if (!loadedSession && user) {
@@ -135,7 +135,7 @@ export const AuthProvider: FC = ({children}) => {
         localStorage.setItem('expire-time', String(getDateUtc()));
       }
     }
-  }, [isAuthReady]);
+  }, [isAuthReady, initConfigs, logOut]);
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {

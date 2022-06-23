@@ -55,7 +55,7 @@ export const Orders: FC = () => {
 
   useEffect(() => {
     refetchRetrieve();
-  }, [date, tab, itemsByPage, page]);
+  }, [date, tab, itemsByPage, page, refetchRetrieve]);
 
   const handleOnChangeDate = (value: ReturnDate | string): void => {
     const from = typeof value == 'string' ? value : value?.dateOne;

@@ -45,10 +45,9 @@ export const useLoadUserData = (): void => {
       {enabled: false, retry: 3, retryDelay: 1000, initialData: loadData()},
     );
 
-  const isNecessaryToUpdate = (): boolean =>
-    !data || (data && !isSameHour(data?.lastRequest));
-
   useEffect(() => {
+    const isNecessaryToUpdate = (): boolean =>
+      !data || (data && !isSameHour(data?.lastRequest));
     if (
       !isLoading &&
       sessionStarted &&
@@ -59,20 +58,28 @@ export const useLoadUserData = (): void => {
     ) {
       refetch();
     }
-  }, [userConfig, pathname, sessionStarted]);
+  }, [
+    userConfig,
+    pathname,
+    sessionStarted,
+    invalidPathnames,
+    isLoading,
+    data,
+    refetch,
+  ]);
 
   useEffect(() => {
     if (data && isSuccess && isAuthReady) {
       setUser(data?.user);
       cookie.set(USER_DATA_KEY, data, {secure: true});
     }
-  }, [data, isSuccess, isAuthReady]);
+  }, [data, isSuccess, isAuthReady, setUser]);
 
   useEffect(() => {
     if (data && !isAuthReady && !sessionStarted) {
       remove();
     }
-  }, [isAuthReady, sessionStarted]);
+  }, [isAuthReady, sessionStarted, data, remove]);
 
   useEffect(() => {
     if (isError) {
@@ -93,5 +100,5 @@ export const useLoadUserData = (): void => {
           : 'login.sign-in-internal-error',
       );
     }
-  }, [error, isError]);
+  }, [error, isError, logOut, userConfig?.uid]);
 };

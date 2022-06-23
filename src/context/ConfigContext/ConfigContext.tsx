@@ -19,7 +19,7 @@ export const ConfigProvider: FC = ({children}) => {
 
   useEffect(() => {
     initConfigs.init();
-  }, []);
+  }, [initConfigs]);
 
   const value: ConfigContextType = {
     countries,

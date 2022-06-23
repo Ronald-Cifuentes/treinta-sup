@@ -28,7 +28,15 @@ export const PrivateRoute: FC = ({children}) => {
     ) {
       navigate(ROUTES.HOME);
     }
-  }, [isAuthReady]);
+  }, [
+    isAuthReady,
+    getI18nRoute,
+    isLoggedIn,
+    navigate,
+    pathname,
+    showOnBoardingState?.showOnBoarding,
+    userConfig?.showOnBoarding,
+  ]);
 
   if (!isAuthReady) {
     return <Backdrop open={true} />;

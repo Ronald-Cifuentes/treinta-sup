@@ -11,7 +11,7 @@ export const useAuthorization = (permission: Permissions): boolean => {
       user?.userTypeId &&
       PERMISSIONS[user.userTypeId as number].includes(permission);
     return condition;
-  }, [user?.userTypeId]);
+  }, [user?.userTypeId, permission]);
 
   return getHasPermission;
 };

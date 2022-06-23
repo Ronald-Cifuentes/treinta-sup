@@ -16,7 +16,7 @@ export const LogoTreinta: FC<LogoTreintaProps> = ({
 
   const TreintaLogo = useMemo(
     () => LanguagesMap[i18n.language].TREINTA_LOGO,
-    [],
+    [i18n.language],
   );
 
   return (

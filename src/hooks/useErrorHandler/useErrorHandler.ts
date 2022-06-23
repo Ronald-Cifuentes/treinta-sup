@@ -50,7 +50,7 @@ export const useErrorHandler = (
       return t(getMessageByAction(), {entity: t(getMessageByEntity())});
     }
     return t('commons.generic-error');
-  }, [message, getMessageByAction, getMessageByEntity]);
+  }, [message, getMessageByAction, getMessageByEntity, action, entity, t]);
 
   useEffect(() => {
     if (hasError) {
@@ -58,5 +58,5 @@ export const useErrorHandler = (
       setSeverity('danger');
       setOpen(true);
     }
-  }, [hasError]);
+  }, [hasError, setSeverity, createMessage, setLabel, setOpen]);
 };
