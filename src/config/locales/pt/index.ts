@@ -190,6 +190,12 @@ export const pt = {
       description: 'Descrição',
     },
   },
+  orders: {
+    title: 'Gestiona tus órdenes',
+    table: {
+      rowsPerPage: 'Filas por página:',
+    },
+  },
   onboarding: {
     'title-name': 'Qual é o seu nome? ',
     'placeholder-name': 'Escreva seu nome',

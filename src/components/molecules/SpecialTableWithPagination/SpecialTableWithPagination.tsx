@@ -52,11 +52,15 @@ export const SpecialTableWithPagination: FC<
         <WrapperDropdownFrecuency>
           <Dropdown
             AlingMenu="right"
-            dropdownOptions={createOptionsRowsPerPage(t('table.rowsPerPage'))}
+            dropdownOptions={createOptionsRowsPerPage(
+              t('orders.table.rowsPerPage'),
+            )}
             elementId="test"
             errorText="Error text"
-            placeholder="Filas por página: "
-            defaultValue={`Filas por página: ${dropDownDefaultValue}`}
+            placeholder={`${t('orders.table.rowsPerPage')} `}
+            defaultValue={`${t(
+              'orders.table.rowsPerPage',
+            )} ${dropDownDefaultValue}`}
             typeRenderItem={TreintaDropdownType['OnlyLetter']}
             onChange={handleDropDown}
           />
