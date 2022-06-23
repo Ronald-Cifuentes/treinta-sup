@@ -237,6 +237,7 @@ export const pt = {
       providers:
         'No momento você pode administrar seus fornecedores a partir de seu Trinta APP',
     },
+    manageContacts: 'Gerencie seus contatos',
   },
   'bulk-upload': {
     'field-min-length': 'O valor deve ser maior a 0.',

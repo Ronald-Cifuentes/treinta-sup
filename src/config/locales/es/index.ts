@@ -289,6 +289,7 @@ export const es = {
       providers:
         'Por el momento puedes gestionar tus proveedores desde tu APP de Treinta',
     },
+    manageContacts: 'Gestiona tus contactos',
   },
   'bulk-upload': {
     'field-min-length': 'El valor debe ser mayor a 0.',

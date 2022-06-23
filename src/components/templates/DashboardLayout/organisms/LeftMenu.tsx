@@ -67,7 +67,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           />
         </Box>
 
-        <SubtitleSidebar>Gestiona tus contactos</SubtitleSidebar>
+        <SubtitleSidebar>{t('left-menu.manageContacts')}</SubtitleSidebar>
 
         <div>
           <LinkButton
