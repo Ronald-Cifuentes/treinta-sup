@@ -195,6 +195,9 @@ export const pt = {
     table: {
       rowsPerPage: 'Filas por página:',
     },
+    changestates: {
+      'initial-state-dropdown': 'Alterar status',
+    },
   },
   onboarding: {
     'title-name': 'Qual é o seu nome? ',

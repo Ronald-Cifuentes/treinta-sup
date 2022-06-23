@@ -246,6 +246,9 @@ export const es = {
     table: {
       rowsPerPage: 'Filas por página:',
     },
+    changestates: {
+      'initial-state-dropdown': 'Cambiar estado',
+    },
   },
   onboarding: {
     'title-name': '¿Cuál es tu nombre?',

@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import {Snackbar} from '@mui/material';
 import {makeStyles} from '@mui/styles';
+import {useTranslation} from 'react-i18next';
 import {optionsChangeState} from './ChangeStates.mock';
 import {PropTypesChangeStates} from './types';
 import {
@@ -33,6 +34,7 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
   count = 0,
 }) => {
   const classes = useStyles();
+  const {t} = useTranslation();
 
   const handleOpen = (): void => {
     setOpen && setOpen(false);
@@ -51,7 +53,7 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
             <WrapperDropDown>
               <SpecialSelect onChange={handleChangeStates}>
                 <option value="" disabled defaultChecked>
-                  Cambiar estado
+                  {t('orders.changestates.initial-state-dropdown')}
                 </option>
                 {optionsChangeState.map(item => (
                   <option key={`option-${item.value}`} value={item.value}>
