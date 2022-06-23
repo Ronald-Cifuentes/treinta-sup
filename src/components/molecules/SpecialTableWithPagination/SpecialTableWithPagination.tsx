@@ -6,7 +6,8 @@ import {
   TreintaDropdownType,
 } from '@30sas/web-ui-kit-core';
 import {TableMui} from 'modules/Dashboard/Orders/components/atoms/TableMui';
-import {optionsRowsPerPage} from './SpecialTableWithPagination.mock';
+import {useTranslation} from 'react-i18next';
+import {createOptionsRowsPerPage} from './SpecialTableWithPagination.mock';
 import {PropTypesSpecialTableWithPagination} from './types';
 import {
   EmptyBlock,
@@ -29,6 +30,8 @@ export const SpecialTableWithPagination: FC<
   columns,
   checkboxSelection,
 }) => {
+  const {t} = useTranslation();
+
   const handleDropDown = (value: TreintaDropdownOptions): void => {
     setItemsByPage && setItemsByPage(parseInt(value.value as string));
   };
@@ -49,7 +52,7 @@ export const SpecialTableWithPagination: FC<
         <WrapperDropdownFrecuency>
           <Dropdown
             AlingMenu="right"
-            dropdownOptions={optionsRowsPerPage}
+            dropdownOptions={createOptionsRowsPerPage(t('table.rowsPerPage'))}
             elementId="test"
             errorText="Error text"
             placeholder="Filas por página: "

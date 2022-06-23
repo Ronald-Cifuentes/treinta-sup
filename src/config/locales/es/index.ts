@@ -243,6 +243,9 @@ export const es = {
   },
   orders: {
     title: 'Gestiona tus órdenes',
+    table: {
+      rowsPerPage: 'Filas por página:',
+    },
   },
   onboarding: {
     'title-name': '¿Cuál es tu nombre?',
