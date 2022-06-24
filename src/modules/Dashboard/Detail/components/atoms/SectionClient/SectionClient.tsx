@@ -43,7 +43,7 @@ export const SectionClient: FC<SectionClientProps> = ({data}) => {
             label={t('detail-orders.section-client.phone')}
             placeholder=""
             rounded="lg"
-            value={`${data?.phone}`}
+            value={`${data?.location.contactPhone}`}
           />
         </SectionClientWrapperInputs>
         <SectionClientWrapperInputs>

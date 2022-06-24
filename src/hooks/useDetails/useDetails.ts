@@ -29,9 +29,9 @@ export const useDetails = ({id}: TypePropsUseDetails): UseDetails => {
     sku: item.sku,
     quantityOrdered: item.initialQuantity,
     quantityToDispatch: item.quantity,
-    initialQuantity: item.value,
+    initialPrice: item.discountValue,
     discount: item.baseValue,
-    totalPrice: (item.value - item.baseValue) * item.quantity,
+    totalPrice: item.discountValue * item.quantity,
     image: item.thumbImgUrl,
   }));
 

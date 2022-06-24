@@ -25,3 +25,10 @@ export const DetailTitle = styled.div`
 export const CardinalSection = styled.div`
   display: flex;
 `;
+
+export const WrapperQuantityInput = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+`;

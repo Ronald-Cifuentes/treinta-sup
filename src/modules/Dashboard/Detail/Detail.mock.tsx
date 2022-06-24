@@ -5,14 +5,7 @@ import {PriceInput, QuantityInput} from '@30sas/web-ui-kit-core';
 import {Detail} from 'services/models';
 import {PencilIcon} from '@30sas/web-ui-kit-icons';
 import {getCountry} from '@30sas/web-ui-kit-utils';
-
-// <NumberFormat
-//   value={params.value}
-//   className="foo"
-//   displayType="text"
-//   thousandSeparator={true}
-//   prefix="$"
-// />
+import {WrapperQuantityInput} from './Detail.styled';
 
 const PriceInputControl: FC<{initialValue?: number}> = ({initialValue = 0}) => {
   const [value, setValue] = useState(initialValue);
@@ -26,14 +19,14 @@ const PriceInputControl: FC<{initialValue?: number}> = ({initialValue = 0}) => {
   );
 };
 
-export const Counter: FC = () => {
-  const [quantity, setQuantity] = useState<number>(0);
+export const Counter: FC<{value: number}> = ({value}) => {
+  const [quantity, setQuantity] = useState<number>(value);
   const updateQuantity = (qnt): void => {
     setQuantity(qnt.target.value);
   };
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+    <WrapperQuantityInput>
       <QuantityInput
         BaseLabel="Agregar"
         colors={{
@@ -51,7 +44,7 @@ export const Counter: FC = () => {
         setQuantity={updateQuantity}
         unit="kg"
       />
-    </div>
+    </WrapperQuantityInput>
   );
 };
 
@@ -75,10 +68,10 @@ export const columns: GridColDef[] = [
     field: 'quantityToDispatch',
     headerName: 'Cantidad a despachar',
     width: 180,
-    renderCell: () => <Counter />,
+    renderCell: params => <Counter value={params.value} />,
   },
   {
-    field: 'initialQuantity',
+    field: 'initialPrice',
     headerName: 'Precio original del producto',
     type: 'number',
     width: 180,
@@ -118,7 +111,11 @@ export const columns: GridColDef[] = [
     field: 'image',
     headerName: '          ',
     width: 100,
-    renderCell: params => <a href={params.value}>Ver imagen</a>,
+    renderCell: params => (
+      <a href={params.value} target="blank">
+        Ver imagen
+      </a>
+    ),
   },
 ];
 

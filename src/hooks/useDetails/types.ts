@@ -13,7 +13,7 @@ export interface DataProduct {
   sku: string;
   quantityOrdered: number;
   quantityToDispatch: number;
-  initialQuantity: number;
+  initialPrice: number;
   discount: number;
   totalPrice: number;
   image: string;

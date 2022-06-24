@@ -27,6 +27,7 @@ export const SectionDestination: FC<SectionDestinationProps> = ({data}) => {
             elementId="test"
             errorText="Error text"
             label={t('detail-orders.section-destination.location')}
+            defaultValue={`${data?.location.name}`}
             typeRenderItem={TreintaDropdownType.OnlyLetter}
           />
         </SectionDestinationWrapper>
