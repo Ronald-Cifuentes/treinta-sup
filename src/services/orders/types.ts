@@ -6,7 +6,7 @@ export interface StatusResponse {
 export interface PropTypesGetOrders {
   page: number;
   size: number;
-  statusId: number;
+  statusId?: number;
   dateFrom?: string | Date | undefined;
   dateTo?: string | Date | undefined;
 }

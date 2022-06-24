@@ -5,7 +5,7 @@ import {DashboardLayout} from 'components/templates';
 import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
 import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
 import {useOrders} from 'hooks/useOrders';
-import {format} from 'date-fns';
+import {format, utcToZonedTime} from 'date-fns-tz';
 import {Backdrop, Button, Popup} from '@30sas/web-ui-kit-core';
 import {GridSelectionModel} from '@mui/x-data-grid';
 import {optionsTabs, PointerStates} from './Orders.mock';
@@ -62,8 +62,11 @@ export const Orders: FC = () => {
     const to = typeof value == 'string' ? value : value?.dateTwo;
 
     setDate({
-      from: format(new Date(from), 'yyyy-MM-dd'),
-      to: format(new Date(to), 'yyyy-MM-dd'),
+      from: format(
+        utcToZonedTime(new Date(from), 'Europe/Berlin'),
+        'yyyy-MM-dd',
+      ),
+      to: format(utcToZonedTime(new Date(to), 'Europe/Berlin'), 'yyyy-MM-dd'),
     });
   };
 
