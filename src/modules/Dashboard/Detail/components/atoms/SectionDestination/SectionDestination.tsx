@@ -1,4 +1,5 @@
-import {Dropdown, InputBase, TreintaDropdownType} from '@30sas/web-ui-kit-core';
+import {InputBase} from '@30sas/web-ui-kit-core';
+import {SpecialSelect} from 'components/atoms/SpecialSelect';
 import {useSuppliersLocations} from 'hooks/useSuppliersLocations';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -21,14 +22,11 @@ export const SectionDestination: FC<SectionDestinationProps> = ({data}) => {
       </SectionDestinationSubTitle>
       <SectionDestinationLayout>
         <SectionDestinationWrapper>
-          <Dropdown
-            AlingMenu="right"
-            dropdownOptions={dataLocation || [{label: '', value: ''}]}
-            elementId="test"
-            errorText="Error text"
+          <SpecialSelect
+            options={dataLocation || [{label: '', value: ''}]}
             label={t('detail-orders.section-destination.location')}
-            defaultValue={`${data?.location.name}`}
-            typeRenderItem={TreintaDropdownType.OnlyLetter}
+            defaultSelected={`${data?.location.name}`}
+            valueTextOrNumber="number"
           />
         </SectionDestinationWrapper>
         <SectionDestinationWrapper>

@@ -1,7 +1,8 @@
 import {FC} from 'react';
-import {Dropdown, InputBase, TreintaDropdownType} from '@30sas/web-ui-kit-core';
+import {InputBase} from '@30sas/web-ui-kit-core';
 import {useTranslation} from 'react-i18next';
 import {useCommonDocumentTypes} from 'hooks/useCommonDocumentTypes';
+import {SpecialSelect} from 'components/atoms/SpecialSelect';
 import {SectionClientProps} from './types';
 import {
   SectionClientLayoutInputs,
@@ -47,13 +48,9 @@ export const SectionClient: FC<SectionClientProps> = ({data}) => {
           />
         </SectionClientWrapperInputs>
         <SectionClientWrapperInputs>
-          <Dropdown
-            AlingMenu="right"
-            dropdownOptions={dataDocumentType}
-            elementId="test"
-            errorText="Error text"
+          <SpecialSelect
+            options={dataDocumentType}
             label={t('detail-orders.section-client.document')}
-            typeRenderItem={TreintaDropdownType.OnlyLetter}
           />
         </SectionClientWrapperInputs>
         <SectionClientWrapperInputs>
