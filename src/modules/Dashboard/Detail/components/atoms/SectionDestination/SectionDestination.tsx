@@ -26,7 +26,6 @@ export const SectionDestination: FC<SectionDestinationProps> = ({data}) => {
             options={dataLocation || [{label: '', value: ''}]}
             label={t('detail-orders.section-destination.location')}
             defaultSelected={`${data?.location.name}`}
-            valueTextOrNumber="number"
           />
         </SectionDestinationWrapper>
         <SectionDestinationWrapper>
