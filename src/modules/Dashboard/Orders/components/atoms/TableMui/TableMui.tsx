@@ -44,6 +44,12 @@ const StylesTableMui = {
   '& .PrivateSwitchBase-root': {
     padding: 0,
   },
+  '& .MuiDataGrid-cellContent': {
+    whiteSpace: 'break-spaces',
+  },
+  // '& .MuiDataGrid-row': {
+  //   he
+  // }
 };
 
 export const TableMui: FC<PropTypesTableMui> = ({

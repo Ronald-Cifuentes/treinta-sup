@@ -13,7 +13,7 @@ export interface CustomerDetail {
 }
 
 export interface LocationDetail {
-  id: number;
+  locationId: number;
   name: string;
   address: string;
   additionalInformation: string;
@@ -37,7 +37,7 @@ export interface Product {
   warehouseProductId: string;
 }
 
-export interface Detail {
+export interface DataDetailTypes {
   id: string;
   externalId: unknown;
   value: number;

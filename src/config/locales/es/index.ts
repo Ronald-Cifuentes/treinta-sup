@@ -871,6 +871,10 @@ export const es = {
   },
   'detail-orders': {
     title: 'Orders',
+    alert: {
+      success: 'Cambios realizados con exito.',
+      error: 'Hay errores en el formulario.',
+    },
     'section-client': {
       subtitle: 'Datos del cliente',
       'first-name': 'Nombre del cliente*',
