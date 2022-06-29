@@ -25,14 +25,3 @@ export const LayoutDropdownClose = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export const SpecialSelect = styled.select`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  padding: 8px 16px;
-  font-size: 16px;
-  line-height: 24px;
-  font-family: 'Nunito Sans', sans-serif;
-  border-radius: 5px;
-`;

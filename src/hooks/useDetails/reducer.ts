@@ -1,8 +1,8 @@
 import {Reducer} from 'react';
-import {Detail} from 'services/models';
+import {DataDetailTypes} from 'services/models';
 import {ActionDetails} from './types';
 
-export const initialState: Detail = {
+export const initialState: DataDetailTypes = {
   id: '',
   externalId: null,
   value: 0,
@@ -23,7 +23,7 @@ export const initialState: Detail = {
     documentTypeId: 0,
   },
   location: {
-    id: 0,
+    locationId: 0,
     name: '',
     address: '',
     additionalInformation: '',
@@ -36,10 +36,10 @@ export const DETAILS_ACTIONS = {
   LIST: 'Details/list',
 };
 
-export const reducer: Reducer<Detail, ActionDetails> = (
+export const reducer: Reducer<DataDetailTypes, ActionDetails> = (
   state,
   {type, payload},
-): Detail => {
+): DataDetailTypes => {
   switch (type) {
     case DETAILS_ACTIONS.LIST:
       return {...state, ...payload};

@@ -1,4 +1,4 @@
-import {items} from '../../modules/Dashboard/Orders/Orders.mock';
+import {items} from 'modules/Dashboard/Orders/components/organisms/OrderList/OrderList.mock';
 import {reducer, initialState, ORDERS_ACTIONS} from './reducer';
 
 describe('useOrders reducer', () => {

@@ -2,12 +2,12 @@ import {FC} from 'react';
 import {Snackbar} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import {useTranslation} from 'react-i18next';
+import {SpecialSelect} from 'components/atoms/SpecialSelect';
 import {optionsChangeState} from './ChangeStates.mock';
 import {PropTypesChangeStates} from './types';
 import {
   BtnClose,
   LayoutDropdownClose,
-  SpecialSelect,
   WrapperDropDown,
 } from './ChangeStates.styled';
 
@@ -53,16 +53,11 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
         action={
           <LayoutDropdownClose>
             <WrapperDropDown>
-              <SpecialSelect onChange={handleChangeStates}>
-                <option value="" disabled defaultChecked>
-                  {t('orders.changestates.initial-state-dropdown')}
-                </option>
-                {optionsChangeState.map(item => (
-                  <option key={`option-${item.value}`} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </SpecialSelect>
+              <SpecialSelect
+                onChange={handleChangeStates}
+                defaultText={t('orders.changestates.initial-state-dropdown')}
+                options={optionsChangeState}
+              />
             </WrapperDropDown>
             <BtnClose onClick={handleOpen}>×</BtnClose>
           </LayoutDropdownClose>

@@ -1,0 +1,67 @@
+export const items = [
+  {
+    id: '3fa85f01-5717-4562-b3fc-2c963f66afa1',
+    customerName: 'Viviana Olarte',
+    phone: '3204291920',
+    createdAt: '2022-05-25T23:11:56.558Z',
+    updatedAt: '2022-05-25T23:11:56.558Z',
+    deliveryDate: '2022-05-25T23:11:56.558Z',
+    value: 1576.45,
+    status: {
+      id: 1,
+      name: 'Recibido',
+    },
+  },
+  {
+    id: '3fa85f02-5717-4562-b3fc-2c963f66afa2',
+    customerName: 'Camila Mazo',
+    phone: '3204291920',
+    createdAt: '2022-05-25T23:11:56.558Z',
+    updatedAt: '2022-05-25T23:11:56.558Z',
+    deliveryDate: '2022-05-25T23:11:56.558Z',
+    value: 1576.45,
+    status: {
+      id: 1,
+      name: 'Recibido',
+    },
+  },
+  {
+    id: '3fa85f03-5717-4562-b3fc-2c963f66afa3',
+    customerName: 'Tatiana Domingez',
+    phone: '3204291920',
+    createdAt: '2022-05-25T23:11:56.558Z',
+    updatedAt: '2022-05-25T23:11:56.558Z',
+    deliveryDate: '2022-05-25T23:11:56.558Z',
+    value: 1576.45,
+    status: {
+      id: 1,
+      name: 'Recibido',
+    },
+  },
+  {
+    id: '3fa85f04-5717-4562-b3fc-2c963f66afa4',
+    customerName: 'Juan Camilo Pinto',
+    phone: '3204291920',
+    createdAt: '2022-05-25T23:11:56.558Z',
+    updatedAt: '2022-05-25T23:11:56.558Z',
+    deliveryDate: '2022-05-25T23:11:56.558Z',
+    value: 1576.45,
+    status: {
+      id: 1,
+      name: 'Recibido',
+    },
+  },
+  {
+    id: '3fa85f05-5717-4562-b3fc-2c963f66afa5',
+    customerName: 'Diogenes Martinez',
+    phone: '3204291920',
+    createdAt: '2022-05-25T23:11:56.558Z',
+    updatedAt: '2022-05-25T23:11:56.558Z',
+    deliveryDate: '2022-05-25T23:11:56.558Z',
+    value: 1576.45,
+    status: {
+      id: 1,
+      name: 'Recibido',
+    },
+  },
+];

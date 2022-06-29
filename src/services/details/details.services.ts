@@ -1,8 +1,8 @@
 import {AxiosResponse} from 'axios';
 
-import {Detail} from 'services/models';
+import {DataDetailTypes} from 'services/models';
 import {ApiProvider} from 'providers/api-provider';
-import {PropTypesGetDetails} from './types';
+import {GetDetailTypes, SetDetailTypes} from './types';
 
 export class DetailServices {
   private api: ApiProvider;
@@ -10,8 +10,16 @@ export class DetailServices {
     this.api = ApiProvider.getInstance();
   }
 
-  getDetails({id}: PropTypesGetDetails): Promise<AxiosResponse<Detail[]>> {
+  getDetail({id}: GetDetailTypes): Promise<AxiosResponse<DataDetailTypes[]>> {
     const idParam = id ? `/${id}` : '';
-    return this.api.get<Detail[]>(`/suppliers/orders${idParam}`);
+    return this.api.get<DataDetailTypes[]>(`/suppliers/orders${idParam}`);
+  }
+
+  setDetail({
+    id,
+    data,
+  }: SetDetailTypes): Promise<AxiosResponse<DataDetailTypes[]>> {
+    const idParam = id ? `/${id}` : '';
+    return this.api.patch(`/suppliers/orders${idParam}`, data);
   }
 }
