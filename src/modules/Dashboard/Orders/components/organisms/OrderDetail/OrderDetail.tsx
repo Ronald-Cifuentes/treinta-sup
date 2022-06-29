@@ -74,8 +74,7 @@ export const OrderDetail: FC<DetailTypes> = () => {
       el[9].value &&
       el[11].value
     ) {
-      const appliedDiscount =
-        parseInt(el[11].value.replace(/[$.\s]/g, '')) || 1;
+      const appliedDiscount = parseInt(el[11].value.replace(/[$.\s]/g, ''));
       const customer = getCustomer(dataDetail, el);
       const location = getLocation(dataDetail, el);
       const products = getProducts(el || {}, dataProduct);
