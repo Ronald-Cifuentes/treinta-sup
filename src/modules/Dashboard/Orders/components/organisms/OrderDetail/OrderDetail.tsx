@@ -109,11 +109,11 @@ export const OrderDetail: FC<DetailTypes> = () => {
     setLoading(true);
     setOpen(false);
     mutateSetDetail(data || {})
-      .then(e => {
+      .then(() => {
         setShowAlert(true);
         setLoading(false);
       })
-      .catch(e => {
+      .catch(() => {
         setShowAlert(false);
         setLoading(false);
       });
