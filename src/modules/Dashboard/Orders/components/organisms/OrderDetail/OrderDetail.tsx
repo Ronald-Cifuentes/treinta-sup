@@ -105,12 +105,18 @@ export const OrderDetail: FC<DetailTypes> = () => {
     }
   };
 
-  const handleBtnYes = async (): Promise<void> => {
+  const handleBtnYes = (): void => {
     setLoading(true);
     setOpen(false);
-    await mutateSetDetail(data || {});
-    setShowAlert(true);
-    setLoading(false);
+    mutateSetDetail(data || {})
+      .then(e => {
+        setShowAlert(true);
+        setLoading(false);
+      })
+      .catch(e => {
+        setShowAlert(false);
+        setLoading(false);
+      });
   };
 
   return (
@@ -118,7 +124,7 @@ export const OrderDetail: FC<DetailTypes> = () => {
       <DetailContainer data-testid="detail">
         <DetailTitle>
           {`${t('detail-orders.title')} ${id?.slice(0, 8)}`}
-          {showAlert && (
+          {showAlert && isErrorDetail && isErrorSetDetail && (
             <AlertSuccess>
               <div style={{display: 'flex', flexDirection: 'row'}}>
                 <ErrorOutlineIcon />
