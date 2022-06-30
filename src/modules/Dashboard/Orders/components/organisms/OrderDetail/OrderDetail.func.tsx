@@ -1,5 +1,5 @@
 import {DataProduct} from 'hooks/useDetails';
-import {ProductsTypes} from 'services/details/types';
+import {ProductsTypes} from 'services/suppliers.details/types';
 import {DataDetailTypes} from 'services/models';
 
 export const getCustomer = (

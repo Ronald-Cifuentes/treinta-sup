@@ -4,7 +4,7 @@ import logger from 'use-reducer-logger';
 import {useReducer, useEffect} from 'react';
 
 import {useErrorHandler} from 'hooks';
-import {OrderServices} from 'services/orders/orders.services';
+import {OrderServices} from 'services/suppliers.orders/suppliers.orders.services';
 import {format, utcToZonedTime} from 'date-fns-tz';
 
 import {initialState, ORDERS_ACTIONS, reducer} from './reducer';
