@@ -559,9 +559,12 @@ export const es = {
   },
   inventory: {
     title: 'Inventario',
+    'input-search-placeholder': 'Buscar por nombre, categoría, SKU...',
     'button-download-template': 'Descargar plantilla',
     'button-download-inventory': 'Descargar inventario',
     'button-upload-inventory': 'Subir inventario',
+    'select-categories-default': 'Bebidas en polvo',
+    'select-stores-default': 'Kennedy - Bogotá',
     'product-error': '¡Ha ocurrido un problema con el producto!',
     'add-manual': 'Agregar productos manualmente',
     'download-report': 'Descargar reporte',

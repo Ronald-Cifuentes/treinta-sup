@@ -16,6 +16,9 @@ const StylesTableMui = {
     lineHeight: '48px !important',
     background: '#F4F5F6',
   },
+  '& .MuiDataGrid-columnHeaderTitle': {
+    whiteSpace: 'break-spaces',
+  },
   '& .MuiDataGrid-columnHeader': {
     background: '#F4F5F6',
     color: '#67737E',

@@ -32,7 +32,7 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = () => {
       <WrapperSearchBar>
         <SearchInput
           fullWidth
-          placeholder="Buscar por nombre, categoría, SKU..."
+          placeholder={`${t('inventory.input-search-placeholder')}`}
           backgroundColor="white"
         />
       </WrapperSearchBar>

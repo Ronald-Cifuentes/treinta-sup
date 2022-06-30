@@ -1,39 +1,66 @@
 import {GridColDef} from '@mui/x-data-grid';
+import NumberFormat from 'react-number-format';
+import {Link} from 'react-router-dom';
+import {HasAgeRestriction} from '../../atoms/HasAgeRestriction';
 
 export const columns: GridColDef[] = [
   {
+    field: 'thumbImgUrl',
+    headerName: '',
+    width: 50,
+    renderCell: params => <img src={params.value} alt="img-product" />,
+  },
+  {
     field: 'name',
     headerName: 'Nombre',
-    width: 200,
+    width: 250,
   },
   {
     field: 'sku',
     headerName: 'SKU',
-    width: 200,
+    width: 160,
   },
   {
-    field: 'availableUnits',
+    field: 'stock',
     headerName: 'Unids disponibles',
-    width: 140,
+    width: 120,
   },
   {
-    field: 'unitPrice',
+    field: 'price',
     headerName: 'Precio unitario',
-    width: 180,
+    width: 120,
+    renderCell: params => (
+      <NumberFormat
+        value={params.value}
+        className="foo"
+        displayType="text"
+        thousandSeparator={true}
+        prefix="$"
+      />
+    ),
   },
   {
-    field: 'category',
+    field: 'categoryName',
     headerName: 'Categoría',
     width: 160,
   },
   {
-    field: 'discount',
-    headerName: 'Descuento',
+    field: 'hasAgeRestriction',
+    headerName: 'Restricción de edad',
     width: 100,
+    renderCell: params => <HasAgeRestriction value={params.value} />,
   },
   {
-    field: 'detail',
+    field: 'weight',
+    headerName: 'Categoría',
+    width: 90,
+  },
+  {
+    field: 'id',
     headerName: 'Detalle',
     width: 90,
+    renderCell: params => (
+      <Link to={`/inventory/${params.value}`}>Detalle</Link>
+    ),
   },
 ];
