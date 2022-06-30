@@ -36,12 +36,12 @@ export const columns: GridColDef[] = [
   {
     field: 'createdAt',
     headerName: 'Creado',
-    width: 110,
+    width: 115,
   },
   {
     field: 'updatedAt',
     headerName: 'Actualizada',
-    width: 110,
+    width: 115,
   },
   {
     field: 'deliveryDate',

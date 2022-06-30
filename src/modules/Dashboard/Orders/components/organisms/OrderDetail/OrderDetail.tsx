@@ -110,6 +110,7 @@ export const OrderDetail: FC<DetailTypes> = () => {
     setOpen(false);
     mutateSetDetail(data || {})
       .then(() => {
+        refetchDetail();
         setShowAlert(true);
         setLoading(false);
       })
