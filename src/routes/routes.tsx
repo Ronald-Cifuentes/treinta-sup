@@ -1,6 +1,7 @@
 import {lazy} from 'react';
 
 import {OrderDetail} from 'modules/Dashboard/Orders/components/organisms/OrderDetail';
+import {InventoryList} from 'modules/Dashboard/Orders/components/organisms/InventoryList';
 import {Route, ROUTES} from './types';
 import {PrivateRoute} from './PrivateRoute/PrivateRoute';
 
@@ -22,6 +23,11 @@ const getRoutes = (getI18nRoute): Route[] => [
   {
     path: `${getI18nRoute(ROUTES.ORDERS)}/:id`,
     element: <OrderDetail />,
+    isPrivate: true,
+  },
+  {
+    path: getI18nRoute(ROUTES.INVENTORY),
+    element: <InventoryList />,
     isPrivate: true,
   },
   {
