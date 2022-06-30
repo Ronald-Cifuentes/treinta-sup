@@ -30,7 +30,7 @@ export const SectionTotal: FC<SectionTotalProps> = ({data}) => {
             label={t('detail-orders.section-total.base-value')}
             placeholder=""
             rounded="lg"
-            value={formatt(data?.value || 0)}
+            value={formatt(data?.productsValue || 0)}
             disabled
           />
         </SectionTotalWrapper>
@@ -50,7 +50,7 @@ export const SectionTotal: FC<SectionTotalProps> = ({data}) => {
             label={t('detail-orders.section-total.total-value')}
             placeholder=""
             rounded="lg"
-            value={formatt(data?.productsValue || 0)}
+            value={formatt(data?.value || 0)}
             disabled
           />
         </SectionTotalWrapper>
