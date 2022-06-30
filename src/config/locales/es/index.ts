@@ -559,6 +559,9 @@ export const es = {
   },
   inventory: {
     title: 'Inventario',
+    'button-download-template': 'Descargar plantilla',
+    'button-download-inventory': 'Descargar inventario',
+    'button-upload-inventory': 'Subir inventario',
     'product-error': '¡Ha ocurrido un problema con el producto!',
     'add-manual': 'Agregar productos manualmente',
     'download-report': 'Descargar reporte',
