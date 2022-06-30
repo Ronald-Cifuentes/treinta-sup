@@ -7,7 +7,7 @@ import {SharedRightBar} from 'components/organisms';
 import {useDashboard} from 'context/DashboardContext';
 import {useToast} from 'context/ToastContext/ToastContext';
 
-import {useParams} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {
   Title,
   ToastContent,
@@ -29,12 +29,12 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
   withoutPadding = false,
   RightBar: RightBarContent = () => null,
 }) => {
-  const {id} = useParams();
   const [mobileOpen, setMobileOpen] = useState(false);
   const {baseColor, gradient} = fancyLineProps;
   const {Toast} = useToast();
   const {rightBarOpen, params} = useDashboard();
   const withPadding = !params?.removePadding;
+  const location = useLocation();
 
   const handleDrawerToggle = (): void => {
     setMobileOpen(!mobileOpen);
@@ -58,9 +58,7 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
           mobileOpen={mobileOpen}
           onDrawerToggle={handleDrawerToggle}
         />
-        {id ? (
-          children
-        ) : (
+        {location.pathname == '/ordenes' ? (
           <>
             <AppBar
               onClose={handleDrawerToggle}
@@ -90,6 +88,8 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
               {children}
             </ContentContainer>
           </>
+        ) : (
+          children
         )}
       </LeftBar>
       <ToastContent>
