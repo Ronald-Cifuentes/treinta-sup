@@ -49,7 +49,9 @@ export const Orders: FC = () => {
   });
 
   useEffect(() => {
-    refetchRetrieve();
+    refetchRetrieve().then(() => {
+      setLoading(false);
+    });
   }, [date, tab, itemsByPage, page, refetchRetrieve]);
 
   const handleOnChangeDate = (value: ReturnDate | string): void => {
@@ -58,10 +60,10 @@ export const Orders: FC = () => {
 
     setDate({
       from: format(
-        utcToZonedTime(new Date(from), 'Europe/Berlin'),
+        utcToZonedTime(new Date(from), 'America/Bogota'),
         'yyyy-MM-dd',
       ),
-      to: format(utcToZonedTime(new Date(to), 'Europe/Berlin'), 'yyyy-MM-dd'),
+      to: format(utcToZonedTime(new Date(to), 'America/Bogota'), 'yyyy-MM-dd'),
     });
   };
 
@@ -69,6 +71,8 @@ export const Orders: FC = () => {
     value: React.SetStateAction<number>,
   ): void => {
     setTab(value);
+    setLoading(true);
+    setOpenModalChangeStates(false);
   };
 
   const handleSpecialPagination = (
@@ -83,20 +87,22 @@ export const Orders: FC = () => {
     setOpen(true);
   };
 
-  const handleBtnYes = async (): Promise<void> => {
+  const handleBtnYes = (): void => {
     setLoading(true);
-    await mutateSetState({
+    mutateSetState({
       items: Array.from(itemsSelected),
       statusId: PointerStates[stateSelected],
+    }).then(() => {
+      setOpenModalChangeStates(false);
+      setOpen(false);
+      refetchRetrieve().then(() => {
+        setLoading(false);
+      });
     });
-    setOpenModalChangeStates(false);
-    setOpen(false);
-    setLoading(false);
-    window.location.reload();
   };
 
   const handleGrid = (selectionModel: GridSelectionModel): void => {
-    if (selectionModel.length > 0) {
+    if (selectionModel.length > 0 && tab > 0) {
       setCountCheckboxesSelected(selectionModel.length);
       setItemsSelected(selectionModel);
       setOpenModalChangeStates(true);
@@ -110,8 +116,8 @@ export const Orders: FC = () => {
     value: item.value,
     status: item.status,
     deliveryDate: format(new Date(item.deliveryDate), 'MM/dd/yyyy'),
-    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy'),
-    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy'),
+    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy HH:MM:SS'),
+    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy HH:MM:SS'),
     customerName: item.customerName,
     phone: item.phone,
     detail: item.id,

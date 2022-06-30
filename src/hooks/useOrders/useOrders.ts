@@ -5,6 +5,7 @@ import {useReducer, useEffect} from 'react';
 
 import {useErrorHandler} from 'hooks';
 import {OrderServices} from 'services/orders/orders.services';
+import subMonths from 'date-fns/subMonths';
 import {format, utcToZonedTime} from 'date-fns-tz';
 
 import {initialState, ORDERS_ACTIONS, reducer} from './reducer';
@@ -23,16 +24,12 @@ export const useOrders = ({
   size = 25,
   statusId,
   dateFrom = format(
-    utcToZonedTime(new Date('2022-06-20'), 'Europe/Berlin'),
+    utcToZonedTime(subMonths(new Date(), 1), 'America/Bogota'),
     'yyyy-MM-dd',
   ),
-  dateTo = format(
-    utcToZonedTime(new Date('2022-06-26'), 'Europe/Berlin'),
-    'yyyy-MM-dd',
-    {
-      timeZone: 'Europe/Berlin',
-    },
-  ),
+  dateTo = format(utcToZonedTime(new Date(), 'America/Bogota'), 'yyyy-MM-dd', {
+    timeZone: 'America/Bogota',
+  }),
 }: TypePropsUseOrders): UseOrders => {
   const [result, dispatchRetrieve] = useReducer<
     React.Reducer<OrdersResponse, ActionOrders>
