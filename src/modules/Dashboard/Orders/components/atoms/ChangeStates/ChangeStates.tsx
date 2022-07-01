@@ -32,6 +32,7 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
   setOpen,
   handleChangeStates,
   count = 0,
+  currentStatus,
 }) => {
   const classes = useStyles();
   const {t} = useTranslation();
@@ -56,7 +57,7 @@ export const ChangeStates: FC<PropTypesChangeStates> = ({
               <SpecialSelect
                 onChange={handleChangeStates}
                 defaultText={t('orders.changestates.initial-state-dropdown')}
-                options={optionsChangeState}
+                options={optionsChangeState[currentStatus]}
               />
             </WrapperDropDown>
             <BtnClose onClick={handleOpen}>×</BtnClose>
