@@ -88,7 +88,7 @@ export interface TypePropsUseOrders {
 
 export enum States {
   Recibido = 1,
-  Preparando = 2,
+  Preparado = 2,
   'En Ruta' = 3,
   Entregado = 4,
   Cancelado = 5,
