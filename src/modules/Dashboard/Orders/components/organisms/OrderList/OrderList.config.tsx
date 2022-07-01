@@ -79,7 +79,7 @@ export const optionsTabs = [
   {key: 'SHIPPED', label: 'En ruta', value: '3'},
   {key: 'DELIVERED', label: 'Entregado', value: '4'},
   {key: 'CANCELED', label: 'Cancelado', value: '5'},
-  {key: 'RETURN_STARTED', label: 'En proceso de devolución', value: '6'},
+  {key: 'RETURN_STARTED', label: 'En proceso de devolución', value: '10'},
   {key: 'PARTIALLY_RETURNED', label: 'Devolución parcial', value: '8'},
   {key: 'RETURNED', label: 'Devuelto', value: '9'},
 ];
