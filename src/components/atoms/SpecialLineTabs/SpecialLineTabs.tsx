@@ -76,10 +76,7 @@ export const SpecialLineTabs: FC<PropTypesLineTabs> = ({
             setAnchorEl={setAnchorEl}
             ctrlValue={handlePopUpMenu}
           />
-          <Tabs
-            sx={{maxWidth: {xs: 320, sm: 480, lg: 920}}}
-            value={value}
-            onChange={handleChange}>
+          <Tabs value={value} onChange={handleChange}>
             {optionsTabs.map(item => (
               <Tab
                 key={`tab-${item.value}`}

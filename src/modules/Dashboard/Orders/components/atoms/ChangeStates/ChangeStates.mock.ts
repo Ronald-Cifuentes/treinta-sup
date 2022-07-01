@@ -18,6 +18,7 @@ export const optionsChangeState = {
     {label: 'Devuelto', value: 'Devuelto'},
   ],
   '6': [{label: 'Devuelto', value: 'Devuelto'}],
+  '8': [{label: 'En Ruta', value: 'En Ruta'}],
   '10': [{label: 'En Ruta', value: 'En Ruta'}],
-  '9': [{label: 'Devolución parcial', value: 'Devolución parcial'}],
+  '9': [{label: 'En Ruta', value: 'En Ruta'}],
 };
