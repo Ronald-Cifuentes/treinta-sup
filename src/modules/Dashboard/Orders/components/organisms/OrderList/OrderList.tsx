@@ -8,6 +8,7 @@ import {format, utcToZonedTime} from 'date-fns-tz';
 import {useOrders} from 'hooks/useOrders';
 import {ChangeEvent, FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import addDays from 'date-fns/addDays';
 import {ChangeStates} from '../../atoms/ChangeStates';
 import {ModalYesNo} from '../../atoms/ModalYesNo';
 import {FiltersAndReport} from '../../molecules/FiltersAndReport';
@@ -17,7 +18,6 @@ import {
 } from '../../molecules/FiltersAndReport/types';
 import {PointerStates} from './OrderList.const';
 import {columns, optionsTabs} from './OrderList.config';
-import addDays from 'date-fns/addDays';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
