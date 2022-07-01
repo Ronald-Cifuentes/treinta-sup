@@ -43,7 +43,7 @@ export const SpecialTableWithPagination: FC<
     <div data-testid="special-table-with-pagination">
       <TableMui
         formattedData={formattedData}
-        pageSize={totalItems}
+        pageSize={itemsByPage}
         handleGrid={handleGrid}
         columns={columns}
         checkboxSelection={checkboxSelection}

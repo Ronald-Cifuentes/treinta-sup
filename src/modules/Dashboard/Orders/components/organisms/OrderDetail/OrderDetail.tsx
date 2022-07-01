@@ -42,6 +42,7 @@ export const OrderDetail: FC<DetailTypes> = () => {
     data: {[key: string]: unknown};
   }>();
   const [showAlert, setShowAlert] = useState(false);
+  const [showError, setShowError] = useState(true);
 
   const {
     dataDetail,
@@ -124,8 +125,8 @@ export const OrderDetail: FC<DetailTypes> = () => {
     <DashboardLayout title="" fancyLineProps={LINE_PROPS} sizeFancyLine="0.5px">
       <DetailContainer data-testid="detail">
         <DetailTitle>
-          {`${t('detail-orders.title')} ${id?.slice(0, 8)}`}
-          {showAlert && isErrorDetail && isErrorSetDetail && (
+          {`${t('detail-orders.title')} ${id?.slice(0, 7)}`}
+          {showAlert && !isErrorDetail && !isErrorSetDetail && (
             <AlertSuccess>
               <div style={{display: 'flex', flexDirection: 'row'}}>
                 <ErrorOutlineIcon />
@@ -136,13 +137,13 @@ export const OrderDetail: FC<DetailTypes> = () => {
               <CloseButton onClick={() => setShowAlert(false)} />
             </AlertSuccess>
           )}
-          {(isErrorDetail || isErrorSetDetail) && (
+          {showError && (isErrorDetail || isErrorSetDetail) && (
             <AlertError>
               <AlertErrorStrong>
                 <ErrorOutlineIcon />
                 {t('detail-orders.alert.error')}
               </AlertErrorStrong>
-              <CloseButtonError />
+              <CloseButtonError onClick={() => setShowError(false)} />
             </AlertError>
           )}
           <EmptySpace />

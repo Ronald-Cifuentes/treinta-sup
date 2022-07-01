@@ -56,8 +56,8 @@ export const AlertSuccessText = styled.div`
 export const AlertError = styled.div`
   display: flex;
   justify-content: center;
-  width: 20%;
-  flex-direction: column;
+  width: 30%;
+  flex-direction: row;
   font-size: 20px;
   border: 2px solid red;
   padding: 10px;
