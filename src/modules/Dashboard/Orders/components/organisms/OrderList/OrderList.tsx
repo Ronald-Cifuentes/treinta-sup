@@ -116,8 +116,8 @@ export const Orders: FC = () => {
     value: item.value,
     status: item.status,
     deliveryDate: format(new Date(item.deliveryDate), 'MM/dd/yyyy'),
-    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy HH:MM:SS'),
-    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy HH:MM:SS'),
+    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy h:mm a'),
+    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy h:mm a'),
     customerName: item.customerName,
     phone: item.phone,
     detail: item.id,
@@ -145,6 +145,7 @@ export const Orders: FC = () => {
         checkboxSelection={true}
       />
       <ChangeStates
+        currentStatus={tab}
         open={openModalChangeStates}
         setOpen={setOpenModalChangeStates}
         count={countCheckboxesSelected}
