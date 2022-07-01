@@ -8,6 +8,7 @@ import {format, utcToZonedTime} from 'date-fns-tz';
 import {useOrders} from 'hooks/useOrders';
 import {ChangeEvent, FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import addDays from 'date-fns/addDays';
 import {ChangeStates} from '../../atoms/ChangeStates';
 import {ModalYesNo} from '../../atoms/ModalYesNo';
 import {FiltersAndReport} from '../../molecules/FiltersAndReport';
@@ -60,10 +61,13 @@ export const Orders: FC = () => {
 
     setDate({
       from: format(
-        utcToZonedTime(new Date(from), 'America/Bogota'),
+        utcToZonedTime(addDays(new Date(from), 1), 'America/Bogota'),
         'yyyy-MM-dd',
       ),
-      to: format(utcToZonedTime(new Date(to), 'America/Bogota'), 'yyyy-MM-dd'),
+      to: format(
+        utcToZonedTime(addDays(new Date(to), 1), 'America/Bogota'),
+        'yyyy-MM-dd',
+      ),
     });
   };
 
@@ -116,8 +120,8 @@ export const Orders: FC = () => {
     value: item.value,
     status: item.status,
     deliveryDate: format(new Date(item.deliveryDate), 'MM/dd/yyyy'),
-    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy HH:MM:SS'),
-    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy HH:MM:SS'),
+    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy h:mm a'),
+    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy h:mm a'),
     customerName: item.customerName,
     phone: item.phone,
     detail: item.id,
@@ -145,6 +149,7 @@ export const Orders: FC = () => {
         checkboxSelection={true}
       />
       <ChangeStates
+        currentStatus={tab}
         open={openModalChangeStates}
         setOpen={setOpenModalChangeStates}
         count={countCheckboxesSelected}

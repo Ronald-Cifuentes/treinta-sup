@@ -3,4 +3,5 @@ export interface PropTypesChangeStates {
   setOpen?: (boolean) => void;
   handleChangeStates?: React.ChangeEventHandler<HTMLSelectElement>;
   count?: number;
+  currentStatus: number;
 }

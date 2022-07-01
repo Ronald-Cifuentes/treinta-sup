@@ -1,12 +1,13 @@
 export const PointerStates = {
   Recibido: 1,
-  Preparando: 2,
+  Preparado: 2,
   'En Ruta': 3,
   Entregado: 4,
   Cancelado: 5,
   Retornando: 6,
   Confirmado: 7,
   'Devolución parcial': 8,
+  'En proceso de devolución': 10,
   Devuelto: 9,
 };
 

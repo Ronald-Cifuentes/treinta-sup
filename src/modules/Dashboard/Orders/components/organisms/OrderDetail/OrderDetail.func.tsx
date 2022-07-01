@@ -73,7 +73,8 @@ export const getProducts = (
     const tempArr: ProductsTypes = {warehouseProductId: ''};
     for (let j = i; j < i + step; j++) {
       if (j % step == 0) {
-        tempArr['baseValue'] = parseInt(obj[j].value.replace(/[.$\s]/g, ''));
+        tempArr['baseValue'] =
+          parseInt(obj[j].value.replace(/[.$\s]/g, '')) || 0;
       } else {
         tempArr['quantity'] = obj[j].value;
       }
