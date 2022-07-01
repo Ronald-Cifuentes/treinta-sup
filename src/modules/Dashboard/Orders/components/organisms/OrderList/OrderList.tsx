@@ -17,6 +17,7 @@ import {
 } from '../../molecules/FiltersAndReport/types';
 import {PointerStates} from './OrderList.const';
 import {columns, optionsTabs} from './OrderList.config';
+import addDays from 'date-fns/addDays';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
@@ -60,10 +61,13 @@ export const Orders: FC = () => {
 
     setDate({
       from: format(
-        utcToZonedTime(new Date(from), 'America/Bogota'),
+        utcToZonedTime(addDays(new Date(from), 1), 'America/Bogota'),
         'yyyy-MM-dd',
       ),
-      to: format(utcToZonedTime(new Date(to), 'America/Bogota'), 'yyyy-MM-dd'),
+      to: format(
+        utcToZonedTime(addDays(new Date(to), 1), 'America/Bogota'),
+        'yyyy-MM-dd',
+      ),
     });
   };
 
