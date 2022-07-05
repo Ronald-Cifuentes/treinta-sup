@@ -60,7 +60,7 @@ export const columns: GridColDef[] = [
     headerName: 'Detalle',
     width: 90,
     renderCell: params => (
-      <Link to={`/inventory/${params.value}`}>Detalle</Link>
+      <Link to={`/inventario/${params.value}`}>Detalle</Link>
     ),
   },
 ];

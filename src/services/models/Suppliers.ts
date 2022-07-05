@@ -1,10 +1,6 @@
-export interface Pagination {
-  pagesNumber: number;
-  itemsNumber: number;
-  itemsByPage: number;
-}
+import {Pagination} from './GeneralTypes';
 
-export interface Item {
+export interface ItemOfLocations {
   locationId: number;
   warehouseId: string;
   name: string;
@@ -12,6 +8,6 @@ export interface Item {
 }
 
 export interface Locations {
-  items: Item[];
+  items: ItemOfLocations[];
   pagination: Pagination;
 }

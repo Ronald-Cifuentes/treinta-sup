@@ -42,11 +42,7 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
 
   return (
     <Layout>
-      <RightBar
-        isOpen={rightBarOpen}
-        withPadding={withPadding}
-        width="25vw"
-        borderBox={params.borderBox}>
+      <RightBar isOpen={rightBarOpen} withPadding={withPadding} width="25vw">
         <SharedRightBar />
         <RightBarContent />
         <BottomToastContainer $withPadding={withPadding}>

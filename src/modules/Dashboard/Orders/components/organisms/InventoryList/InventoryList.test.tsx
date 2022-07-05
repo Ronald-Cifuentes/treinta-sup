@@ -1,11 +1,13 @@
 import {render, screen} from '__tests__/test-utils';
-import {InventoryList} from './InventoryList';
+import {InventoryList} from './';
+
+jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));
 
 describe('<InventoryList/>', () => {
   test('#1. It should render component', () => {
     // UI TESTING
     render(<InventoryList />);
-    const inventory = screen.getByTestId('inventory-list');
+    const inventory = screen.queryByTestId('inventory-list');
     expect(inventory).toBeInTheDocument();
   });
 });

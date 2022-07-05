@@ -1,3 +1,9 @@
+import {ChangeEvent} from 'react';
+
 export interface SectionSearchCtrlsTypes {
-  prop?: string;
+  searchOnBlur?: React.FocusEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
+  searchOnChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  searchValue?: string;
 }

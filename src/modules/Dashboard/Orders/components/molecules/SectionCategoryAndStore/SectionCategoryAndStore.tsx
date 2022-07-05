@@ -1,8 +1,9 @@
 import {SpecialSelect} from 'components/atoms/SpecialSelect';
 import {OptionsType} from 'hooks/useCommonDocumentTypes';
+import {useSuppliersCategories} from 'hooks/useSuppliersCategories';
+import {useSuppliersWarehouses} from 'hooks/useSuppliersWarehouses';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
-import {optionsCategories, optionsStores} from './SectionCategoryAndStore.mock';
 import {
   SectionCategoryAndStoreContainer,
   WrapperCategory,
@@ -17,12 +18,15 @@ export const SectionCategoryAndStore: FC<SectionCategoryAndStoreTypes> = ({
 }) => {
   const {t} = useTranslation();
 
-  const formatCategories: OptionsType[] = optionsCategories.items.map(item => ({
+  const {dataCategories} = useSuppliersCategories();
+  const {dataWarehouses} = useSuppliersWarehouses();
+
+  const formatCategories: OptionsType[] = dataCategories.items.map(item => ({
     label: `${item.name}`,
     value: `${item.id}`,
   }));
 
-  const formatStores: OptionsType[] = optionsStores.items.map(item => ({
+  const formatStores: OptionsType[] = dataWarehouses.items.map(item => ({
     label: `${item.name}`,
     value: `${item.id}`,
   }));
@@ -40,7 +44,7 @@ export const SectionCategoryAndStore: FC<SectionCategoryAndStoreTypes> = ({
         <WrapperStore>
           <SpecialSelect
             onChange={handleStore}
-            defaultText={`${t('inventory.select-stores-default')}`}
+            defaultSelected={`${t('inventory.select-stores-default')}`}
             options={formatStores}
           />
         </WrapperStore>

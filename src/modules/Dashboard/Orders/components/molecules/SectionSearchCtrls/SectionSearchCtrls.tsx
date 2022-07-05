@@ -12,7 +12,11 @@ import {
 } from './SectionSearchCtrls.styled';
 import {SectionSearchCtrlsTypes} from './types';
 
-export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = () => {
+export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = ({
+  searchOnBlur,
+  searchOnChange,
+  searchValue,
+}) => {
   const {t} = useTranslation();
 
   const handleDownloadTemplate = (): void => {
@@ -34,7 +38,20 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = () => {
           fullWidth
           placeholder={`${t('inventory.input-search-placeholder')}`}
           backgroundColor="white"
+          onBlur={searchOnBlur}
+          onChange={searchOnChange}
+          value={searchValue}
         />
+        {/* <input
+        style={{}}
+          type="search"
+          name=""
+          id=""
+          placeholder={`${t('inventory.input-search-placeholder')}`}
+          onKeyDown={searchOnKeyDown}
+          onChange={searchOnChange}
+          value={searchValue}
+        /> */}
       </WrapperSearchBar>
       <WrapperCtrls>
         <WrapperDownloadTemplate>
