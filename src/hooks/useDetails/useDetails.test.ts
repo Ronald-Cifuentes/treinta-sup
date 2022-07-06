@@ -2,7 +2,7 @@ import {items} from 'modules/Dashboard/Orders/components/organisms/OrderList/Ord
 
 //TODO: IS NECESARY IMPLEMENT ALL TEST OF THIS HOOK
 
-jest.mock('services/orders/orders.services', () => ({
+jest.mock('services/suppliers.details/suppliers.details.services', () => ({
   ProductServices: jest.fn().mockImplementation(() => ({
     getOrders: () => ({data: items}),
     editOrders: () => ({data: {ordersWithErrors: []}}),

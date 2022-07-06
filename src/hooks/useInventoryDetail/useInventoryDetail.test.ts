@@ -3,16 +3,10 @@ import {items} from 'modules/Dashboard/Orders/components/organisms/OrderList/Ord
 //TODO: IS NECESARY IMPLEMENT ALL TEST OF THIS HOOK
 
 jest.mock(
-  'services/common.documenttypes/common.documenttypes.services',
+  'services/suppliers.product.detail/suppliers.product.detail.services',
   () => ({
     ProductServices: jest.fn().mockImplementation(() => ({
       getOrders: () => ({data: items}),
-      editOrders: () => ({data: {ordersWithErrors: []}}),
-      deleteOrders: jest.fn(),
-      createOrders: (_: unknown, order: unknown) => ({
-        ordersAffected: [order],
-        ordersWithErrors: [],
-      }),
     })),
   }),
 );

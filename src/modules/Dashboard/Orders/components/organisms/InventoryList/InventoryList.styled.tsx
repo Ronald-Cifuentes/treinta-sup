@@ -5,4 +5,5 @@ export const InventoryContainer = styled.div`
   height: 100%;
   background: #f1f0f2;
   padding: 40px 16px 0px 5px;
+  min-height: 100vh;
 `;

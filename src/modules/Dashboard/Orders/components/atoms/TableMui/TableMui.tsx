@@ -17,7 +17,13 @@ const StylesTableMui = {
     background: '#F4F5F6',
   },
   '& .MuiDataGrid-columnHeaderTitle': {
+    display: 'flex',
+    justifyContent: 'center',
     whiteSpace: 'break-spaces',
+  },
+  '& .MuiDataGrid-columnHeaderTitleContainer': {
+    display: 'flex',
+    justifyContent: 'center',
   },
   '& .MuiDataGrid-columnHeader': {
     background: '#F4F5F6',
@@ -51,9 +57,6 @@ const StylesTableMui = {
   '& .MuiDataGrid-cellContent': {
     whiteSpace: 'break-spaces',
   },
-  // '& .MuiDataGrid-row': {
-  //   he
-  // }
 };
 
 export const TableMui: FC<PropTypesTableMui> = ({
