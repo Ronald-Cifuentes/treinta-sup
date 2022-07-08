@@ -266,6 +266,7 @@ export const es = {
     'field-max-lenght': 'Excediste el maximo de 150 caracteres para este campo',
   },
   'left-menu': {
+    subtitle: 'Gestiona tus ventas',
     'edit-business': 'Editar negocio',
     'add-business': 'Agregar otro negocio',
     balance: 'Balance',

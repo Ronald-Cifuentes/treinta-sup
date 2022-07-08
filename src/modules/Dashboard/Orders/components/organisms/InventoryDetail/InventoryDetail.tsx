@@ -4,6 +4,7 @@ import {ColorProps} from '@30sas/web-ui-kit-theme';
 import {DashboardLayout} from 'components/templates';
 import {useProductDetail} from 'hooks/useInventoryDetail';
 import {SectionTableInventoryDetail} from '../../molecules/SectionTableInventoryDetail';
+import LOGO from '../../../../../../Assets/LOGO_INACTIVE.svg';
 import {
   InventoryDetailContainer,
   InventoryDetailTitle,
@@ -31,12 +32,16 @@ export const InventoryDetail: FC<DetailTypes> = () => {
     <DashboardLayout title="" fancyLineProps={LINE_PROPS} sizeFancyLine="0.5px">
       <InventoryDetailContainer data-testid="detail">
         <InventoryDetailTitle>
-          <InventoryDetailImg src={dataProductDetail.imgUrl} alt="" />
+          <InventoryDetailImg
+            src={dataProductDetail.imgUrl ? dataProductDetail.imgUrl : LOGO}
+            alt="IMG_LOGO"
+          />
           <WrapperTittle>{dataProductDetail.name}</WrapperTittle>
           <InventoryDetailEmptySpace />
         </InventoryDetailTitle>
         <SectionTableInventoryDetail
           data={dataProductDetail.warehouseDetails}
+          description={dataProductDetail.description}
         />
       </InventoryDetailContainer>
     </DashboardLayout>

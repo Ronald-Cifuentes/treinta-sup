@@ -31,13 +31,16 @@ export const SectionCategoryAndStore: FC<SectionCategoryAndStoreTypes> = ({
     value: `${item.id}`,
   }));
 
+  formatCategories.unshift({label: 'Todas', value: 'null'});
+  formatStores.unshift({label: 'Todas', value: 'null'});
+
   return (
     <SectionCategoryAndStoreContainer data-testid="section-search-ctrls">
       <WrapperCategoryAndStore>
         <WrapperCategory>
           <SpecialSelect
             onChange={handleCategories}
-            defaultSelected={`${t('inventory.select-categories-default')}`}
+            defaultSelected="null"
             options={formatCategories}
           />
         </WrapperCategory>

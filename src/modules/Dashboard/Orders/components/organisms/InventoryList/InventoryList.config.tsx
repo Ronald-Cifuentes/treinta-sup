@@ -2,13 +2,19 @@ import {GridColDef} from '@mui/x-data-grid';
 import NumberFormat from 'react-number-format';
 import {Link} from 'react-router-dom';
 import {HasAgeRestriction} from '../../atoms/HasAgeRestriction';
+import LOGO_INACTIVE from '../../../../../../Assets/LOGO_INACTIVE.svg';
 
 export const columns: GridColDef[] = [
   {
     field: 'thumbImgUrl',
     headerName: '',
     width: 50,
-    renderCell: params => <img src={params.value} alt="img-product" />,
+    renderCell: params => (
+      <img
+        src={params.value ? params.value : LOGO_INACTIVE}
+        alt="img-product"
+      />
+    ),
   },
   {
     field: 'name',
@@ -52,7 +58,7 @@ export const columns: GridColDef[] = [
   },
   {
     field: 'weight',
-    headerName: 'Categoría',
+    headerName: 'Peso',
     width: 90,
   },
   {

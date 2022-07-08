@@ -40,6 +40,12 @@ export const InventoryList: FC<InventoryListTypes> = () => {
     });
   }, [itemsByPage, page, refetchProducts, categories, store]);
 
+  useEffect(() => {
+    if (search.length == 0) {
+      refetchProducts();
+    }
+  }, [search, refetchProducts]);
+
   const handleSpecialPagination = (
     _event: ChangeEvent<unknown>,
     value: number,

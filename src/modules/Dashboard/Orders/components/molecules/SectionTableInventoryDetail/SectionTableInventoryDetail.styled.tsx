@@ -33,3 +33,14 @@ export const BtnUpdate = styled.button`
     background: #0ac257;
   }
 `;
+
+export const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InputBox = styled.textarea`
+  height: 50px;
+  margin-bottom: 16px;
+  padding: 10px;
+`;

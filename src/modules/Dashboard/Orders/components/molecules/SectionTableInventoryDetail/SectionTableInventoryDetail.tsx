@@ -6,6 +6,8 @@ import {TableMui} from 'modules/Dashboard/Orders/components/atoms/TableMui';
 import {SectionTableInventoryDetailProps} from './types';
 import {
   CtrlSection,
+  InputBox,
+  Label,
   SectionTableContainer,
   WrapperBtnReturn,
 } from './SectionTableInventoryDetail.styled';
@@ -41,13 +43,17 @@ const HandleBtnsCtrl: FC = () => {
 
 export const SectionTableInventoryDetail: FC<
   SectionTableInventoryDetailProps
-> = ({data}) => (
+> = ({data, description}) => (
   <SectionTableContainer data-testid="section-table">
     <TableMui
       checkboxSelection={false}
       columns={columns}
       formattedData={data}
     />
+    <Label>
+      Descripción:
+      <InputBox value={description} />
+    </Label>
     <CtrlSection>
       <HandleBtnsCtrl />
     </CtrlSection>

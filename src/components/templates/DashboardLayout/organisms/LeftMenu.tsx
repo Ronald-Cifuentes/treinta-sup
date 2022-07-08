@@ -52,7 +52,7 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           <UserName>{user?.name?.slice(0, 20)}</UserName>
         </UserBox>
 
-        <SubtitleSidebar>Gestiona tus ventas</SubtitleSidebar>
+        <SubtitleSidebar>{t('left-menu.subtitle')}</SubtitleSidebar>
 
         <Box>
           <LinkButton

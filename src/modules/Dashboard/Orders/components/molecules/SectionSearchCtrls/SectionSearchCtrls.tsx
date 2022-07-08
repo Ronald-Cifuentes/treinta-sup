@@ -42,16 +42,6 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = ({
           onChange={searchOnChange}
           value={searchValue}
         />
-        {/* <input
-        style={{}}
-          type="search"
-          name=""
-          id=""
-          placeholder={`${t('inventory.input-search-placeholder')}`}
-          onKeyDown={searchOnKeyDown}
-          onChange={searchOnChange}
-          value={searchValue}
-        /> */}
       </WrapperSearchBar>
       <WrapperCtrls>
         <WrapperDownloadTemplate>
