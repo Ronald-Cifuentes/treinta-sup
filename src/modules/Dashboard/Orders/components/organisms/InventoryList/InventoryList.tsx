@@ -10,6 +10,7 @@ import {InventoryListTypes} from './types';
 import {InventoryContainer} from './InventoryList.styled';
 import {columns} from './InventoryList.config';
 import {Products} from './InventoryList.mock';
+import {useTranslation} from 'react-i18next';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'danger',
@@ -19,10 +20,13 @@ const LINE_PROPS: ColorProps = {
 const dropDownDefaultValue = 25;
 
 export const InventoryList: FC<InventoryListTypes> = () => {
+  const {t} = useTranslation();
   const [itemsByPage, setItemsByPage] = useState(dropDownDefaultValue);
   const [page, setPage] = useState(1);
   const [categories, setCategories] = useState<number>(0);
-  const [store, setStore] = useState<string>('');
+  const [store, setStore] = useState<string>(
+    t('inventory.select-stores-default'),
+  );
   const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
@@ -33,6 +37,8 @@ export const InventoryList: FC<InventoryListTypes> = () => {
     keyword: search,
     warehouseId: store,
   });
+
+  console.log('store', store);
 
   useEffect(() => {
     refetchProducts().then(() => {

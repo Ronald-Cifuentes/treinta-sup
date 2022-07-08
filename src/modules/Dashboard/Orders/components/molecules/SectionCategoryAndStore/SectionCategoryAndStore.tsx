@@ -31,8 +31,7 @@ export const SectionCategoryAndStore: FC<SectionCategoryAndStoreTypes> = ({
     value: `${item.id}`,
   }));
 
-  formatCategories.unshift({label: 'Todas', value: 'null'});
-  formatStores.unshift({label: 'Todas', value: 'null'});
+  formatCategories.unshift({label: 'Ver todas las categorías', value: 'null'});
 
   return (
     <SectionCategoryAndStoreContainer data-testid="section-search-ctrls">
