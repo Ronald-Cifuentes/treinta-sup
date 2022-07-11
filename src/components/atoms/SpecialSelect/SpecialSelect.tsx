@@ -15,17 +15,41 @@ export const SpecialSelect: FC<SpecialSelectTypes> = ({
   styleLabel,
   styleOptions,
 }) => {
-  const optionsMap = options?.map(item => (
-    <option key={`option-${item.value}`} value={item.value}>
-      {item.label}
-    </option>
-  ));
+  const optionsMap = options?.map((item, ind) => {
+    switch (typeof defaultSelected) {
+      case 'string':
+        return (
+          <option
+            key={`option-${item.value}`}
+            value={item.value}
+            selected={item.value == defaultSelected}>
+            {item.label}
+          </option>
+        );
+      case 'number':
+        return (
+          <option
+            key={`option-${item.value}`}
+            value={item.value}
+            selected={ind == defaultSelected}>
+            {item.label}
+          </option>
+        );
+
+      default:
+        return (
+          <option key={`option-${item.value}`} value={item.value}>
+            {item.label}
+          </option>
+        );
+    }
+  });
   return (
     <Fn style={styleContainer}>
       {label && (
         <SpecialSelectLabel style={styleLabel}>{label}</SpecialSelectLabel>
       )}
-      <StyledSelect onChange={onChange} defaultValue={defaultSelected}>
+      <StyledSelect onChange={onChange}>
         {defaultText && (
           <option
             style={styleOptions}
