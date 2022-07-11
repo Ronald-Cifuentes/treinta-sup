@@ -4,13 +4,13 @@ import {DashboardLayout} from 'components/templates';
 import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
 import {useProducts} from 'hooks/useInventory';
 import {Backdrop} from '@30sas/web-ui-kit-core';
+import {useTranslation} from 'react-i18next';
 import {SectionSearchCtrls} from '../../molecules/SectionSearchCtrls';
 import {SectionCategoryAndStore} from '../../molecules/SectionCategoryAndStore';
 import {InventoryListTypes} from './types';
 import {InventoryContainer} from './InventoryList.styled';
 import {columns} from './InventoryList.config';
 import {Products} from './InventoryList.mock';
-import {useTranslation} from 'react-i18next';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'danger',
@@ -37,8 +37,6 @@ export const InventoryList: FC<InventoryListTypes> = () => {
     keyword: search,
     warehouseId: store,
   });
-
-  console.log('store', store);
 
   useEffect(() => {
     refetchProducts().then(() => {
