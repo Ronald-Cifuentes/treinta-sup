@@ -28,9 +28,9 @@ export const useCommonDocumentTypes = (): UseCommonDocumentTypes => {
     data: dataDocumentType,
   } = useQuery(['documenttype'], async () => {
     const {data} = await commonDocumentTypes.getDocumentType();
-    return data.map((item, ind) => ({
+    return data.map(item => ({
       label: item.name,
-      value: `${ind}`,
+      value: `${item.id}`,
     }));
   });
 

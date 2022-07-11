@@ -62,7 +62,7 @@ export const SectionClient: FC<SectionClientProps> = ({data}) => {
           <SpecialSelect
             options={dataDocumentType}
             label={t('detail-orders.section-client.document-type')}
-            defaultSelected={`${data?.customer?.documentType}`}
+            defaultSelected={`${data?.customer?.documentTypeId}`}
           />
         </SectionClientWrapperInputs>
         <SectionClientWrapperInputs>
