@@ -564,7 +564,7 @@ export const es = {
     'button-download-template': 'Descargar plantilla',
     'button-download-inventory': 'Descargar inventario',
     'button-upload-inventory': 'Subir inventario',
-    'select-categories-default': '92',
+    'select-categories-default': 'Ver todas las categorías',
     'select-stores-default': 'b34579be-3ee7-483e-b30d-243e568085b0',
     'product-error': '¡Ha ocurrido un problema con el producto!',
     'add-manual': 'Agregar productos manualmente',

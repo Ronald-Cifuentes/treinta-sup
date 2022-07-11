@@ -39,7 +39,7 @@ export const SectionCategoryAndStore: FC<SectionCategoryAndStoreTypes> = ({
         <WrapperCategory>
           <SpecialSelect
             onChange={handleCategories}
-            defaultSelected="null"
+            defaultSelected={`${t('inventory.select-categories-default')}`}
             options={formatCategories}
           />
         </WrapperCategory>
