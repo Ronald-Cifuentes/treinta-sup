@@ -14,7 +14,10 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({onChange}) => (
     <div style={{display: 'flex'}}>
       <CalendarsInput locale="es" onChange={onChange} />
     </div>
-    <div
+    <a
+      href="https://metabase.treinta.co/dashboard/178-reportes-herramienta-suppliers?fecha=2022-07-01"
+      target="_blank"
+      rel="noreferrer"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -27,10 +30,9 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({onChange}) => (
         lineHeight: '24px',
         color: '#1A2732',
         cursor: 'pointer',
-      }}
-      onClick={() => alert('Pendiente')}>
+      }}>
       <FileDownloadIcon />
       Descargar reporte
-    </div>
+    </a>
   </div>
 );
