@@ -1,6 +1,4 @@
 import {InputBase} from '@30sas/web-ui-kit-core';
-import {SpecialSelect} from 'components/atoms/SpecialSelect';
-import {useSuppliersLocations} from 'hooks/useSuppliersLocations';
 import {FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
@@ -13,7 +11,6 @@ import {SectionDestinationProps} from './types';
 
 export const SectionDestination: FC<SectionDestinationProps> = ({data}) => {
   const {t} = useTranslation();
-  const {dataLocation} = useSuppliersLocations();
   const [deliverAddress, setDeliveryAddress] = useState<string>('');
   const [addressDetail, setAddressDetail] = useState<string>('');
 
@@ -29,10 +26,13 @@ export const SectionDestination: FC<SectionDestinationProps> = ({data}) => {
       </SectionDestinationSubTitle>
       <SectionDestinationLayout>
         <SectionDestinationWrapper>
-          <SpecialSelect
-            options={dataLocation || [{label: '', value: ''}]}
+          <InputBase
+            autoFocus
             label={t('detail-orders.section-destination.location')}
-            defaultSelected={`${data?.location.locationId}`}
+            placeholder=""
+            rounded="lg"
+            value={`${data?.location.name}`}
+            disabled
           />
         </SectionDestinationWrapper>
         <SectionDestinationWrapper>
