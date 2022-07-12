@@ -32,7 +32,7 @@ export const SectionDestination: FC<SectionDestinationProps> = ({data}) => {
           <SpecialSelect
             options={dataLocation || [{label: '', value: ''}]}
             label={t('detail-orders.section-destination.location')}
-            defaultSelected={`${data?.location.name}`}
+            defaultSelected={`${data?.location.locationId}`}
           />
         </SectionDestinationWrapper>
         <SectionDestinationWrapper>
