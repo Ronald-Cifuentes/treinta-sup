@@ -17,7 +17,7 @@ export const getCustomer = (
   // const customer = {
   //   ...(validCustomer[0] && {name: el[0].value}),
   //   ...(validCustomer[1] && {lastName: el[1].value}),
-  //   ...(validCustomer[2] && {documentTypeId: el[3].selectedIndex + 1}),
+  //   ...(validCustomer[2] && {documentTypeId: el[3].value}),
   //   ...(validCustomer[3] && {document: el[4].value}),
   //   ...((validCustomer[0] ||
   //     validCustomer[1] ||
@@ -27,7 +27,7 @@ export const getCustomer = (
   const customer = {
     name: el[0].value,
     lastName: el[1].value,
-    documentTypeId: el[3].selectedIndex + 1,
+    documentTypeId: parseInt(el[3].value),
     document: el[4].value,
     email: dataDetail.customer.email,
   };
@@ -41,19 +41,19 @@ export const getLocation = (
   // TODO  re-enable when the backend is ready to hanlde single data changes
 
   // const validLocation = [
-  //   dataDetail.location.locationId != el[7].selectedIndex + 1,
+  //   dataDetail.location.locationId != el[7].value,
   //   dataDetail.location.address != el[8].value,
   //   dataDetail.location.additionalInformation != el[9].value,
   //   dataDetail.location.contactPhone != el[2].value,
   // ];
   // const location = {
-  //   ...(validLocation[0] && {locationId: el[7].selectedIndex + 1}),
+  //   ...(validLocation[0] && {locationId: el[7].value}),
   //   ...(validLocation[1] && {address: el[8].value}),
   //   ...(validLocation[2] && {additionalInformation: el[9].value}),
   //   ...(validLocation[3] && {contactPhone: el[2].value}),
   // };
   const location = {
-    locationId: el[7].selectedIndex + 1,
+    locationId: parseInt(el[7].value),
     address: el[8].value,
     additionalInformation: el[9].value,
     contactPhone: el[2].value,

@@ -20,7 +20,7 @@ export interface UseSuppliersLocations {
       {
         id: number;
         label: string;
-        value: string;
+        value: number;
       }[],
       unknown
     >

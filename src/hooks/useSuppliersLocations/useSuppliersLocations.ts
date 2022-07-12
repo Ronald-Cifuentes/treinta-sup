@@ -29,7 +29,7 @@ export const useSuppliersLocations = (): UseSuppliersLocations => {
       data.items?.map(item => ({
         id: item.locationId,
         label: item.name,
-        value: item.name,
+        value: item.locationId,
       })) || [{label: '', value: ''}]
     );
   });
