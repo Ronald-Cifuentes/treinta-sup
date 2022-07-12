@@ -53,7 +53,7 @@ export const getLocation = (
   //   ...(validLocation[3] && {contactPhone: el[2].value}),
   // };
   const location = {
-    locationId: parseInt(el[7].value),
+    locationId: dataDetail.location.locationId,
     address: el[8].value,
     additionalInformation: el[9].value,
     contactPhone: el[2].value,
