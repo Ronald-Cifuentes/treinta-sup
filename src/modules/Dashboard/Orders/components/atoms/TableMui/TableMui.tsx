@@ -14,9 +14,19 @@ const StylesTableMui = {
     minHeight: '48px !important',
     maxHeight: '48px !important',
     lineHeight: '48px !important',
+    background: '#F4F5F6',
+  },
+  '& .MuiDataGrid-columnHeaderTitle': {
+    display: 'flex',
+    justifyContent: 'center',
+    whiteSpace: 'break-spaces',
+  },
+  '& .MuiDataGrid-columnHeaderTitleContainer': {
+    display: 'flex',
+    justifyContent: 'center',
   },
   '& .MuiDataGrid-columnHeader': {
-    backgroundColor: '#F4F5F6',
+    background: '#F4F5F6',
     color: '#67737E',
     border: '0',
     borderRadius: '6px 6px 0px 0px',
@@ -47,9 +57,6 @@ const StylesTableMui = {
   '& .MuiDataGrid-cellContent': {
     whiteSpace: 'break-spaces',
   },
-  // '& .MuiDataGrid-row': {
-  //   he
-  // }
 };
 
 export const TableMui: FC<PropTypesTableMui> = ({

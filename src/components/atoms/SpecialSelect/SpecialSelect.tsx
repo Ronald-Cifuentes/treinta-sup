@@ -15,14 +15,14 @@ export const SpecialSelect: FC<SpecialSelectTypes> = ({
   styleLabel,
   styleOptions,
 }) => {
-  const optionsMap = options?.map(item => {
+  const optionsMap = options?.map((item, ind) => {
     switch (typeof defaultSelected) {
       case 'string':
         return (
           <option
-            key={`option-${item.label}`}
-            value={item.label}
-            selected={item.label == defaultSelected}>
+            key={`option-${item.value}`}
+            value={item.value}
+            selected={item.value == defaultSelected}>
             {item.label}
           </option>
         );
@@ -31,7 +31,7 @@ export const SpecialSelect: FC<SpecialSelectTypes> = ({
           <option
             key={`option-${item.value}`}
             value={item.value}
-            selected={parseInt(item.value || '') == defaultSelected}>
+            selected={ind == defaultSelected}>
             {item.label}
           </option>
         );

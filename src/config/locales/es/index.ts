@@ -266,6 +266,7 @@ export const es = {
     'field-max-lenght': 'Excediste el maximo de 150 caracteres para este campo',
   },
   'left-menu': {
+    subtitle: 'Gestiona tus ventas',
     'edit-business': 'Editar negocio',
     'add-business': 'Agregar otro negocio',
     balance: 'Balance',
@@ -559,6 +560,12 @@ export const es = {
   },
   inventory: {
     title: 'Inventario',
+    'input-search-placeholder': 'Buscar por nombre, categoría, SKU...',
+    'button-download-template': 'Descargar plantilla',
+    'button-download-inventory': 'Descargar inventario',
+    'button-upload-inventory': 'Subir inventario',
+    'select-categories-default': 'Ver todas las categorías',
+    'select-stores-default': 'b34579be-3ee7-483e-b30d-243e568085b0',
     'product-error': '¡Ha ocurrido un problema con el producto!',
     'add-manual': 'Agregar productos manualmente',
     'download-report': 'Descargar reporte',

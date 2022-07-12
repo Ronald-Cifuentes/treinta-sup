@@ -7,7 +7,7 @@ import {
   RefetchQueryFilters,
   UseMutateAsyncFunction,
 } from 'react-query';
-import {SetDetailTypes} from 'services/details/types';
+import {SetDetailTypes} from 'services/suppliers.details/types';
 import {DataDetailTypes} from 'services/models';
 
 export interface DataProduct {

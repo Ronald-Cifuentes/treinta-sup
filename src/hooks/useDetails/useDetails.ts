@@ -4,10 +4,10 @@ import logger from 'use-reducer-logger';
 import {useReducer, useEffect} from 'react';
 
 import {useErrorHandler} from 'hooks';
-import {DetailServices} from 'services/details/details.services';
+import {DetailServices} from 'services/suppliers.details/suppliers.details.services';
 import {DataDetailTypes} from 'services/models';
 
-import {SetDetailTypes} from 'services/details/types';
+import {SetDetailTypes} from 'services/suppliers.details/types';
 import {initialState, DETAILS_ACTIONS, reducer} from './reducer';
 import {
   UseDetails,

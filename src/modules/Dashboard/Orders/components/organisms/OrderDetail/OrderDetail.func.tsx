@@ -1,5 +1,5 @@
 import {DataProduct} from 'hooks/useDetails';
-import {ProductsTypes} from 'services/details/types';
+import {ProductsTypes} from 'services/suppliers.details/types';
 import {DataDetailTypes} from 'services/models';
 
 export const getCustomer = (
@@ -76,7 +76,7 @@ export const getProducts = (
         tempArr['baseValue'] =
           parseInt(obj[j].value.replace(/[.$\s]/g, '')) || 0;
       } else {
-        tempArr['quantity'] = obj[j].value;
+        tempArr['quantity'] = parseInt(obj[j].value);
       }
     }
     tempArr['warehouseProductId'] =

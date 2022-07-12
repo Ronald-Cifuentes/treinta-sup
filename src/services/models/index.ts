@@ -5,3 +5,5 @@ export * from './Order';
 export * from './Detail';
 export * from './Suppliers';
 export * from './Common';
+export * from './Product';
+export * from './GeneralTypes';

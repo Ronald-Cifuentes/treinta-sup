@@ -49,6 +49,7 @@ export const SectionTable: FC<SectionTableProps> = ({data}) => (
       checkboxSelection={false}
       columns={columns}
       formattedData={data}
+      pageSize={data?.length}
     />
     <CtrlSection>
       <HandleBtnsCtrl />

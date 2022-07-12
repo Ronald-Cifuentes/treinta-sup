@@ -20,7 +20,7 @@ export interface LocationDetail {
   contactPhone: string;
 }
 
-export interface Product {
+export interface ProductDetail {
   id: string;
   externalId: unknown;
   warehouseName: string;
@@ -51,5 +51,5 @@ export interface DataDetailTypes {
   status: StatusDetail;
   customer: CustomerDetail;
   location: LocationDetail;
-  products: Product[];
+  products: ProductDetail[];
 }
