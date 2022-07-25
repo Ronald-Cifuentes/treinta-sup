@@ -43,6 +43,13 @@ export const OrderDetail: FC<DetailTypes> = () => {
   }>();
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(true);
+  const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+    if (!trigger) {
+      setTrigger(true);
+    }
+  }, [trigger]);
 
   const {
     dataDetail,
@@ -110,14 +117,19 @@ export const OrderDetail: FC<DetailTypes> = () => {
     setLoading(true);
     setOpen(false);
     mutateSetDetail(data || {})
-      .then(() => {
-        refetchDetail();
+      .then(res => {
+        if (res.data.errors.length == 0) {
+          refetchDetail();
+        } else {
+          setTrigger(false);
+        }
         setShowAlert(true);
         setLoading(false);
       })
-      .catch(() => {
+      .catch(err => {
         setShowAlert(false);
         setLoading(false);
+        throw new Error(err);
       });
   };
 
@@ -155,7 +167,7 @@ export const OrderDetail: FC<DetailTypes> = () => {
             <SectionDestination data={dataDetail} />
           </CardinalSection>
           <SectionTotal data={dataDetail} />
-          <SectionTable data={dataProduct} />
+          {trigger && <SectionTable data={dataProduct} />}
         </form>
       </DetailContainer>
       <ModalYesNo {...{open, setOpen, handleBtnYes}} />

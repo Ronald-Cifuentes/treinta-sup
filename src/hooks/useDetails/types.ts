@@ -23,6 +23,11 @@ export interface DataProduct {
   warehouseProductId: string;
 }
 
+export interface ResponseMutateSetDetail {
+  id: string;
+  errors: string[];
+}
+
 export interface UseDetails {
   refetchDetail: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
@@ -35,7 +40,7 @@ export interface UseDetails {
   isErrorSetDetail: unknown;
   isLoadingSetDetail: boolean;
   mutateSetDetail: UseMutateAsyncFunction<
-    AxiosResponse<DataDetailTypes[], any>,
+    AxiosResponse<ResponseMutateSetDetail, any>,
     unknown,
     SetDetailTypes,
     unknown

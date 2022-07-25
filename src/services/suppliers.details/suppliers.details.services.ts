@@ -2,6 +2,7 @@ import {AxiosResponse} from 'axios';
 
 import {DataDetailTypes} from 'services/models';
 import {ApiProvider} from 'providers/api-provider';
+import {ResponseMutateSetDetail} from 'hooks/useDetails';
 import {GetDetailTypes, SetDetailTypes} from './types';
 
 export class DetailServices {
@@ -18,7 +19,7 @@ export class DetailServices {
   setDetail({
     id,
     data,
-  }: SetDetailTypes): Promise<AxiosResponse<DataDetailTypes[]>> {
+  }: SetDetailTypes): Promise<AxiosResponse<ResponseMutateSetDetail>> {
     const idParam = id ? `/${id}` : '';
     return this.api.patch(`/suppliers/orders${idParam}`, data);
   }

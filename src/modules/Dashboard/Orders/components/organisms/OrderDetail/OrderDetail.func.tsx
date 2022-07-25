@@ -76,7 +76,7 @@ export const getProducts = (
         tempArr['baseValue'] =
           parseInt(obj[j].value.replace(/[.$\s]/g, '')) || 0;
       } else {
-        tempArr['quantity'] = parseInt(obj[j].value);
+        tempArr['quantity'] = parseInt(obj[j].value.replace(/[.]/g, ''));
       }
     }
     tempArr['warehouseProductId'] =
