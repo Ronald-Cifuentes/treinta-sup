@@ -1,11 +1,13 @@
 import {Tag} from '@30sas/web-ui-kit-core';
-import {GridColDef} from '@mui/x-data-grid';
+import {GridActionsColDef, GridColDef, GridRowParams} from '@mui/x-data-grid';
+import {EventProvider} from 'providers/event-provider';
 import NumberFormat from 'react-number-format';
 import {Link} from 'react-router-dom';
+import {getUser} from 'utils/infoUser';
 import {OrderStatusTags} from './OrderList.const';
 import {WrapperId} from './OrderList.styled';
 
-export const columns: GridColDef[] = [
+export const columns: (GridColDef | GridActionsColDef)[] = [
   {
     field: 'id',
     headerName: 'ID',
@@ -67,7 +69,23 @@ export const columns: GridColDef[] = [
     field: 'detail',
     headerName: 'Detalle',
     width: 90,
-    renderCell: params => <Link to={`/ordenes/${params.value}`}>Detalle</Link>,
+    type: 'actions',
+    getActions: (params: GridRowParams) => [
+      <Link
+        key={params.id}
+        to={`/ordenes/${params.row.id}`}
+        onClick={() => {
+          EventProvider.getInstance().logEventAmplitude(
+            'b2bs_order_detail_selected',
+            {
+              supplier: getUser()?.supplier,
+              order_status: params.row.status.name,
+            },
+          );
+        }}>
+        Detalle
+      </Link>,
+    ],
   },
 ];
 

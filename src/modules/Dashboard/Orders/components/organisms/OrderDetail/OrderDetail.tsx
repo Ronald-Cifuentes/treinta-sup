@@ -1,17 +1,20 @@
-import {FC, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {useDetails} from 'hooks/useDetails';
-import {ColorProps} from '@30sas/web-ui-kit-theme';
-import {DashboardLayout} from 'components/templates';
-import {useTranslation} from 'react-i18next';
 import {Backdrop} from '@30sas/web-ui-kit-core';
+import {ColorProps} from '@30sas/web-ui-kit-theme';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import {DashboardLayout} from 'components/templates';
+import {useDetails} from 'hooks/useDetails';
+import {EventProvider} from 'providers/event-provider';
+import {FC, useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {useParams} from 'react-router-dom';
+import {getUser} from 'utils/infoUser';
 import {ModalYesNo} from '../../atoms/ModalYesNo/ModalYesNo';
 import {SectionClient} from '../../atoms/SectionClient';
-import {SectionOrigin} from '../../atoms/SectionOrigin';
 import {SectionDestination} from '../../atoms/SectionDestination';
-import {SectionTotal} from '../../atoms/SectionTotal';
+import {SectionOrigin} from '../../atoms/SectionOrigin';
 import {SectionTable} from '../../atoms/SectionTable';
+import {SectionTotal} from '../../atoms/SectionTotal';
+import {getCustomer, getLocation, getProducts} from './OrderDetail.func';
 import {
   AlertError,
   AlertErrorStrong,
@@ -25,7 +28,6 @@ import {
   EmptySpace,
 } from './OrderDetail.styled';
 import {DetailTypes} from './types';
-import {getCustomer, getLocation, getProducts} from './OrderDetail.func';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'danger',
@@ -70,7 +72,13 @@ export const OrderDetail: FC<DetailTypes> = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const el = e.target;
-
+    EventProvider.getInstance().logEventAmplitude(
+      'b2bs_orden_details_update_completed',
+      {
+        supplier: getUser()?.supplier,
+        order_status: dataDetail.status.name,
+      },
+    );
     if (
       el[0].value &&
       el[2].value &&
@@ -116,6 +124,13 @@ export const OrderDetail: FC<DetailTypes> = () => {
   const handleBtnYes = (): void => {
     setLoading(true);
     setOpen(false);
+    EventProvider.getInstance().logEventAmplitude(
+      'b2bs_order_details_update_confirmed',
+      {
+        supplier: getUser()?.supplier,
+        order_status: dataDetail.status.name,
+      },
+    );
     mutateSetDetail(data || {})
       .then(res => {
         if (res.data.errors.length == 0) {

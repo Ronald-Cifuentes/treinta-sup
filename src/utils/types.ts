@@ -4,17 +4,18 @@ export interface FireBaseType {
 }
 
 export interface TokenType {
-  aud?: string;
-  auth_time?: number;
-  email?: string;
-  email_verified?: true;
-  exp?: number;
-  firebase?: FireBaseType;
-  iat?: number;
-  iss?: string;
-  name?: string;
-  picture?: string;
-  scopes?: Array<string>;
-  sub?: string;
-  user_id?: string;
+  supplier: string;
+  aud: string;
+  auth_time: number;
+  email: string;
+  email_verified: true;
+  exp: number;
+  firebase: FireBaseType;
+  iat: number;
+  iss: string;
+  name: string;
+  picture: string;
+  scopes: Array<string>;
+  sub: string;
+  user_id: string;
 }

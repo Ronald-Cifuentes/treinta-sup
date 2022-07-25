@@ -14,7 +14,10 @@ import {LogProvider} from 'providers/log-provider';
 import {getDateUtc, isAfterOneWeekUtc} from 'utils';
 import {useInitConfigs, useNavigateI18n} from 'hooks';
 import {USER_CONFIG_KEY, USER_DATA_KEY} from 'config/constants';
+import {EventProvider} from 'providers/event-provider';
 
+import {TokenType} from 'utils/types';
+import jwt_decode from 'jwt-decode';
 import {AuthContextType} from './types';
 import {AuthContext} from './AuthContext';
 
@@ -100,6 +103,14 @@ export const AuthProvider: FC = ({children}) => {
       .then((result: any) => {
         const token = result?.user?.accessToken;
         localStorage.setItem('accessToken', `${token}`);
+        let User: TokenType | null = null;
+        if (token) {
+          const accessToken: string = JSON.stringify(token);
+          User = accessToken ? jwt_decode(accessToken) : null;
+          User?.user_id
+            ? EventProvider.getInstance().setUserId(User?.user_id)
+            : null;
+        }
       })
       .catch(function () {
         sessionStorage.removeItem(USER_CONFIG_KEY);
