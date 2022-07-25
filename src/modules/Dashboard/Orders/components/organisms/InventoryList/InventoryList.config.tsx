@@ -1,8 +1,10 @@
 import {GridColDef} from '@mui/x-data-grid';
+import {EventProvider} from 'providers/event-provider';
 import NumberFormat from 'react-number-format';
 import {Link} from 'react-router-dom';
-import {HasAgeRestriction} from '../../atoms/HasAgeRestriction';
+import {getUser} from 'utils/infoUser';
 import LOGO_INACTIVE from '../../../../../../Assets/LOGO_INACTIVE.svg';
+import {HasAgeRestriction} from '../../atoms/HasAgeRestriction';
 
 export const columns: GridColDef[] = [
   {
@@ -66,7 +68,18 @@ export const columns: GridColDef[] = [
     headerName: 'Detalle',
     width: 90,
     renderCell: params => (
-      <Link to={`/inventario/${params.value}`}>Detalle</Link>
+      <Link
+        to={`/inventario/${params.value}`}
+        onClick={() => {
+          EventProvider.getInstance().logEventAmplitude(
+            'b2bs_inventory_details_selected',
+            {
+              supplier: getUser()?.supplier,
+            },
+          );
+        }}>
+        Detalle
+      </Link>
     ),
   },
 ];

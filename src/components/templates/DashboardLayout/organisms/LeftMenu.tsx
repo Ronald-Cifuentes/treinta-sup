@@ -17,6 +17,7 @@ import {LogoTreinta} from 'components/atoms';
 import {SUPPORT_LINK} from 'config/constants/parameters';
 
 import {getUser} from 'utils/infoUser';
+import {EventProvider} from 'providers/event-provider';
 import {CloseSession} from '../atoms/CloseSession';
 import {LinkButton} from '../molecules/LinkButton/LinkButton';
 import {
@@ -59,11 +60,29 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
             icon={DocumentIcon}
             label={t('left-menu.orders')}
             href={ROUTES.ORDERS}
+            onClick={() => {
+              EventProvider.getInstance().logEventAmplitude(
+                `b2bs_navbar_action_selected`,
+                {
+                  supplier: getUser()?.supplier,
+                  action: t('left-menu.orders'),
+                },
+              );
+            }}
           />
           <LinkButton
             icon={PackageIcon}
             label={t('left-menu.inventory')}
             href={ROUTES.INVENTORY}
+            onClick={() => {
+              EventProvider.getInstance().logEventAmplitude(
+                `b2bs_navbar_action_selected`,
+                {
+                  supplier: getUser()?.supplier,
+                  action: t('left-menu.inventory'),
+                },
+              );
+            }}
           />
         </Box>
 
@@ -83,19 +102,39 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
 
         <Divider />
 
-        <LinkButton
-          icon={FaqIcon}
-          label={t('left-menu.help')}
-          externalLink={SUPPORT_LINK}
-          labelColorTypes="700"
-          target="_blank"
-        />
+        <div
+          onClick={() => {
+            EventProvider.getInstance().logEventAmplitude(
+              `b2bs_navbar_action_selected`,
+              {
+                supplier: getUser()?.supplier,
+                action: t('left-menu.help'),
+              },
+            );
+          }}>
+          <LinkButton
+            icon={FaqIcon}
+            label={t('left-menu.help')}
+            externalLink={SUPPORT_LINK}
+            labelColorTypes="700"
+            target="_blank"
+          />
+        </div>
         <LinkButton
           icon={LogoutBracketIcon}
           label={t('left-menu.logout')}
           labelColors="danger"
           labelColorTypes="500"
-          onClick={() => setOpenModal(true)}
+          onClick={() => {
+            EventProvider.getInstance().logEventAmplitude(
+              `b2bs_navbar_action_selected`,
+              {
+                supplier: getUser()?.supplier,
+                action: t('left-menu.logout'),
+              },
+            );
+            setOpenModal(true);
+          }}
         />
       </DrawerLeft>
       <CloseSession

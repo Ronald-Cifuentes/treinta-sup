@@ -1,6 +1,8 @@
 import {FC} from 'react';
 import {CalendarsInput} from '@30sas/web-ui-kit-core';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import {EventProvider} from 'providers/event-provider';
+import {getUser} from 'utils/infoUser';
 import {PropTypesFiltersAndReport} from './types';
 
 export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({onChange}) => (
@@ -15,6 +17,14 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({onChange}) => (
       <CalendarsInput locale="es" onChange={onChange} />
     </div>
     <a
+      onClick={() => {
+        EventProvider.getInstance().logEventAmplitude(
+          'b2bs_orders_report_downloaded',
+          {
+            supplier: getUser()?.supplier,
+          },
+        );
+      }}
       href="https://metabase.treinta.co/dashboard/178-reportes-herramienta-suppliers?fecha=2022-07-01"
       target="_blank"
       rel="noreferrer"
