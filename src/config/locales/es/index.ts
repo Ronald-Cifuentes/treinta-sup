@@ -565,7 +565,6 @@ export const es = {
     'button-download-inventory': 'Descargar inventario',
     'button-upload-inventory': 'Subir inventario',
     'select-categories-default': 'Ver todas las categorías',
-    'select-stores-default': 'b34579be-3ee7-483e-b30d-243e568085b0',
     'product-error': '¡Ha ocurrido un problema con el producto!',
     'add-manual': 'Agregar productos manualmente',
     'download-report': 'Descargar reporte',

@@ -4,10 +4,10 @@ import {DashboardLayout} from 'components/templates';
 import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
 import {useProducts} from 'hooks/useInventory';
 import {Backdrop} from '@30sas/web-ui-kit-core';
-import {useTranslation} from 'react-i18next';
+import {useSuppliersWarehouses} from 'hooks/useSuppliersWarehouses';
 import {SectionSearchCtrls} from '../../molecules/SectionSearchCtrls';
 import {SectionCategoryAndStore} from '../../molecules/SectionCategoryAndStore';
-import {InventoryListTypes} from './types';
+import {ChildInventoryProps, InventoryListTypes} from './types';
 import {InventoryContainer} from './InventoryList.styled';
 import {columns} from './InventoryList.config';
 import {Products} from './InventoryList.mock';
@@ -19,14 +19,12 @@ const LINE_PROPS: ColorProps = {
 
 const dropDownDefaultValue = 25;
 
-export const InventoryList: FC<InventoryListTypes> = () => {
-  const {t} = useTranslation();
+const ChildInventory: FC<ChildInventoryProps> = ({initDataWarehouses}) => {
   const [itemsByPage, setItemsByPage] = useState(dropDownDefaultValue);
   const [page, setPage] = useState(1);
   const [categories, setCategories] = useState<number>(0);
-  const [store, setStore] = useState<string>(
-    t('inventory.select-stores-default'),
-  );
+
+  const [store, setStore] = useState<string>(initDataWarehouses);
   const [search, setSearch] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
@@ -102,4 +100,13 @@ export const InventoryList: FC<InventoryListTypes> = () => {
       </DashboardLayout>
     </div>
   );
+};
+
+export const InventoryList: FC<InventoryListTypes> = () => {
+  const {dataWarehouses} = useSuppliersWarehouses();
+  if (dataWarehouses.items[0]?.id) {
+    return <ChildInventory initDataWarehouses={dataWarehouses.items[0]?.id} />;
+  } else {
+    return <div />;
+  }
 };
