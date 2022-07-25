@@ -119,7 +119,10 @@ export const Orders: FC = () => {
     id: item.id,
     value: item.value,
     status: item.status,
-    deliveryDate: format(new Date(item.deliveryDate), 'MM/dd/yyyy'),
+    deliveryDate: format(
+      utcToZonedTime(addDays(new Date(item.deliveryDate), 1), 'America/Bogota'),
+      'yyyy-MM-dd',
+    ),
     createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy h:mm a'),
     updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy h:mm a'),
     customerName: item.customerName,

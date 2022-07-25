@@ -46,13 +46,13 @@ export const columns: GridColDef[] = [
   {
     field: 'deliveryDate',
     headerName: 'Entregado',
-    width: 110,
+    width: 115,
   },
   {
     field: 'value',
     headerName: 'Valor',
     type: 'number',
-    width: 125,
+    width: 120,
     renderCell: params => (
       <NumberFormat
         value={params.value}
