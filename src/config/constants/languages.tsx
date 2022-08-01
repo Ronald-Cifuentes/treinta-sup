@@ -23,6 +23,8 @@ export const LanguagesMap = {
     WHATSAPP_LINK_SIGN_UP:
       'https://api.whatsapp.com/send?phone=14327413593&text=Hola,%20estoy%20teniendo%20problemas%20a%20la%20hora%20de%20registrarme%20en%20Treinta%20para%20PC.%20%C2%BFMe%20puedes%20ayudar?',
     WHATSAPP_LINK_LOGIN: `https://api.whatsapp.com/send?phone=17864601367&text=Hola soy un proveedor y estoy teniendo problemas con el log in`,
+    INVENTORY_BULK_LOAD:
+      'https://metabase.treinta.co/dashboard/178-reportes-herramienta-suppliers?fecha_de_entrega_de_la_orden=2022-07-01',
   },
   [Languages.PT]: {
     LOCALE: 'pt-BR',
@@ -41,5 +43,7 @@ export const LanguagesMap = {
       'https://api.whatsapp.com/send?phone=14327413593&text=Ol%C3%A1,%20estou%20com%20problemas%20para%20me%20inscrever%20no%20Trinta%20for%20PC.%20Pode%20me%20ajudar?',
     WHATSAPP_LINK_LOGIN:
       'https://api.whatsapp.com/send?phone=14327413593&text=Ol%C3%A1,%20estou%20tendo%20problemas%20para%20fazer%20login%20no%20Trinta%20for%20PC.%20Pode%20me%20ajudar?',
+    INVENTORY_BULK_LOAD:
+      'https://metabase.treinta.co/dashboard/178-reportes-herramienta-suppliers?fecha_de_entrega_de_la_orden=2022-07-01',
   },
 };

@@ -1,6 +1,7 @@
-import {FC} from 'react';
 import {Button, SearchInput} from '@30sas/web-ui-kit-core';
+import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
+import {LanguagesMap} from '../../../../../../config/constants/languages';
 import {ButtonDownload} from '../../atoms/ButtonDownload';
 import {
   SectionSearchCtrlsContainer,
@@ -17,14 +18,14 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = ({
   searchOnChange,
   searchValue,
 }) => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const handleDownloadTemplate = (): void => {
-    alert('Pendiente de programar');
+    document.location.href = '/assets/Template_Inventory.xlsx';
   };
 
   const handleDownloadInventory = (): void => {
-    alert('Pendiente de programar');
+    window.open(LanguagesMap[i18n?.language].INVENTORY_BULK_LOAD, '_blank');
   };
 
   const handleUploadInventory = (): void => {
