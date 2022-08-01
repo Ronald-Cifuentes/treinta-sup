@@ -38,3 +38,17 @@ export interface Warehouse {
 export interface Warehouses {
   items: Warehouse[];
 }
+
+export interface UploadProduct {
+  category: string;
+  cost: number;
+  isVisible: boolean;
+  name: string;
+  notes: string;
+  price: number;
+  sku: string;
+  stock: number;
+  key: string;
+  id?: string;
+  originId?: number;
+}

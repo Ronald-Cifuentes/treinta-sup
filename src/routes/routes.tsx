@@ -1,10 +1,11 @@
 import {lazy} from 'react';
 
-import {OrderDetail} from 'modules/Dashboard/Orders/components/organisms/OrderDetail';
-import {InventoryList} from 'modules/Dashboard/Orders/components/organisms/InventoryList';
+import {InventoryBulkLoad} from 'modules/Dashboard/Orders/components/organisms/InventoryBulkLoad';
 import {InventoryDetail} from 'modules/Dashboard/Orders/components/organisms/InventoryDetail';
-import {Route, ROUTES} from './types';
+import {InventoryList} from 'modules/Dashboard/Orders/components/organisms/InventoryList';
+import {OrderDetail} from 'modules/Dashboard/Orders/components/organisms/OrderDetail';
 import {PrivateRoute} from './PrivateRoute/PrivateRoute';
+import {Route, ROUTES} from './types';
 
 const Orders = lazy(() => import('../modules/Dashboard/Orders'));
 const SignIn = lazy(() => import('../modules/Login/SignInGoogle'));
@@ -34,6 +35,11 @@ const getRoutes = (getI18nRoute): Route[] => [
   {
     path: `${getI18nRoute(ROUTES.INVENTORY)}/:id`,
     element: <InventoryDetail />,
+    isPrivate: true,
+  },
+  {
+    path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload`,
+    element: <InventoryBulkLoad />,
     isPrivate: true,
   },
   {

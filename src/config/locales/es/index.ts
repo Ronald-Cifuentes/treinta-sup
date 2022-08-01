@@ -313,6 +313,7 @@ export const es = {
     'product-repeated-message':
       '¿Qué quieres hacer con los {{productsRepeated}} productos duplicados?',
     'revision-inventory': 'Revisión del inventario',
+    'load-images': 'Cargar imágenes',
     'upload-inventory': 'Sube el inventario',
     'replace-all': 'Reemplazar todo',
     'replace-message':
@@ -393,6 +394,13 @@ export const es = {
     'inventory-download-waiting':
       'Tu inventario se está preparando para la descarga',
     'save-error': '¡Ha ocurrido un problema al crear los productos!',
+    'error-upload-file':
+      'Archivo inválido. verifica que tu archivo sea formato XLSX e intenta cargarlo de nuevo en tu inventario',
+    'error-file-bigger':
+      'Archivo inválido. verifica que tu archivo no sea mayor a 15MB.',
+    'error-without-products':
+      'Archivo inválido. Verifica que tu archivo contenga al menos un producto.',
+    'button-go-back': 'Subir inventario desde Excel',
   },
   'category-form': {
     name: 'Nombre de la categoría*',

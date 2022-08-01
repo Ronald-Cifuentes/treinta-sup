@@ -13,6 +13,7 @@ import {AuthProvider} from 'context/AuthContext';
 import {DashboardProvider} from 'context/DashboardContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
 import {ToastProvider as ToastDashboardProvider} from 'context/ToastContext/ToastContext';
+import {UploadBulkProvider} from 'context/UploadBulkContext';
 import {Routes} from './routes';
 import {GlobalStyle} from './config/GlobalStyle';
 
@@ -39,9 +40,11 @@ const App: FC = () => (
           <HeadTags>
             <AuthProvider>
               <ToastDashboardProvider>
-                <DashboardProvider>
-                  <Routes />
-                </DashboardProvider>
+                <UploadBulkProvider>
+                  <DashboardProvider>
+                    <Routes />
+                  </DashboardProvider>
+                </UploadBulkProvider>
               </ToastDashboardProvider>
             </AuthProvider>
           </HeadTags>

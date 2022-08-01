@@ -7,3 +7,4 @@ export * from './Suppliers';
 export * from './Common';
 export * from './Product';
 export * from './GeneralTypes';
+export * from './Bulk';
