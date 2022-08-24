@@ -6,7 +6,7 @@ import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithP
 import {DashboardLayout} from 'components/templates';
 import {format, utcToZonedTime} from 'date-fns-tz';
 import addDays from 'date-fns/addDays';
-import {useOrders} from 'hooks/useOrders';
+import {OrderStatus, useOrders} from 'hooks/useOrders';
 import {EventProvider} from 'providers/event-provider';
 import {ChangeEvent, FC, SetStateAction, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -33,9 +33,11 @@ const dropDownDefaultValue = 25;
 const tabDefaultValue = 0;
 
 export const Orders: FC = () => {
+  const initSearchData = localStorage.getItem('searchData');
   const {t} = useTranslation();
   const [date, setDate] = useState<CalendarFromTo>();
   const [tab, setTab] = useState<number>(tabDefaultValue);
+  const [tabSearch, setTabSearch] = useState<number>(tabDefaultValue);
   const [itemsByPage, setItemsByPage] = useState<number>(dropDownDefaultValue);
   const [page, setPage] = useState<number>(1);
   const [openModalChangeStates, setOpenModalChangeStates] =
@@ -45,12 +47,11 @@ export const Orders: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [stateSelected, setStateSelected] = useState<string>('');
-  const {mutateSetState} = useOrders({});
   const [itemsSelected, setItemsSelected] = useState<GridSelectionModel>([]);
-  const [searchData, setSearchData] = useState<string>('');
-  const [searchBar, setSearchBar] = useState<string>('');
+  const [searchData, setSearchData] = useState<string>(initSearchData || '');
+  const [searchBar, setSearchBar] = useState<string>(initSearchData || '');
 
-  const {dataRetrieve, refetchRetrieve} = useOrders(
+  const {dataRetrieve, refetchRetrieve, mutateSetState} = useOrders(
     searchData
       ? {page, size: itemsByPage, keyword: searchData}
       : {
@@ -61,6 +62,21 @@ export const Orders: FC = () => {
           dateTo: date?.to,
         },
   );
+
+  const rows = dataRetrieve?.items?.map(item => ({
+    id: item.id,
+    value: item.value,
+    status: item.status,
+    deliveryDate: format(
+      utcToZonedTime(addDays(new Date(item.deliveryDate), 1), 'America/Bogota'),
+      'yyyy-MM-dd',
+    ),
+    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy h:mm a'),
+    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy h:mm a'),
+    customerName: item.customerName,
+    phone: item.phone,
+    detail: item.id,
+  }));
 
   useEffect(() => {
     refetchRetrieve().then(() => {
@@ -123,8 +139,30 @@ export const Orders: FC = () => {
     });
   };
 
+  const validateAndSetStateSearch = (
+    selectionModel: GridSelectionModel,
+  ): boolean => {
+    const res: OrderStatus[] = [];
+    selectionModel?.forEach(i => {
+      rows?.forEach(j => {
+        if (j.id == i) {
+          res.push(j.status);
+        }
+      });
+    });
+
+    const show = [...new Set(res.map(item => item.name))]?.length == 1;
+    if (show) {
+      setTabSearch(res.map(i => i.id)[0]);
+    }
+    return show;
+  };
+
   const handleGrid = (selectionModel: GridSelectionModel): void => {
-    if (selectionModel.length > 0 && tab > 0) {
+    if (
+      selectionModel.length > 0 &&
+      (searchData ? validateAndSetStateSearch(selectionModel) : tab > 0)
+    ) {
       setCountCheckboxesSelected(selectionModel.length);
       setItemsSelected(selectionModel);
       setOpenModalChangeStates(true);
@@ -133,23 +171,9 @@ export const Orders: FC = () => {
     }
   };
 
-  const rows = dataRetrieve?.items?.map(item => ({
-    id: item.id,
-    value: item.value,
-    status: item.status,
-    deliveryDate: format(
-      utcToZonedTime(addDays(new Date(item.deliveryDate), 1), 'America/Bogota'),
-      'yyyy-MM-dd',
-    ),
-    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy h:mm a'),
-    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy h:mm a'),
-    customerName: item.customerName,
-    phone: item.phone,
-    detail: item.id,
-  }));
-
   const searchOnBlur = (e: {target: {value: SetStateAction<string>}}): void => {
     setSearchData(e.target.value);
+    localStorage.setItem('searchData', e.target.value as string);
   };
 
   const searchOnChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -170,6 +194,7 @@ export const Orders: FC = () => {
           onClear={() => {
             setSearchBar('');
             setSearchData('');
+            localStorage.removeItem('searchData');
           }}
           onChange={searchOnChange}
           value={searchBar}
@@ -211,7 +236,7 @@ export const Orders: FC = () => {
         />
       )}
       <ChangeStates
-        currentStatus={tab}
+        currentStatus={searchData ? tabSearch : tab}
         open={openModalChangeStates}
         setOpen={setOpenModalChangeStates}
         count={countCheckboxesSelected}

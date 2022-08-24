@@ -7,6 +7,7 @@ import {
   UseMutateAsyncFunction,
 } from 'react-query';
 import {Pagination} from 'services/models';
+import {PropTypesGetOrders} from 'services/suppliers.orders/types';
 
 export interface UseOrders {
   isErrorRetrieve: boolean;
@@ -55,14 +56,7 @@ export interface OrdersResponse {
   items?: Order[];
 }
 
-export interface TypePropsUseOrders {
-  page?: number;
-  size?: number;
-  statusId?: number;
-  dateFrom?: string | Date;
-  dateTo?: string | Date;
-  keyword?: string;
-}
+export interface TypePropsUseOrders extends PropTypesGetOrders {}
 
 export interface Status {
   items?: Array<string | number>;
