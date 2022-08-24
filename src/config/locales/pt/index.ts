@@ -199,6 +199,7 @@ export const pt = {
       'initial-state-dropdown': 'Alterar status',
       'qty-selected': 'Selecionado',
     },
+    'input-search-placeholder': 'Buscar por nombre, categoría, SKU...',
   },
   onboarding: {
     'title-name': 'Qual é o seu nome? ',

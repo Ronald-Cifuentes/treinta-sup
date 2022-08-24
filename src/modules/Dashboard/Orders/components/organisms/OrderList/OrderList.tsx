@@ -1,4 +1,4 @@
-import {Backdrop} from '@30sas/web-ui-kit-core';
+import {Backdrop, SearchInput} from '@30sas/web-ui-kit-core';
 import {ColorProps} from '@30sas/web-ui-kit-theme';
 import {GridSelectionModel} from '@mui/x-data-grid';
 import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
@@ -8,11 +8,13 @@ import {format, utcToZonedTime} from 'date-fns-tz';
 import addDays from 'date-fns/addDays';
 import {useOrders} from 'hooks/useOrders';
 import {EventProvider} from 'providers/event-provider';
-import {ChangeEvent, FC, useEffect, useState} from 'react';
+import {ChangeEvent, FC, SetStateAction, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {getUser} from 'utils/infoUser';
 import {ChangeStates} from '../../atoms/ChangeStates';
 import {ModalYesNo} from '../../atoms/ModalYesNo';
+import {TableMui} from '../../atoms/TableMui';
+import {EmptyStateSearch} from '../../molecules/EmptyStateSearch';
 import {FiltersAndReport} from '../../molecules/FiltersAndReport';
 import {
   CalendarFromTo,
@@ -20,6 +22,7 @@ import {
 } from '../../molecules/FiltersAndReport/types';
 import {columns, optionsTabs} from './OrderList.config';
 import {PointerStates} from './OrderList.const';
+import {WrapperSearchBar} from './OrderList.styled';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
@@ -33,29 +36,37 @@ export const Orders: FC = () => {
   const {t} = useTranslation();
   const [date, setDate] = useState<CalendarFromTo>();
   const [tab, setTab] = useState<number>(tabDefaultValue);
-  const [itemsByPage, setItemsByPage] = useState(dropDownDefaultValue);
-  const [page, setPage] = useState(1);
-  const [openModalChangeStates, setOpenModalChangeStates] = useState(false);
-  const [countCheckboxesSelected, setCountCheckboxesSelected] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [stateSelected, setStateSelected] = useState('');
+  const [itemsByPage, setItemsByPage] = useState<number>(dropDownDefaultValue);
+  const [page, setPage] = useState<number>(1);
+  const [openModalChangeStates, setOpenModalChangeStates] =
+    useState<boolean>(false);
+  const [countCheckboxesSelected, setCountCheckboxesSelected] =
+    useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [stateSelected, setStateSelected] = useState<string>('');
   const {mutateSetState} = useOrders({});
   const [itemsSelected, setItemsSelected] = useState<GridSelectionModel>([]);
+  const [searchData, setSearchData] = useState<string>('');
+  const [searchBar, setSearchBar] = useState<string>('');
 
-  const {dataRetrieve, refetchRetrieve} = useOrders({
-    page,
-    size: itemsByPage,
-    statusId: tab,
-    dateFrom: date?.from,
-    dateTo: date?.to,
-  });
+  const {dataRetrieve, refetchRetrieve} = useOrders(
+    searchData
+      ? {page, size: itemsByPage, keyword: searchData}
+      : {
+          page,
+          size: itemsByPage,
+          statusId: tab,
+          dateFrom: date?.from,
+          dateTo: date?.to,
+        },
+  );
 
   useEffect(() => {
     refetchRetrieve().then(() => {
       setLoading(false);
     });
-  }, [date, tab, itemsByPage, page, refetchRetrieve]);
+  }, [date, tab, itemsByPage, page, refetchRetrieve, searchData]);
 
   const handleOnChangeDate = (value: ReturnDate | string): void => {
     const from = typeof value == 'string' ? value : value?.dateOne;
@@ -73,9 +84,7 @@ export const Orders: FC = () => {
     });
   };
 
-  const handleOnChangeLineTabs = (
-    value: React.SetStateAction<number>,
-  ): void => {
+  const handleOnChangeLineTabs = (value: SetStateAction<number>): void => {
     setTab(value);
     setLoading(true);
     setOpenModalChangeStates(false);
@@ -139,27 +148,68 @@ export const Orders: FC = () => {
     detail: item.id,
   }));
 
+  const searchOnBlur = (e: {target: {value: SetStateAction<string>}}): void => {
+    setSearchData(e.target.value);
+  };
+
+  const searchOnChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearchBar(e.target.value);
+  };
+
   return (
     <DashboardLayout
       title={t('orders.title')}
       fancyLineProps={LINE_PROPS}
       sizeFancyLine="0.5px">
-      <FiltersAndReport onChange={handleOnChangeDate} />
+      <WrapperSearchBar>
+        <SearchInput
+          fullWidth
+          placeholder={`${t('orders.input-search-placeholder')}`}
+          backgroundColor="white"
+          onBlur={searchOnBlur}
+          onClear={() => {
+            setSearchBar('');
+            setSearchData('');
+          }}
+          onChange={searchOnChange}
+          value={searchBar}
+          showClearButton
+        />
+      </WrapperSearchBar>
+      <FiltersAndReport onChange={handleOnChangeDate} disabled={!searchData} />
       <SpecialLineTabs
-        optionsTabs={optionsTabs}
+        optionsTabs={
+          searchData
+            ? [{key: 'ALL', label: 'Resultados de busqueda', value: '0'}]
+            : optionsTabs
+        }
         onChange={handleOnChangeLineTabs}
       />
-      <SpecialTableWithPagination
-        formattedData={rows}
-        dropDownDefaultValue={dropDownDefaultValue}
-        setItemsByPage={setItemsByPage}
-        handleSpecialPagination={handleSpecialPagination}
-        itemsByPage={itemsByPage}
-        totalItems={dataRetrieve?.pagination?.itemsNumber}
-        handleGrid={handleGrid}
-        columns={columns}
-        checkboxSelection={true}
-      />
+      {searchData ? (
+        rows?.length == 0 ? (
+          <EmptyStateSearch />
+        ) : (
+          <TableMui
+            formattedData={rows}
+            pageSize={itemsByPage}
+            handleGrid={handleGrid}
+            columns={columns}
+            checkboxSelection={true}
+          />
+        )
+      ) : (
+        <SpecialTableWithPagination
+          formattedData={rows}
+          dropDownDefaultValue={dropDownDefaultValue}
+          setItemsByPage={setItemsByPage}
+          handleSpecialPagination={handleSpecialPagination}
+          itemsByPage={itemsByPage}
+          totalItems={dataRetrieve?.pagination?.itemsNumber}
+          handleGrid={handleGrid}
+          columns={columns}
+          checkboxSelection={true}
+        />
+      )}
       <ChangeStates
         currentStatus={tab}
         open={openModalChangeStates}

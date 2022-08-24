@@ -61,6 +61,7 @@ export interface TypePropsUseOrders {
   statusId?: number;
   dateFrom?: string | Date;
   dateTo?: string | Date;
+  keyword?: string;
 }
 
 export interface Status {

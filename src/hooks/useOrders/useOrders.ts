@@ -30,6 +30,7 @@ export const useOrders = ({
   dateTo = format(utcToZonedTime(new Date(), 'America/Bogota'), 'yyyy-MM-dd', {
     timeZone: 'America/Bogota',
   }),
+  keyword,
 }: TypePropsUseOrders): UseOrders => {
   const [result, dispatchRetrieve] = useReducer<
     React.Reducer<OrdersResponse, ActionOrders>
@@ -42,13 +43,17 @@ export const useOrders = ({
     isLoading: isLoadingRetrieve,
     data: responseRetrieve,
   } = useQuery(['orders'], async () => {
-    const {data} = await orderServices.getOrders({
-      page,
-      size,
-      statusId,
-      dateFrom,
-      dateTo,
-    });
+    const {data} = await orderServices.getOrders(
+      keyword
+        ? {page, size, keyword}
+        : {
+            page,
+            size,
+            statusId,
+            dateFrom,
+            dateTo,
+          },
+    );
     return data;
   });
 

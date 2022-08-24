@@ -9,4 +9,5 @@ export interface PropTypesGetOrders {
   statusId?: number;
   dateFrom?: string | Date | undefined;
   dateTo?: string | Date | undefined;
+  keyword?: string;
 }

@@ -5,7 +5,10 @@ import {EventProvider} from 'providers/event-provider';
 import {getUser} from 'utils/infoUser';
 import {PropTypesFiltersAndReport} from './types';
 
-export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({onChange}) => (
+export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({
+  onChange,
+  disabled,
+}) => (
   <div
     data-testid="filters-and-report"
     style={{
@@ -14,7 +17,7 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({onChange}) => (
       alignItems: 'center',
     }}>
     <div style={{display: 'flex'}}>
-      <CalendarsInput locale="es" onChange={onChange} />
+      {disabled ? <CalendarsInput locale="es" onChange={onChange} /> : <div />}
     </div>
     <a
       onClick={() => {

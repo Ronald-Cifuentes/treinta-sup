@@ -250,6 +250,7 @@ export const es = {
       'initial-state-dropdown': 'Cambiar estado',
       'qty-selected': 'Seleccionado',
     },
+    'input-search-placeholder': 'Buscar por nombre, categoría, SKU...',
   },
   onboarding: {
     'title-name': '¿Cuál es tu nombre?',

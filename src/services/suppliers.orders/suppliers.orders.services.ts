@@ -17,14 +17,16 @@ export class OrderServices {
     statusId,
     dateFrom,
     dateTo,
+    keyword,
   }: PropTypesGetOrders): Promise<AxiosResponse<Order[]>> {
     const pageParam = page ? `page=${page}` : '';
     const sizeParam = size ? `&size=${size}` : '';
     const dateParam =
       dateFrom && dateTo ? `&dateFrom=${dateFrom}&dateTo=${dateTo}` : '';
     const statusIdParam = statusId ? `&statusId=${statusId}` : '';
+    const keywordParam = keyword && keyword.length ? `&keyword=${keyword}` : '';
     return this.api.get<Order[]>(
-      `/suppliers/orders?${pageParam}${sizeParam}${dateParam}${statusIdParam}`,
+      `/suppliers/orders?${pageParam}${sizeParam}${dateParam}${statusIdParam}${keywordParam}`,
     );
   }
 
