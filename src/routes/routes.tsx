@@ -1,9 +1,8 @@
-import {lazy} from 'react';
-
 import {InventoryBulkLoad} from 'modules/Dashboard/Orders/components/organisms/InventoryBulkLoad';
 import {InventoryDetail} from 'modules/Dashboard/Orders/components/organisms/InventoryDetail';
 import {InventoryList} from 'modules/Dashboard/Orders/components/organisms/InventoryList';
 import {OrderDetail} from 'modules/Dashboard/Orders/components/organisms/OrderDetail';
+import {lazy} from 'react';
 import {PrivateRoute} from './PrivateRoute/PrivateRoute';
 import {Route, ROUTES} from './types';
 
@@ -11,6 +10,18 @@ const Orders = lazy(() => import('../modules/Dashboard/Orders'));
 const SignIn = lazy(() => import('../modules/Login/SignInGoogle'));
 
 const NotFound = lazy(() => import('../modules/NotFound'));
+
+const controlAccess = (getI18nRoute: (arg0: ROUTES) => unknown): Route => {
+  if (process.env.REACT_APP_SHOW_BULK_LOAD == 'true') {
+    return {
+      path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload`,
+      element: <InventoryBulkLoad />,
+      isPrivate: true,
+    };
+  } else {
+    return {};
+  }
+};
 
 const getRoutes = (getI18nRoute): Route[] => [
   {
@@ -37,11 +48,7 @@ const getRoutes = (getI18nRoute): Route[] => [
     element: <InventoryDetail />,
     isPrivate: true,
   },
-  {
-    path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload`,
-    element: <InventoryBulkLoad />,
-    isPrivate: true,
-  },
+  controlAccess(getI18nRoute),
   {
     path: '*',
     element: <NotFound />,

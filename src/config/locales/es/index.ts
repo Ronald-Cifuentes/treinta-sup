@@ -372,6 +372,7 @@ export const es = {
     'value-upload': 'Valor de productos cargados:',
     'total-value': 'Valor total',
     'continue-revision': 'Continuar a revisión',
+    'upload-file-again': 'Volver a subir archivo',
     'show-inventory': 'Ver inventario',
     'found-total': 'Se han encontrado un total de',
     errors: 'errores:',
@@ -406,6 +407,10 @@ export const es = {
     'error-products-repeated':
       'Archivo inválido. verifica que tu archivo no contenga elementos repetidos.',
     'button-go-back': 'Subir inventario desde Excel',
+    'alert-success-uploaded-products': '¡Genial! No se han encontrado errores.',
+    'alert-error-first-bullet': 'Algunos campos obligatorios están vacíos.',
+    'alert-error-second-bullet':
+      'Hay campos mal diligenciados o con formato inválido.',
   },
   'category-form': {
     name: 'Nombre de la categoría*',

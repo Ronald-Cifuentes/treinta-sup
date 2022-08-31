@@ -1,14 +1,14 @@
 /* eslint-disable max-lines */
 import {Grid} from '@30sas/web-ui-kit-core';
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   BottomNav,
-  ButtonStyled,
   GoBackButton,
   NavBar,
 } from '../../../InventoryBulkLoad.styled';
+import {ButtonStep} from '../../atoms/ButtonStep';
 import {InventorySteps} from '../../atoms/InventorySteps';
 import {StepSelected} from '../StepSelected';
 import {StepsProps} from './types';
@@ -16,27 +16,25 @@ import {StepsProps} from './types';
 export const Steps: FC<StepsProps> = () => {
   const {t} = useTranslation();
   const {state, dispatch} = useUploadBulk();
-  const {isValid, productsRepeated} = state;
-  const [step, setStep] = useState(0);
-
+  const {isValid, productsRepeated, step} = state;
   useEffect(() => {
     if (step < 0) {
-      setStep(0);
+      dispatch({type: ACTIONS.SET_STEP, payload: {step: 0}});
     }
     if (step > 2) {
-      setStep(2);
+      dispatch({type: ACTIONS.SET_STEP, payload: {step: 2}});
     }
-  }, [step]);
+  }, [dispatch, step]);
 
   const handleGoBackButton = (): void => {
-    setStep(0);
+    dispatch({type: ACTIONS.SET_STEP, payload: {step: 0}});
     dispatch({
       type: ACTIONS.UPLOAD_FILE_RESET,
     });
   };
 
   const handleContinue = (): void => {
-    setStep(step + 1);
+    dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
   };
 
   return (
@@ -57,18 +55,7 @@ export const Steps: FC<StepsProps> = () => {
         <StepSelected status={step} />
       </Grid>
       <BottomNav>
-        <ButtonStyled
-          upper={false}
-          rounded="xl"
-          size="medium"
-          label={t('bulk-upload.continue-revision')}
-          variant="primary"
-          textVariant="Mediumbold"
-          margin="32px"
-          disabled={!isValid}
-          dataTestId="bulkUpload_button_continueRevision"
-          onClick={handleContinue}
-        />
+        <ButtonStep disabled={!isValid} onClick={handleContinue} />
       </BottomNav>
     </>
   );

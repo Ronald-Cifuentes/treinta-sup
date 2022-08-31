@@ -3,9 +3,9 @@ import XLSX from 'xlsx';
 
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
 import {UploadProduct} from 'services/models';
-
-import {SuppliersProductsServices} from 'services/suppliers.products/suppliers.products.services';
+import {AxiosError} from 'axios';
 import {useTranslation} from 'react-i18next';
+import {SuppliersProductsServices} from 'services/suppliers.products/suppliers.products.services';
 import {ProductFile, UseParseXlsxOutput} from './types';
 
 const reader = new FileReader();
@@ -57,9 +57,9 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
   const onReaderLoad = async (
     event: ProgressEvent<FileReader>,
   ): Promise<void> => {
+    const ab = event.target?.result;
+    const products = parseFile(ab);
     try {
-      const ab = event.target?.result;
-      const products = parseFile(ab);
       if (!products.length) {
         dispatch({
           type: ACTIONS.UPLOAD_FILE_ERROR,
@@ -102,17 +102,25 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
             });
             dispatch({type: ACTIONS.SET_IS_VALID, payload: true});
           }
+          dispatch({type: ACTIONS.UPLOAD_COMPLETED, payload: {products}});
         }
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      dispatch({
-        type: ACTIONS.UPLOAD_FILE_ERROR,
-        payload: {
-          error: t('bulk-upload.error-upload-file'),
-        },
-      });
+      const realError = <AxiosError>error;
+      if (products.length) {
+        dispatch({
+          type: ACTIONS.UPLOAD_PRODUCTSREPEATED,
+          payload: {
+            productsRepeated: 0,
+          },
+        });
+        dispatch({type: ACTIONS.SET_IS_VALID, payload: true});
+        dispatch({type: ACTIONS.UPLOAD_COMPLETED, payload: {products}});
+        dispatch({
+          type: ACTIONS.SET_STACK_ERROR,
+          payload: {error: realError.response?.data},
+        });
+      }
     }
   };
 

@@ -35,7 +35,7 @@ export const StepOne: FC<StepOneProps> = () => {
       },
     },
     error: {
-      mainText: error || '',
+      mainText: `${error}`,
       endText: {
         text: t('bulk-upload.drag-file'),
         linkText: `${t('bulk-upload.select-from-computer')}

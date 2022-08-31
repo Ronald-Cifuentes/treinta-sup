@@ -2,6 +2,7 @@ import {Button, SearchInput} from '@30sas/web-ui-kit-core';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
+// import env from 'react-dotenv';
 import {LanguagesMap} from '../../../../../../config/constants/languages';
 import {ButtonDownload} from '../../atoms/ButtonDownload';
 import {
@@ -31,7 +32,11 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = ({
   };
 
   const handleUploadInventory = (): void => {
-    history({pathname: '/inventario/bulkload'});
+    if (process.env.REACT_APP_SHOW_BULK_LOAD == 'true') {
+      history({pathname: '/inventario/bulkload'});
+    } else {
+      alert('Esta funcionalidad no esta disponible');
+    }
   };
 
   return (

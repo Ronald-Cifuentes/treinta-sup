@@ -320,6 +320,7 @@ export const pt = {
     'value-upload': 'Valor dos produtos carregados:',
     'total-value': 'Valor total',
     'continue-revision': 'Continuar a revisão',
+    'upload-file-again': 'reenviar arquivo',
     'show-inventory': 'Ver inventário',
     'found-total': 'Foram encontrados um total de',
     errors: 'erros:',
@@ -355,6 +356,10 @@ export const pt = {
     'error-products-repeated':
       'Arquivo inválido. verifique se seu arquivo não contém elementos duplicados.',
     'button-go-back': 'Carregar inventário do Excel',
+    'alert-success-uploaded-products': 'Legal! Nenhum erro encontrado.',
+    'alert-error-first-bullet': 'Alguns campos obrigatórios estão vazios.',
+    'alert-error-second-bullet':
+      'Existem campos preenchidos incorretamente ou com formato inválido.',
   },
   'category-form': {
     name: 'Nome da categoria*',

@@ -88,7 +88,7 @@ export interface VerifyProps {
 
 export interface MassiveSaveProps extends VerifyProps {}
 
-export interface VerifyResponse {
+export interface VerifyResponseSuccess {
   statusCode: number;
   message: string;
   error: string;
@@ -97,9 +97,11 @@ export interface VerifyResponse {
   toInsertRaw: ProductDataResponse[];
   toUpdateRaw: ProductDataResponse[];
 }
-
-export interface MassiveSaveResponse {
+export interface VerifyResponseError {
   statusCode: number;
-  message: string;
+  message: string[] | string;
   error: string[];
 }
+
+export interface MassiveSaveResponseSuccess extends VerifyResponseSuccess {}
+export interface MassiveSaveResponseError extends VerifyResponseError {}

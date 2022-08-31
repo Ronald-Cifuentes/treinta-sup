@@ -1,6 +1,6 @@
 import {Product} from 'modules/Dashboard/Orders/components/atoms/LayoutProduct/types';
 
-export interface StepTwoProps {
+export interface StepThreeProps {
   prop?: string;
 }
 
