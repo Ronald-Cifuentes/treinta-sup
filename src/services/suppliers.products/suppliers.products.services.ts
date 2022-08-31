@@ -1,6 +1,13 @@
 import {AxiosResponse} from 'axios';
 import {ApiProvider} from 'providers/api-provider';
-import {Categories, Products} from '../models/Product';
+import {
+  Categories,
+  MassiveSaveProps,
+  MassiveSaveResponse,
+  Products,
+  VerifyProps,
+  VerifyResponse,
+} from '../models/Product';
 import {GetProductsTypes} from './types';
 
 export class SuppliersProductsServices {
@@ -32,5 +39,15 @@ export class SuppliersProductsServices {
 
   getWarehouses(): Promise<AxiosResponse<Categories>> {
     return this.api.get(`/suppliers/warehouses`);
+  }
+
+  verify(data: VerifyProps): Promise<AxiosResponse<VerifyResponse>> {
+    return this.api.post(`/suppliers/inventory/verify`, data);
+  }
+
+  massiveSave(
+    data: MassiveSaveProps,
+  ): Promise<AxiosResponse<MassiveSaveResponse>> {
+    return this.api.post(`/suppliers/inventory/verify`, data);
   }
 }

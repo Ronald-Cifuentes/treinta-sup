@@ -10,12 +10,13 @@ import {
   NavBar,
 } from '../../../InventoryBulkLoad.styled';
 import {InventorySteps} from '../../atoms/InventorySteps';
-import {StepOne} from '../../atoms/StepOne';
+import {StepSelected} from '../StepSelected';
 import {StepsProps} from './types';
 
 export const Steps: FC<StepsProps> = () => {
   const {t} = useTranslation();
   const {state, dispatch} = useUploadBulk();
+  const {isValid, productsRepeated} = state;
   const [step, setStep] = useState(0);
 
   useEffect(() => {
@@ -50,14 +51,10 @@ export const Steps: FC<StepsProps> = () => {
         sm={10}
         md={8}
         justifyContent="center"
-        alignItems="center">
+        alignItems="center"
+        paddingTop={productsRepeated ? '100px' : '0px'}>
         <InventorySteps passed={step} />
-        <StepOne
-          status={state.status}
-          isLoading={false}
-          files={[]}
-          productsRepeated={0}
-        />
+        <StepSelected status={step} />
       </Grid>
       <BottomNav>
         <ButtonStyled
@@ -68,7 +65,7 @@ export const Steps: FC<StepsProps> = () => {
           variant="primary"
           textVariant="Mediumbold"
           margin="32px"
-          disabled={!state.isValid}
+          disabled={!isValid}
           dataTestId="bulkUpload_button_continueRevision"
           onClick={handleContinue}
         />

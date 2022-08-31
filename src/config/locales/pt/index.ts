@@ -344,12 +344,16 @@ export const pt = {
     'inventory-download-waiting':
       'Seu inventário está sendo preparado para download',
     'save-error': 'Ocorreu um problema durante a criação dos produtos!',
-    'error-upload-file':
+    'error-invalid-format':
       'Arquivo inválido. verifique se seu arquivo está no formato XLSX e tente carregá-lo novamente em seu inventário',
+    'error-upload-file':
+      'Não foi possível enviar seu arquivo. Por favor, tente novamente.',
     'error-file-bigger':
       'Arquivo inválido. verifique se seu arquivo não é maior que 15 MB.',
     'error-without-products':
       'Arquivo inválido. Verifique se seu arquivo contém pelo menos um produto.',
+    'error-products-repeated':
+      'Arquivo inválido. verifique se seu arquivo não contém elementos duplicados.',
     'button-go-back': 'Carregar inventário do Excel',
   },
   'category-form': {

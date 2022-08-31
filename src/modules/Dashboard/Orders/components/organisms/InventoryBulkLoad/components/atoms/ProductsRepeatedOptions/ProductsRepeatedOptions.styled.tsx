@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CHECK from '../../../../../../../../../Assets/CHECK.svg';
 
 export const Card = styled.div<{active: boolean}>`
   width: 100%;
@@ -11,7 +12,38 @@ export const Card = styled.div<{active: boolean}>`
   &:hover {
     border: 1px solid #009940;
   }
-  ${({active}) => active && `border: 1px solid #009940;`}
+  &:active::after {
+    width: 40px;
+    height: 20px;
+    background: #009940;
+    color: white;
+    padding: 5px;
+    content: url(${CHECK});
+    border-radius: 0px 10px 0px 10px;
+  }
+  &::after {
+    width: 40px;
+    height: 20px;
+    background: transparent;
+    color: white;
+    padding: 5px;
+    content: '';
+    border-radius: 0px 10px 0px 10px;
+  }
+  ${({active}) =>
+    active &&
+    `
+      border: 1px solid #009940;
+      &::after {
+        width: 40px;
+        height: 20px;
+        background: #009940;
+        color: white;
+        padding: 5px;
+        content: url(${CHECK});
+        border-radius: 0px 10px 0px 10px;
+      }
+  `}
 `;
 
 export const IconContainer = styled.div`

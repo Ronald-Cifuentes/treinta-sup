@@ -16,7 +16,7 @@ export const ProductsRepeatedOptions: FC<Props> = ({productsRepeated}) => {
   const handleClick = (option: string) => () => {
     dispatch({
       type: ACTIONS.SET_DUPLICATE_SETTING,
-      payload: {option, currentProducts: []},
+      payload: {option},
     });
   };
 

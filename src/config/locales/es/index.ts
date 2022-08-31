@@ -395,12 +395,16 @@ export const es = {
     'inventory-download-waiting':
       'Tu inventario se está preparando para la descarga',
     'save-error': '¡Ha ocurrido un problema al crear los productos!',
-    'error-upload-file':
+    'error-invalid-format':
       'Archivo inválido. verifica que tu archivo sea formato XLSX e intenta cargarlo de nuevo en tu inventario',
+    'error-upload-file':
+      'No pudimos cargar tu archivo. Por favor, inténtalo de nuevo.',
     'error-file-bigger':
       'Archivo inválido. verifica que tu archivo no sea mayor a 15MB.',
     'error-without-products':
       'Archivo inválido. Verifica que tu archivo contenga al menos un producto.',
+    'error-products-repeated':
+      'Archivo inválido. verifica que tu archivo no contenga elementos repetidos.',
     'button-go-back': 'Subir inventario desde Excel',
   },
   'category-form': {

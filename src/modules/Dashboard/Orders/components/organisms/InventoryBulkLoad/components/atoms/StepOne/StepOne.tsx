@@ -2,27 +2,17 @@ import {Alert, Box, FileDrop, Typography} from '@30sas/web-ui-kit-core';
 import {PackageIcon, WarningIcon} from '@30sas/web-ui-kit-icons';
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
 import {useTheme} from 'hooks';
+import {useParseXlsx} from 'hooks/useParseXlsx';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useParseXlsx} from '../../../hooks';
 import {ProductsRepeatedOptions} from '../../atoms/ProductsRepeatedOptions';
 import {Card, IconContainer, WrapperCard} from './StepOne.styled';
+import {StepOneProps} from './types';
 
-export interface StepOneProps {
-  status: 'normal' | 'error' | 'success' | 'info';
-  isLoading: boolean;
-  files: File[];
-  productsRepeated: number;
-}
-
-export const StepOne: FC<StepOneProps> = ({
-  status,
-  isLoading,
-  files,
-  productsRepeated = 0,
-}) => {
+export const StepOne: FC<StepOneProps> = () => {
   const {t} = useTranslation();
   const {state, dispatch} = useUploadBulk();
+  const {productsRepeated, files, error} = state;
   const {onFilesChange} = useParseXlsx();
   const theme = useTheme();
 
@@ -45,18 +35,18 @@ export const StepOne: FC<StepOneProps> = ({
       },
     },
     error: {
-      mainText: state.error || '',
+      mainText: error || '',
       endText: {
         text: t('bulk-upload.drag-file'),
         linkText: `${t('bulk-upload.select-from-computer')}
-          ${state.files[0]?.name}`,
+          ${files[0]?.name}`,
       },
     },
     success: {
       mainText: t('bulk-upload.file-upload-success'),
       endText: {
         text: '',
-        linkText: state.files[0]?.name || '',
+        linkText: files[0]?.name || '',
       },
     },
     info: {
@@ -90,7 +80,7 @@ export const StepOne: FC<StepOneProps> = ({
             </Typography>
           </Box>
         </Box>
-        {productsRepeated > 0 && !isLoading && (
+        {productsRepeated > 0 && (
           <Box m="16px 0">
             <Alert
               borderColor="warning"
@@ -99,16 +89,18 @@ export const StepOne: FC<StepOneProps> = ({
               backgroundType="300"
               Icon={WarningIcon}
               text={
-                <Typography
-                  variant="Small"
-                  margin="0"
-                  padding="0"
-                  color="warning"
-                  colorType="700">
-                  {t('bulk-upload.product-already-upload-amount', {
-                    productsRepeated,
-                  })}
-                </Typography>
+                <div>
+                  <Typography
+                    variant="Small"
+                    margin="0"
+                    padding="0"
+                    color="warning"
+                    colorType="700">
+                    {t('bulk-upload.product-already-upload-amount', {
+                      productsRepeated,
+                    })}
+                  </Typography>
+                </div>
               }
             />
           </Box>
@@ -116,15 +108,15 @@ export const StepOne: FC<StepOneProps> = ({
         <Box mt={productsRepeated === 0 ? '8px' : '0'}>
           <FileDrop
             labels={labels}
-            files={files}
+            files={[]}
             filesCallback={onFilesChange}
             deleteFile={handleDeleteFile}
             allowFileTypes=".xlsx"
             maxSize={5 * 1024 * 1024}
-            status={status}
-            loading={isLoading}
+            status={state.status}
+            loading={false}
           />
-          {productsRepeated > 0 && !isLoading && (
+          {productsRepeated > 0 && (
             <ProductsRepeatedOptions productsRepeated={productsRepeated} />
           )}
           <Typography

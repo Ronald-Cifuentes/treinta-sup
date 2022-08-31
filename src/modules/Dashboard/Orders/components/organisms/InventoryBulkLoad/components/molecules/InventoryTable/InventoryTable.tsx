@@ -4,7 +4,6 @@ import {TableVirtualized} from '@30sas/web-ui-kit-core';
 
 import {useCurrencyFormatter} from 'hooks';
 import {RightBarScreensInventory} from 'config/constants';
-import {useUploadBulk, ACTIONS} from 'context/UploadBulkContext';
 import {ProductWithErrors} from 'context/UploadBulkContext/types';
 import {useDashboard} from 'context/DashboardContext/DashboardContext';
 import {ParamsTypes} from 'context/DashboardContext';
@@ -20,7 +19,6 @@ export const InventoryTable: FC<{products: ProductWithErrors[]}> = ({
   const {rightBarNavigation} = useDashboard();
   const {navigate} = rightBarNavigation;
   const handleCloseAlert = (): void => setShowAlert(false);
-  const {dispatch} = useUploadBulk();
   const {t} = useTranslation();
   const {formatter} = useCurrencyFormatter();
 
@@ -30,12 +28,8 @@ export const InventoryTable: FC<{products: ProductWithErrors[]}> = ({
     } as ParamsTypes);
   };
 
-  const handleRemove = (index: number): void => {
-    dispatch({
-      type: ACTIONS.REMOVE_PRODUCT,
-      payload: {index},
-    });
-  };
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const handleRemove = (): void => {};
 
   return (
     <MainContainer>

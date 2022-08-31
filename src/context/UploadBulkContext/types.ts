@@ -24,10 +24,3 @@ export interface ProductWithErrors extends Product {
   errors: string[];
   cost: number;
 }
-
-export interface PayloadData {
-  productsRepeated: number;
-  currentProducts: Product[];
-  option: null | 'override' | 'add-stock';
-  cost: number;
-}
