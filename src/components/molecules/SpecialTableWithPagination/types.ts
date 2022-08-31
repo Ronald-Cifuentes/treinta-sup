@@ -14,9 +14,11 @@ export interface PropTypesSpecialTableWithPagination {
     event: React.ChangeEvent<unknown>,
     page: number,
   ) => void;
+  page?: number;
   totalItems?: number;
   ctrlButtons?: React.ReactElement;
   handleGrid?: (selectionModel: GridSelectionModel) => void;
   columns?: GridColDef[];
   checkboxSelection?: boolean;
+  onlyOneOption?: boolean;
 }

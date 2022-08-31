@@ -7,7 +7,10 @@ import {
 } from '@30sas/web-ui-kit-core';
 import {TableMui} from 'modules/Dashboard/Orders/components/atoms/TableMui';
 import {useTranslation} from 'react-i18next';
-import {createOptionsRowsPerPage} from './SpecialTableWithPagination.mock';
+import {
+  createOnlyOneOption,
+  createOptionsRowsPerPage,
+} from './SpecialTableWithPagination.mock';
 import {PropTypesSpecialTableWithPagination} from './types';
 import {
   EmptyBlock,
@@ -24,11 +27,13 @@ export const SpecialTableWithPagination: FC<
   itemsByPage,
   setItemsByPage,
   handleSpecialPagination,
+  page,
   totalItems = 20,
   ctrlButtons,
   handleGrid,
   columns,
   checkboxSelection,
+  onlyOneOption,
 }) => {
   const {t} = useTranslation();
 
@@ -38,6 +43,11 @@ export const SpecialTableWithPagination: FC<
 
   const count =
     totalItems && itemsByPage && Math.ceil(totalItems / itemsByPage);
+
+  const selectDropDownOptions = (): TreintaDropdownOptions[] =>
+    onlyOneOption
+      ? createOnlyOneOption(t('orders.table.rowsPerPage'))
+      : createOptionsRowsPerPage(t('orders.table.rowsPerPage'));
 
   return (
     <div data-testid="special-table-with-pagination">
@@ -52,9 +62,7 @@ export const SpecialTableWithPagination: FC<
         <WrapperDropdownFrecuency>
           <Dropdown
             AlingMenu="right"
-            dropdownOptions={createOptionsRowsPerPage(
-              t('orders.table.rowsPerPage'),
-            )}
+            dropdownOptions={selectDropDownOptions()}
             elementId="test"
             errorText="Error text"
             placeholder={`${t('orders.table.rowsPerPage')} `}
@@ -66,7 +74,11 @@ export const SpecialTableWithPagination: FC<
           />
         </WrapperDropdownFrecuency>
         <WrapperDropdownDate>
-          <SpecialPagination count={count} onChange={handleSpecialPagination} />
+          <SpecialPagination
+            count={count}
+            page={page}
+            onChange={handleSpecialPagination}
+          />
         </WrapperDropdownDate>
         <EmptyBlock>{ctrlButtons}</EmptyBlock>
       </LayoutHeader>

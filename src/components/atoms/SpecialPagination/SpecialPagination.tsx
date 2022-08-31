@@ -26,12 +26,14 @@ const useStyles = makeStyles({
 export const SpecialPagination: FC<PropTypesSpecialPagination> = ({
   onChange,
   count,
+  page,
 }) => {
   const classes = useStyles();
   return (
     <Pagination
       data-testid="special-pagination"
       count={count}
+      page={page}
       className={classes.root}
       onChange={onChange}
     />

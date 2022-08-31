@@ -4,6 +4,7 @@ import {GridSelectionModel} from '@mui/x-data-grid';
 import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
 import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
 import {DashboardLayout} from 'components/templates';
+import {subMonths} from 'date-fns';
 import {format, utcToZonedTime} from 'date-fns-tz';
 import addDays from 'date-fns/addDays';
 import {OrderStatus, useOrders} from 'hooks/useOrders';
@@ -13,7 +14,6 @@ import {useTranslation} from 'react-i18next';
 import {getUser} from 'utils/infoUser';
 import {ChangeStates} from '../../atoms/ChangeStates';
 import {ModalYesNo} from '../../atoms/ModalYesNo';
-import {TableMui} from '../../atoms/TableMui';
 import {EmptyStateSearch} from '../../molecules/EmptyStateSearch';
 import {FiltersAndReport} from '../../molecules/FiltersAndReport';
 import {
@@ -30,26 +30,37 @@ const LINE_PROPS: ColorProps = {
 };
 
 const dropDownDefaultValue = 25;
+const dropDownDefaultValueSearch = 100;
 const tabDefaultValue = 0;
 
 export const Orders: FC = () => {
-  const initSearchData = localStorage.getItem('searchData');
   const {t} = useTranslation();
-  const [date, setDate] = useState<CalendarFromTo>();
+  const initSearchData: string = localStorage.getItem('searchData') || '';
+  const [searchData, setSearchData] = useState<string>(initSearchData || '');
+  const [searchBar, setSearchBar] = useState<string>(initSearchData || '');
   const [tab, setTab] = useState<number>(tabDefaultValue);
   const [tabSearch, setTabSearch] = useState<number>(tabDefaultValue);
-  const [itemsByPage, setItemsByPage] = useState<number>(dropDownDefaultValue);
   const [page, setPage] = useState<number>(1);
-  const [openModalChangeStates, setOpenModalChangeStates] =
-    useState<boolean>(false);
-  const [countCheckboxesSelected, setCountCheckboxesSelected] =
-    useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [stateSelected, setStateSelected] = useState<string>('');
   const [itemsSelected, setItemsSelected] = useState<GridSelectionModel>([]);
-  const [searchData, setSearchData] = useState<string>(initSearchData || '');
-  const [searchBar, setSearchBar] = useState<string>(initSearchData || '');
+  const [itemsByPage, setItemsByPage] = useState<number>(
+    searchData ? dropDownDefaultValueSearch : dropDownDefaultValue,
+  );
+  const [openModalChangeStates, setOpenModalChangeStates] =
+    useState<boolean>(false);
+  const [countCheckboxesSelected, setCountCheckboxesSelected] =
+    useState<number>(0);
+  const [date, setDate] = useState<CalendarFromTo>({
+    from: format(
+      utcToZonedTime(subMonths(new Date(), 1), 'America/Bogota'),
+      'yyyy-MM-dd',
+    ),
+    to: format(utcToZonedTime(new Date(), 'America/Bogota'), 'yyyy-MM-dd', {
+      timeZone: 'America/Bogota',
+    }),
+  });
 
   const {dataRetrieve, refetchRetrieve, mutateSetState} = useOrders(
     searchData
@@ -82,7 +93,7 @@ export const Orders: FC = () => {
     refetchRetrieve().then(() => {
       setLoading(false);
     });
-  }, [date, tab, itemsByPage, page, refetchRetrieve, searchData]);
+  }, [date, tab, itemsByPage, page, refetchRetrieve, initSearchData]);
 
   const handleOnChangeDate = (value: ReturnDate | string): void => {
     const from = typeof value == 'string' ? value : value?.dateOne;
@@ -104,13 +115,14 @@ export const Orders: FC = () => {
     setTab(value);
     setLoading(true);
     setOpenModalChangeStates(false);
+    setPage(() => 1);
   };
 
   const handleSpecialPagination = (
     _event: ChangeEvent<unknown>,
     value: number,
   ): void => {
-    setPage(value);
+    setPage(() => value);
   };
 
   const handleChangeStates = (e): void => {
@@ -172,12 +184,36 @@ export const Orders: FC = () => {
   };
 
   const searchOnBlur = (e: {target: {value: SetStateAction<string>}}): void => {
-    setSearchData(e.target.value);
-    localStorage.setItem('searchData', e.target.value as string);
+    const sD: string = e.target.value.toString();
+    if (initSearchData != sD) {
+      setSearchData((): string => sD);
+      if (sD.length) {
+        setItemsByPage(() => dropDownDefaultValueSearch);
+      } else {
+        setItemsByPage(() => dropDownDefaultValue);
+      }
+      setPage(() => 1);
+      // setEnter(true);
+      localStorage.setItem('searchData', e.target.value as string);
+    }
   };
 
   const searchOnChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchBar(e.target.value);
+  };
+
+  const searchOnClear = (): void => {
+    setSearchBar('');
+    setSearchData('');
+    setItemsByPage(dropDownDefaultValue);
+    setOpenModalChangeStates(false);
+    setPage(() => 1);
+    localStorage.removeItem('searchData');
+  };
+
+  const handleSetItemsByPage = (item: number): void => {
+    setItemsByPage(item);
+    setPage(1);
   };
 
   return (
@@ -191,11 +227,7 @@ export const Orders: FC = () => {
           placeholder={`${t('orders.input-search-placeholder')}`}
           backgroundColor="white"
           onBlur={searchOnBlur}
-          onClear={() => {
-            setSearchBar('');
-            setSearchData('');
-            localStorage.removeItem('searchData');
-          }}
+          onClear={searchOnClear}
           onChange={searchOnChange}
           value={searchBar}
           showClearButton
@@ -210,29 +242,23 @@ export const Orders: FC = () => {
         }
         onChange={handleOnChangeLineTabs}
       />
-      {searchData ? (
-        rows?.length == 0 ? (
-          <EmptyStateSearch />
-        ) : (
-          <TableMui
-            formattedData={rows}
-            pageSize={itemsByPage}
-            handleGrid={handleGrid}
-            columns={columns}
-            checkboxSelection={true}
-          />
-        )
+      {rows?.length == 0 ? (
+        <EmptyStateSearch />
       ) : (
         <SpecialTableWithPagination
           formattedData={rows}
-          dropDownDefaultValue={dropDownDefaultValue}
-          setItemsByPage={setItemsByPage}
+          dropDownDefaultValue={
+            searchData ? dropDownDefaultValueSearch : dropDownDefaultValue
+          }
+          setItemsByPage={handleSetItemsByPage}
           handleSpecialPagination={handleSpecialPagination}
+          page={page}
           itemsByPage={itemsByPage}
           totalItems={dataRetrieve?.pagination?.itemsNumber}
           handleGrid={handleGrid}
           columns={columns}
           checkboxSelection={true}
+          onlyOneOption={!!searchData}
         />
       )}
       <ChangeStates

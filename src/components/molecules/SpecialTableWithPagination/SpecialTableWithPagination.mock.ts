@@ -10,3 +10,10 @@ export const createOptionsRowsPerPage = (
   ];
   return ret;
 };
+
+export const createOnlyOneOption = (rowsPerPage): TreintaDropdownOptions[] => {
+  const ret: TreintaDropdownOptions[] = [
+    {label: `${rowsPerPage} 100`, value: `100`},
+  ];
+  return ret;
+};

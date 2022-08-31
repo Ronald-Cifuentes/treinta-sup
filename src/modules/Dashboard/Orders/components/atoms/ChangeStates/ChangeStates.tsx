@@ -17,7 +17,7 @@ const useStyles = makeStyles({
       fontFamily: "'Nunito Sans', sans-serif",
       background: '#1A2732',
       padding: '12px 24px',
-      width: '350px',
+      minWidth: '350px',
       height: '40px',
       borderRadius: '8px',
       fontSize: '16px',
