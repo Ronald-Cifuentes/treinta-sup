@@ -8,10 +8,8 @@ import {subMonths} from 'date-fns';
 import {format, utcToZonedTime} from 'date-fns-tz';
 import addDays from 'date-fns/addDays';
 import {OrderStatus, useOrders} from 'hooks/useOrders';
-import {EventProvider} from 'providers/event-provider';
 import {ChangeEvent, FC, SetStateAction, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {getUser} from 'utils/infoUser';
 import {ChangeStates} from '../../atoms/ChangeStates';
 import {ModalYesNo} from '../../atoms/ModalYesNo';
 import {EmptyStateSearch} from '../../molecules/EmptyStateSearch';
@@ -132,13 +130,6 @@ export const Orders: FC = () => {
 
   const handleBtnYes = (): void => {
     setLoading(true);
-    EventProvider.getInstance().logEventAmplitude(
-      'b2bs_orders_order_status_changed',
-      {
-        supplier: getUser()?.supplier,
-        option_order_status_selected: stateSelected,
-      },
-    );
     mutateSetState({
       items: Array.from(itemsSelected),
       statusId: PointerStates[stateSelected],
