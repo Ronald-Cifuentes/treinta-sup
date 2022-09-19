@@ -48,6 +48,6 @@ export class SuppliersProductsServices {
   massiveSave(
     data: MassiveSaveProps,
   ): Promise<AxiosResponse<MassiveSaveResponseSuccess>> {
-    return this.api.post(`/suppliers/inventory/verify`, data);
+    return this.api.post(`/suppliers/inventory/massive-save`, data);
   }
 }

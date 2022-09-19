@@ -365,6 +365,17 @@ export const pt = {
     'alert-info-constrains-load-images-1':
       'As imagens devem estar no formatoPNG.',
     'alert-info-constrains-load-images-2': 'As imagens não devem exceder 2 MB.',
+    'modal-confirm':
+      '¿Tem certeza de que deseja enviar alguns produtos sem imagem?',
+    'inventory-bulk-load-success':
+      '¡Preenchidas! Seu inventário e imagens foram enviados com sucesso.',
+    'inventory-bulk-load-error':
+      'Ocorreu um problema e não foi possível salvar seu inventário. Recarregue ou tente novamente mais tarde.',
+    'btn-inventory': 'Ver inventário',
+    'btn-reload': 'recarregar',
+    'btn-exit': 'Sair',
+    'btn-cancel': 'Cancelar',
+    'btn-yes-continue': 'Sim continuar',
   },
   'category-form': {
     name: 'Nome da categoria*',

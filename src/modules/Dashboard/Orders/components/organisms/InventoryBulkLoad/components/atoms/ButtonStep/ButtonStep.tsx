@@ -2,7 +2,7 @@ import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
 import React, {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import ICON_CORRECT_ERROR from '../../../../../../../../../Assets/ICON_CORRECT_ERROR.svg';
-import {ButtonContainer} from './ButtonStep.styled';
+import {ButtonWarning} from '../Buttons/Buttons.styled';
 import {ButtonStepProps} from './types';
 
 export const ButtonStep: FC<ButtonStepProps> = ({disabled, onClick}) => {
@@ -36,10 +36,10 @@ export const ButtonStep: FC<ButtonStepProps> = ({disabled, onClick}) => {
   };
 
   return (
-    <ButtonContainer
+    <ButtonWarning
       disabled={disabled}
       onClick={state.buttonStep == 1 ? handleGoBackButton : onClick}>
       <Content />
-    </ButtonContainer>
+    </ButtonWarning>
   );
 };

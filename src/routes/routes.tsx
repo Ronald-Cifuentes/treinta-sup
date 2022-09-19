@@ -1,4 +1,6 @@
 import {InventoryBulkLoad} from 'modules/Dashboard/Orders/components/organisms/InventoryBulkLoad';
+import {InventoryBulkLoadError} from 'modules/Dashboard/Orders/components/organisms/InventoryBulkLoad/components/molecules/InventoryBulkLoadError';
+import {InventoryBulkLoadSuccess} from 'modules/Dashboard/Orders/components/organisms/InventoryBulkLoad/components/molecules/InventoryBulkLoadSuccess';
 import {InventoryDetail} from 'modules/Dashboard/Orders/components/organisms/InventoryDetail';
 import {InventoryList} from 'modules/Dashboard/Orders/components/organisms/InventoryList';
 import {OrderDetail} from 'modules/Dashboard/Orders/components/organisms/OrderDetail';
@@ -11,15 +13,27 @@ const SignIn = lazy(() => import('../modules/Login/SignInGoogle'));
 
 const NotFound = lazy(() => import('../modules/NotFound'));
 
-const controlAccess = (getI18nRoute: (arg0: ROUTES) => unknown): Route => {
+const controlAccess = (getI18nRoute: (arg0: ROUTES) => unknown): Route[] => {
   if (process.env.REACT_APP_SHOW_BULK_LOAD == 'true') {
-    return {
-      path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload`,
-      element: <InventoryBulkLoad />,
-      isPrivate: true,
-    };
+    return [
+      {
+        path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload`,
+        element: <InventoryBulkLoad />,
+        isPrivate: true,
+      },
+      {
+        path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload/error`,
+        element: <InventoryBulkLoadError />,
+        isPrivate: true,
+      },
+      {
+        path: `${getI18nRoute(ROUTES.INVENTORY)}/bulkload/success`,
+        element: <InventoryBulkLoadSuccess />,
+        isPrivate: true,
+      },
+    ];
   } else {
-    return {};
+    return [{}];
   }
 };
 
@@ -48,7 +62,7 @@ const getRoutes = (getI18nRoute): Route[] => [
     element: <InventoryDetail />,
     isPrivate: true,
   },
-  controlAccess(getI18nRoute),
+  ...controlAccess(getI18nRoute),
   {
     path: '*',
     element: <NotFound />,

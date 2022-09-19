@@ -59,9 +59,9 @@ export const getColumnsStepThree = (
   },
   {
     dataKey: 'actions',
-    width: 100,
+    width: 150,
     label: t('inventory-table.actions'),
-    minWidth: 120,
+    minWidth: 150,
     customRender: ({product: {id, image}}) =>
       image ? (
         <ProductDelete

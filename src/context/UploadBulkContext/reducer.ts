@@ -48,7 +48,7 @@ const findAndRemoveError = (
 
 const formatError = (error: VerifyResponseError): string[][] => {
   const tmpArray: string[][] = [[]];
-  if (typeof error.message == 'object') {
+  if (typeof error?.message == 'object') {
     error.message?.forEach(x => {
       const ind = parseInt(x.split('.')[1]);
       if (typeof tmpArray[ind] == 'undefined') {

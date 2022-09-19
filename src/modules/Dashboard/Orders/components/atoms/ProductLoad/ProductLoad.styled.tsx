@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const LoadImage = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -15,4 +16,8 @@ export const HideInput = styled.input`
 
 export const Error = styled.div`
   color: red;
+`;
+
+export const Arrow = styled(ArrowForwardIosIcon)`
+  height: 14px !important;
 `;

@@ -2,8 +2,12 @@ import {FileRejection} from 'react-dropzone';
 import XLSX from 'xlsx';
 
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
-import {DataVerify, UploadProduct} from 'services/models';
-import {AxiosError} from 'axios';
+import {
+  DataVerify,
+  MassiveSaveResponseSuccess,
+  UploadProduct,
+} from 'services/models';
+import {AxiosError, AxiosResponse} from 'axios';
 import {useTranslation} from 'react-i18next';
 import {SuppliersProductsServices} from 'services/suppliers.products/suppliers.products.services';
 import {ProductFile, UseParseXlsxOutput} from './types';
@@ -12,7 +16,7 @@ const reader = new FileReader();
 const suppliersProductsServices = new SuppliersProductsServices();
 
 export const useParseXlsx = (): UseParseXlsxOutput => {
-  const {dispatch} = useUploadBulk();
+  const {state, dispatch} = useUploadBulk();
   const {t} = useTranslation();
 
   const parseFile = (
@@ -200,5 +204,15 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
       validFile(acceptFiles);
     }
   };
-  return {onFilesChange};
+
+  const massiveSave = async (): Promise<
+    AxiosResponse<MassiveSaveResponseSuccess>
+  > => {
+    const res = await suppliersProductsServices.massiveSave({
+      rows: state.products,
+      overwrite: state.duplicateStrategy == 'override',
+    });
+    return res;
+  };
+  return {onFilesChange, massiveSave};
 };

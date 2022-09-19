@@ -415,6 +415,16 @@ export const es = {
     'alert-info-constrains-load-images-1':
       'Las imágenes deben ser en formatoPNG.',
     'alert-info-constrains-load-images-2': 'Las imágenes no deben superar 2MB.',
+    'modal-confirm': '¿Seguro que quieres subir algunos productos sin imágen?',
+    'inventory-bulk-load-success':
+      '¡Listo! Tu inventario y tus imágenes fueron cargados exitosamente.',
+    'inventory-bulk-load-error':
+      'Hubo un problema y no pudimos guardar tu inventario. Vuelve a cargar o intentalo de nuevo más tarde.',
+    'btn-inventory': 'Ver inventario',
+    'btn-reload': 'Volver a cargar',
+    'btn-exit': 'Salir',
+    'btn-cancel': 'Cancelar',
+    'btn-yes-continue': 'Sí, Continuar',
   },
   'category-form': {
     name: 'Nombre de la categoría*',

@@ -4,11 +4,12 @@ import {
   StorageError,
   uploadBytesResumable,
 } from '@firebase/storage';
+
 import {storage} from 'config/firebase';
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
 import {ChangeEventHandler, FC, useState} from 'react';
+import {Arrow, Error, HideInput, LoadImage} from './ProductLoad.styled';
 import {ProductLoadProps} from './types';
-import {Error, HideInput, LoadImage} from './ProductLoad.styled';
 
 export const ProductLoad: FC<ProductLoadProps> = ({id, image}) => {
   const {dispatch} = useUploadBulk();
@@ -56,7 +57,10 @@ export const ProductLoad: FC<ProductLoadProps> = ({id, image}) => {
   ) : (
     <>
       {JSON.stringify(error)}
-      <LoadImage onClick={handleLoadImage}>Cargar Imágen</LoadImage>
+      <LoadImage onClick={handleLoadImage}>
+        Cargar Imágen
+        <Arrow />
+      </LoadImage>
       <HideInput
         type="file"
         id={`getFile-${id}`}
