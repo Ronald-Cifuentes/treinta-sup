@@ -1,7 +1,7 @@
 import {Reducer} from 'react';
 import {DataVerify, VerifyResponseError} from 'services/models';
 
-import {Action, State, UploadBulkContextError} from './types';
+import {Action, State} from './types';
 
 export const initialState: State = {
   step: 0,
@@ -9,7 +9,9 @@ export const initialState: State = {
   files: [],
   status: 'normal',
   products: [],
-  error: [],
+  error: {} as VerifyResponseError,
+  errorFormatted: [[]],
+  errorMessage: '',
   productsRepeated: 0,
   nonexistentCategories: [],
   duplicateStrategy: null,
@@ -40,26 +42,8 @@ const findAndRemoveItem = (
   index: number,
 ): DataVerify[] => products.slice(0, index).concat(products.slice(index + 1));
 
-const findAndRemoveError = (
-  errors: UploadBulkContextError,
-  index: number,
-): UploadBulkContextError =>
+const findAndRemoveError = (errors: string[][], index: number): string[][] =>
   errors.slice(0, index).concat(errors.slice(index + 1));
-
-const formatError = (error: VerifyResponseError): string[][] => {
-  const tmpArray: string[][] = [[]];
-  if (typeof error?.message == 'object') {
-    error.message?.forEach(x => {
-      const ind = parseInt(x.split('.')[1]);
-      if (typeof tmpArray[ind] == 'undefined') {
-        tmpArray[ind] = [];
-      }
-      tmpArray[ind]?.push(x.split('.')[2]);
-    });
-  }
-
-  return tmpArray;
-};
 
 // eslint-disable-next-line complexity
 export const reducer: Reducer<State, Action> = (state, action): State => {
@@ -82,9 +66,9 @@ export const reducer: Reducer<State, Action> = (state, action): State => {
     case ACTIONS.UPLOAD_FILE_ERROR:
       return {
         ...state,
-        products: [],
+        ...payload.error,
         status: 'error',
-        error: payload.error,
+        products: [],
         productsRepeated: 0,
         isValid: false,
       };
@@ -111,16 +95,19 @@ export const reducer: Reducer<State, Action> = (state, action): State => {
         payload.index,
       );
       // eslint-disable-next-line no-case-declarations
-      const error = findAndRemoveError(state.error, payload.index);
+      const errorFormatted = findAndRemoveError(
+        state.errorFormatted,
+        payload.index,
+      );
       return {
         ...state,
         products,
-        error,
+        errorFormatted,
       };
     case ACTIONS.SET_STACK_ERROR:
       return {
         ...state,
-        error: formatError(payload.error),
+        ...payload.error,
       };
     case ACTIONS.SET_BTN_STEP:
       return {

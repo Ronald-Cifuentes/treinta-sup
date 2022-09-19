@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import {snakeCaseKeys} from 'utils/changeCaseObjectKeys';
-import {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {AxiosRequestConfig, AxiosResponse} from 'axios';
 
-import {ApiConfig} from './api-config';
+import {addHeaders, AxiosInstance} from 'config/AxiosInterceptors';
 
 export class ApiProvider {
   private static instance: ApiProvider;
-  private apiInstance!: AxiosInstance;
 
   static getInstance(): ApiProvider {
     if (!ApiProvider.instance) {
@@ -15,16 +14,12 @@ export class ApiProvider {
     return this.instance;
   }
 
-  initProvider(config: AxiosRequestConfig = {}): void {
-    this.apiInstance = ApiConfig.create(config);
-  }
-
   async get<T = unknown>(
     url: string,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
-    return await this.apiInstance.get(url, {
-      headers: await ApiConfig.addHeaders(url),
+    return await AxiosInstance.get(url, {
+      headers: await addHeaders(url),
       ...config,
     });
   }
@@ -33,8 +28,8 @@ export class ApiProvider {
     url: string,
     data: unknown,
   ): Promise<AxiosResponse<T>> {
-    return await this.apiInstance.post(url, data, {
-      headers: await ApiConfig.addHeaders(url),
+    return await AxiosInstance.post(url, data, {
+      headers: await addHeaders(url),
     });
   }
 
@@ -43,8 +38,8 @@ export class ApiProvider {
     data: unknown,
   ): Promise<AxiosResponse<T>> {
     const serializedData = snakeCaseKeys(data);
-    return await this.apiInstance.post(url, serializedData, {
-      headers: await ApiConfig.addHeaders(url),
+    return await AxiosInstance.post(url, serializedData, {
+      headers: await addHeaders(url),
     });
   }
 
@@ -52,8 +47,8 @@ export class ApiProvider {
     url: string,
     data: unknown,
   ): Promise<AxiosResponse<T>> {
-    return await this.apiInstance.put(url, data, {
-      headers: await ApiConfig.addHeaders(url),
+    return await AxiosInstance.put(url, data, {
+      headers: await addHeaders(url),
     });
   }
 
@@ -62,8 +57,8 @@ export class ApiProvider {
     data: unknown,
   ): Promise<AxiosResponse<T>> {
     const serializedData = snakeCaseKeys(data);
-    return await this.apiInstance.put(url, serializedData, {
-      headers: await ApiConfig.addHeaders(url),
+    return await AxiosInstance.put(url, serializedData, {
+      headers: await addHeaders(url),
     });
   }
 
@@ -71,9 +66,9 @@ export class ApiProvider {
     url: string,
     data?: unknown,
   ): Promise<AxiosResponse<T>> {
-    return await this.apiInstance.delete(url, {
+    return await AxiosInstance.delete(url, {
       data,
-      headers: await ApiConfig.addHeaders(url),
+      headers: await addHeaders(url),
     });
   }
 
@@ -81,8 +76,8 @@ export class ApiProvider {
     url: string,
     data?: unknown,
   ): Promise<AxiosResponse<T>> {
-    return await this.apiInstance.patch(url, data, {
-      headers: await ApiConfig.addHeaders(url),
+    return await AxiosInstance.patch(url, data, {
+      headers: await addHeaders(url),
     });
   }
 }

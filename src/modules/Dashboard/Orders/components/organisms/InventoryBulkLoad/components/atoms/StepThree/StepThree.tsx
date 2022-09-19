@@ -16,7 +16,7 @@ export const StepThree: FC<StepThreeProps> = () => {
 
   state.products.forEach((item, ind) => {
     products.push({
-      status: parseInt(`${state.error?.[ind]?.length || 0}`),
+      status: parseInt(`${state.errorFormatted?.[ind]?.length || 0}`),
       product: {
         id: ind,
         name: `${item.productName}`,

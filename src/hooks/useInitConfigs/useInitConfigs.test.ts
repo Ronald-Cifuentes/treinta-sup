@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {renderHook} from '__tests__/test-utils';
 
 import {useInitConfigs} from './useInitConfigs';
@@ -25,18 +23,5 @@ describe('useInitConfigs', () => {
     const {result} = renderHook(() => useInitConfigs());
     result.current.init();
     expect(spyInit).toBeCalled();
-  });
-
-  it('should init api provider', () => {
-    const instanceMock = {
-      get: 'getInstance',
-      interceptors: {response: {use: jest.fn()}},
-    };
-    const spyCreate = jest.fn().mockReturnValue(instanceMock);
-    jest.spyOn(axios, 'create').mockImplementation(spyCreate);
-    const {result} = renderHook(() => useInitConfigs());
-    result.current.init();
-
-    expect(spyCreate).toBeCalled();
   });
 });

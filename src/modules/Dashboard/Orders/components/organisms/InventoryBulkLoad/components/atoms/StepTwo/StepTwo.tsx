@@ -1,5 +1,6 @@
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
 import {GeneralAlert} from 'modules/Dashboard/Orders/components/atoms/GeneralAlert/GeneralAlert';
+import {ModalErrorFields} from 'modules/Dashboard/Orders/components/atoms/ModalErrorFields';
 import {InventoryTable} from 'modules/Dashboard/Orders/components/molecules/InventoryTable';
 import {FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -16,10 +17,11 @@ export const StepTwo: FC<StepTwoProps> = () => {
   const {state, dispatch} = useUploadBulk();
   const [showAlertSucces, setShowAlertSucces] = useState(false);
   const [showAlertDanger, setShowAlertDanger] = useState(false);
+  const [modal, setModal] = useState(false);
 
   state.products.forEach((item, ind) => {
     products.push({
-      status: parseInt(`${state.error?.[ind]?.length || 0}`),
+      status: parseInt(`${state.error.details?.[ind]?.reason.length || 0}`),
       product: {
         id: ind,
         name: `${item.productName}`,
@@ -69,7 +71,7 @@ export const StepTwo: FC<StepTwoProps> = () => {
       <div style={{marginBottom: '20px'}}>
         {showAlertDanger && (
           <GeneralAlert
-            content={getAlertContentError(t, countProductsWithError)}
+            content={getAlertContentError(t, countProductsWithError, setModal)}
             dataTestIdCloseButton="bulkUpload_button_closeAlert"
             type="danger"
             border="radius"
@@ -81,6 +83,7 @@ export const StepTwo: FC<StepTwoProps> = () => {
         columns={getColumnsStepTwo(t, handleRemove)}
         products={products}
       />
+      <ModalErrorFields open={modal} setOpen={setModal} />
     </>
   );
 };

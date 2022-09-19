@@ -54,3 +54,22 @@ export const ButtonInfo = styled.button`
     background: #ecedef;
   }
 `;
+
+export const ButtonError = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  width: 220px;
+  height: 40px;
+  background: #971a11;
+  color: white;
+  border-radius: 4px;
+  border: 0px;
+  font-weight: 700;
+  font-size: 15px;
+  &:disabled {
+    background: #ecedef;
+  }
+`;

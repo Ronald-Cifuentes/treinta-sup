@@ -97,10 +97,16 @@ export interface VerifyResponseSuccess {
   toInsertRaw: ProductDataResponse[];
   toUpdateRaw: ProductDataResponse[];
 }
+
+export interface DetailsResponse {
+  key: string;
+  reason: string[];
+  target: unknown;
+}
 export interface VerifyResponseError {
   statusCode: number;
-  message: string[] | string;
-  error: string[];
+  details: DetailsResponse[];
+  message: string;
 }
 
 export interface MassiveSaveResponseSuccess extends VerifyResponseSuccess {}

@@ -34,7 +34,7 @@ export const ProductLoad: FC<ProductLoadProps> = ({id, image}) => {
         },
         err => setError(err),
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(url => {
+          getDownloadURL(uploadTask.snapshot.ref)?.then(url => {
             setPicture(url);
             dispatch({type: ACTIONS.UPLOAD_IMAGE, payload: {id, url}});
           });

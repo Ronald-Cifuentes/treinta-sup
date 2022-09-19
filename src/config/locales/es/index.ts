@@ -355,7 +355,7 @@ export const es = {
     'download-template': 'Descargar plantilla',
     'upload-file': 'Sube el archivo con tu inventario',
     'excel-instructions':
-      'Sigue las instrucciones que encontrarás en el Excel para subir tu inventario sin problemas.',
+      'Sigue las instrucciones que encontrarás en el Excel para subir tu inventario sin problemas. Recuerda que debes subir productos a una bodega y un máximo de 500 registros.',
     'product-already-upload-amount':
       'Estás subiendo {{productsRepeated}} productos que ya tienes registrados en Treinta',
     'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo: 15MB',
@@ -427,6 +427,18 @@ export const es = {
     'btn-yes-continue': 'Sí, Continuar',
     'error-500-products':
       'Solo puedes subir hasta un máximo de 500 productos por archivo.',
+    'error-sku-duplicates': "No pueden SKU's duplicadas",
+    'show-error-detail': 'Mostrar detalle del error',
+    'modal-error-fields': {
+      title: 'Campos con error',
+      'item-name-1': 'Fila:',
+      'item-name-2': 'Columna:',
+      'item-name-3': 'Motivo:',
+    },
+    'modal-error-warehouse': {
+      title: 'Filas Repetidas',
+      'item-name-1': 'Fila:',
+    },
   },
   'category-form': {
     name: 'Nombre de la categoría*',

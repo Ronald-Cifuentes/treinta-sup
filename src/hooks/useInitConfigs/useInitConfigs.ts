@@ -1,7 +1,6 @@
 import {useState} from 'react';
 
 import {UserConfig} from 'services/models';
-import {ApiProvider} from 'providers/api-provider';
 import {LogProvider} from 'providers/log-provider';
 import {I18nProvider} from 'providers/intl-provider';
 import {EventProvider} from 'providers/event-provider';
@@ -12,7 +11,6 @@ export const useInitConfigs = (): UseInitConfigs => {
   const [isConfigReady, setIsConfigReady] = useState(false);
 
   const init = (): void => {
-    ApiProvider.getInstance().initProvider();
     LogProvider.getInstance().initProvider();
     I18nProvider.getInstance().initProvider();
     EventProvider.getInstance().initProvider();

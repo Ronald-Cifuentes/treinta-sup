@@ -304,7 +304,7 @@ export const pt = {
     'download-template': 'Descarregar modelo',
     'upload-file': 'Carregue o arquivo com seu inventário',
     'excel-instructions':
-      'Siga as instruções que encontrará no Excel para subir seu inventário sem problemas.',
+      'Siga as instruções que você encontrará no Excel para carregar seu inventário sem problemas. Lembre-se que você deve fazer upload de produtos para um armazém e um máximo de 500 registros.',
     'product-already-upload-amount':
       'Você está carregando {{productsRepeated}} produtos que você já tem registrados na Trinta',
     'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo 15MB',
@@ -378,6 +378,17 @@ export const pt = {
     'btn-yes-continue': 'Sim continuar',
     'error-500-products':
       'Você só pode carregar até um máximo de 500 produtos por arquivo.',
+    'show-error-detail': 'Mostrar detalhes do erro',
+    'modal-error-fields': {
+      title: 'Campos com erros',
+      'item-name-1': 'Linha:',
+      'item-name-2': 'Coluna:',
+      'item-name-3': 'Motivo:',
+    },
+    'modal-error-warehouse': {
+      title: 'Linhas repetidas',
+      'item-name-1': 'Linha:',
+    },
   },
   'category-form': {
     name: 'Nome da categoria*',

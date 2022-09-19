@@ -1,4 +1,3 @@
-import {Backdrop} from '@30sas/web-ui-kit-core';
 import {ColorProps} from '@30sas/web-ui-kit-theme';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import {DashboardLayout} from 'components/templates';
@@ -38,7 +37,6 @@ export const OrderDetail: FC<DetailTypes> = () => {
   const {id} = useParams();
   const {t} = useTranslation();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<{
     id: string;
     data: {[key: string]: unknown};
@@ -122,7 +120,6 @@ export const OrderDetail: FC<DetailTypes> = () => {
   };
 
   const handleBtnYes = (): void => {
-    setLoading(true);
     setOpen(false);
     EventProvider.getInstance().logEventAmplitude(
       'b2bs_order_details_update_confirmed',
@@ -132,18 +129,16 @@ export const OrderDetail: FC<DetailTypes> = () => {
       },
     );
     mutateSetDetail(data || {})
-      .then(res => {
+      ?.then(res => {
         if (res.data.errors.length == 0) {
           refetchDetail();
         } else {
           setTrigger(false);
         }
         setShowAlert(true);
-        setLoading(false);
       })
       .catch(err => {
         setShowAlert(false);
-        setLoading(false);
         throw new Error(err);
       });
   };
@@ -186,7 +181,6 @@ export const OrderDetail: FC<DetailTypes> = () => {
         </form>
       </DetailContainer>
       <ModalYesNo {...{open, setOpen, handleBtnYes}} />
-      <Backdrop open={loading} />
     </DashboardLayout>
   );
 };

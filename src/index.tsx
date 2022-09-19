@@ -1,3 +1,5 @@
+import {AxiosInterceptor} from 'config/AxiosInterceptors';
+import {StoreProvider} from 'context/StoreProvider/StoreProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -5,7 +7,11 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>
+      <AxiosInterceptor>
+        <App />
+      </AxiosInterceptor>
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

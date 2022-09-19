@@ -3,16 +3,24 @@ import {PackageIcon, WarningIcon} from '@30sas/web-ui-kit-icons';
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
 import {useTheme} from 'hooks';
 import {useParseXlsx} from 'hooks/useParseXlsx';
-import {FC} from 'react';
+import {ModalErrorWarehouse} from 'modules/Dashboard/Orders/components/atoms/ModalErrorWarehouse';
+import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {ProductsRepeatedOptions} from '../../atoms/ProductsRepeatedOptions';
-import {Card, IconContainer, WrapperCard} from './StepOne.styled';
+import {ButtonError} from '../Buttons/Buttons.styled';
+import {
+  Card,
+  IconContainer,
+  WrapperBtnError,
+  WrapperCard,
+} from './StepOne.styled';
 import {StepOneProps} from './types';
 
 export const StepOne: FC<StepOneProps> = () => {
   const {t} = useTranslation();
+  const [modal, setModal] = useState(false);
   const {state, dispatch} = useUploadBulk();
-  const {productsRepeated, files, error} = state;
+  const {productsRepeated, files, status, error, errorMessage} = state;
   const {onFilesChange} = useParseXlsx();
   const theme = useTheme();
 
@@ -35,7 +43,7 @@ export const StepOne: FC<StepOneProps> = () => {
       },
     },
     error: {
-      mainText: `${error}`,
+      mainText: `${errorMessage}`,
       endText: {
         text: t('bulk-upload.drag-file'),
         linkText: `${t('bulk-upload.select-from-computer')}
@@ -113,11 +121,18 @@ export const StepOne: FC<StepOneProps> = () => {
             deleteFile={handleDeleteFile}
             allowFileTypes=".xlsx"
             maxSize={5 * 1024 * 1024}
-            status={state.status}
+            status={status}
             loading={false}
           />
           {productsRepeated > 0 && (
             <ProductsRepeatedOptions productsRepeated={productsRepeated} />
+          )}
+          {status == 'error' && error.details?.length && (
+            <WrapperBtnError>
+              <ButtonError onClick={() => setModal(true)}>
+                {t('bulk-upload.show-error-detail')}
+              </ButtonError>
+            </WrapperBtnError>
           )}
           <Typography
             variant="XSmall"
@@ -128,6 +143,7 @@ export const StepOne: FC<StepOneProps> = () => {
           </Typography>
         </Box>
       </Card>
+      <ModalErrorWarehouse open={modal} setOpen={setModal} />
     </WrapperCard>
   );
 };

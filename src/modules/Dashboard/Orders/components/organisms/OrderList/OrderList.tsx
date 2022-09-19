@@ -88,7 +88,7 @@ export const Orders: FC = () => {
   }));
 
   useEffect(() => {
-    refetchRetrieve().then(() => {
+    refetchRetrieve()?.then(() => {
       setLoading(false);
     });
   }, [date, tab, itemsByPage, page, refetchRetrieve, initSearchData]);
@@ -133,7 +133,7 @@ export const Orders: FC = () => {
     mutateSetState({
       items: Array.from(itemsSelected),
       statusId: PointerStates[stateSelected],
-    }).then(() => {
+    })?.then(() => {
       setOpenModalChangeStates(false);
       setOpen(false);
       refetchRetrieve().then(() => {

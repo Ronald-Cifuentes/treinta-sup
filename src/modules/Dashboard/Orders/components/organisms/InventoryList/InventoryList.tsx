@@ -36,7 +36,7 @@ const ChildInventory: FC<ChildInventoryProps> = ({initDataWarehouses}) => {
   });
 
   useEffect(() => {
-    refetchProducts().then(() => {
+    refetchProducts()?.then(() => {
       setLoading(false);
     });
   }, [itemsByPage, page, refetchProducts, categories, store]);

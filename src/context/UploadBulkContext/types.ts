@@ -1,6 +1,12 @@
-import {DataVerify} from 'services/models';
+import {DataVerify, VerifyResponseError} from 'services/models';
 
-export type UploadBulkContextError = string[][];
+export type ErrorStack = {
+  status?: UploadStatus;
+  error?: VerifyResponseError;
+  errorFormatted?: string[][];
+  errorMessage?: string;
+  isValid?: boolean;
+};
 
 export type State = {
   step: number;
@@ -8,7 +14,9 @@ export type State = {
   files: File[];
   status: UploadStatus;
   products: DataVerify[];
-  error: UploadBulkContextError;
+  error: VerifyResponseError;
+  errorFormatted: string[][];
+  errorMessage: string;
   productsRepeated: number;
   nonexistentCategories: string[];
   duplicateStrategy: null | 'override' | 'add-stock';

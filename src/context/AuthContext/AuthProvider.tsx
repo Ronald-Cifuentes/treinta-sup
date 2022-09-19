@@ -100,7 +100,7 @@ export const AuthProvider: FC = ({children}) => {
     provider.setCustomParameters({prompt: 'select_account'});
     /* eslint-disable @typescript-eslint/no-explicit-any */
     signInWithPopup(auth, provider)
-      .then((result: any) => {
+      ?.then((result: any) => {
         const token = result?.user?.accessToken;
         localStorage.setItem('accessToken', `${token}`);
         let User: TokenType | null = null;
