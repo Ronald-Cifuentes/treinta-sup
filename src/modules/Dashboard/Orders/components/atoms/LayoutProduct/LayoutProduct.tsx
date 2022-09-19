@@ -14,7 +14,8 @@ export const LayoutProduct: FC<LayoutProductProps> = ({product}) => (
     <Image src={product?.image ? product?.image : Logo} />
     <LayoutText>
       <TitleName>{product?.name}</TitleName>
-      <TitleCategory>{product?.category}</TitleCategory>
+      {product?.category && <TitleCategory>{product?.category}</TitleCategory>}
+      {product?.sku && <TitleCategory>SKU {product?.sku}</TitleCategory>}
     </LayoutText>
   </LayoutProductContainer>
 );

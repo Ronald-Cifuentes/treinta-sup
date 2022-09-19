@@ -2,7 +2,8 @@ export interface Product {
   id: number;
   name: string;
   image?: string;
-  category: string;
+  category?: string;
+  sku?: string;
 }
 
 export interface LayoutProductProps {

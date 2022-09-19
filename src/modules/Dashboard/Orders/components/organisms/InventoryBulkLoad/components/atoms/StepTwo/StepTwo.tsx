@@ -3,6 +3,7 @@ import {GeneralAlert} from 'modules/Dashboard/Orders/components/atoms/GeneralAle
 import {InventoryTable} from 'modules/Dashboard/Orders/components/molecules/InventoryTable';
 import {FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {getColumnsStepTwo} from '../../../../../molecules/InventoryTable/InventoryTable.data';
 import {
   getAlertContentError,
   getAlertContentSuccess,
@@ -22,7 +23,7 @@ export const StepTwo: FC<StepTwoProps> = () => {
       product: {
         id: ind,
         name: `${item.productName}`,
-        image: item.productLargeImgUrl,
+        image: item.productThumbImgUrl,
         category: `${item.productCategoryName}`,
       },
     });
@@ -46,6 +47,13 @@ export const StepTwo: FC<StepTwoProps> = () => {
     }
   }, [countProductsWithError, dispatch]);
 
+  const handleRemove = (index: number): void => {
+    dispatch({
+      type: ACTIONS.REMOVE_PRODUCT,
+      payload: {index},
+    });
+  };
+
   return (
     <>
       <div style={{marginBottom: '20px'}}>
@@ -68,7 +76,11 @@ export const StepTwo: FC<StepTwoProps> = () => {
           />
         )}
       </div>
-      <InventoryTable products={products} />
+
+      <InventoryTable
+        columns={getColumnsStepTwo(t, handleRemove)}
+        products={products}
+      />
     </>
   );
 };

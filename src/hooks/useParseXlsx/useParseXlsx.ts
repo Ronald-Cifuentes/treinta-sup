@@ -2,7 +2,7 @@ import {FileRejection} from 'react-dropzone';
 import XLSX from 'xlsx';
 
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
-import {UploadProduct} from 'services/models';
+import {DataVerify, UploadProduct} from 'services/models';
 import {AxiosError} from 'axios';
 import {useTranslation} from 'react-i18next';
 import {SuppliersProductsServices} from 'services/suppliers.products/suppliers.products.services';
@@ -102,7 +102,34 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
             });
             dispatch({type: ACTIONS.SET_IS_VALID, payload: true});
           }
-          dispatch({type: ACTIONS.UPLOAD_COMPLETED, payload: {products}});
+          const tmpArray1: DataVerify[] = [],
+            tmpArray2: DataVerify[] = [];
+
+          res.data?.toUpdateRaw.forEach(item => {
+            products.map(
+              product =>
+                item.productSKU == product.productSKU &&
+                tmpArray1.push({
+                  ...product,
+                  productThumbImgUrl: item.productThumbImgUrl,
+                }),
+            );
+          });
+          res.data?.toInsertRaw.forEach(item => {
+            products.map(
+              product =>
+                item.productSKU == product.productSKU &&
+                tmpArray2.push({
+                  ...product,
+                  productThumbImgUrl: item.productThumbImgUrl,
+                }),
+            );
+          });
+          const productsComplete: DataVerify[] = [...tmpArray1, ...tmpArray2];
+          dispatch({
+            type: ACTIONS.UPLOAD_COMPLETED,
+            payload: {products: productsComplete},
+          });
         }
       }
     } catch (error) {

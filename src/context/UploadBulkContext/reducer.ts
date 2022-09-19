@@ -31,6 +31,8 @@ export const ACTIONS = {
   SET_STACK_ERROR: `${moduleName}/set_stack_error`,
   SET_BTN_STEP: `${moduleName}/set_btn_step`,
   SET_STEP: `${moduleName}/set_step`,
+  UPLOAD_IMAGE: `${moduleName}/upload_image`,
+  REMOVE_IMAGE: `${moduleName}/remove_image`,
 };
 
 const findAndRemoveItem = (
@@ -104,7 +106,10 @@ export const reducer: Reducer<State, Action> = (state, action): State => {
       };
     case ACTIONS.REMOVE_PRODUCT:
       // eslint-disable-next-line no-case-declarations
-      const products = findAndRemoveItem(state.products, payload.index);
+      const products: DataVerify[] = findAndRemoveItem(
+        state.products,
+        payload.index,
+      );
       // eslint-disable-next-line no-case-declarations
       const error = findAndRemoveError(state.error, payload.index);
       return {
@@ -127,6 +132,21 @@ export const reducer: Reducer<State, Action> = (state, action): State => {
         ...state,
         step: payload.step,
       };
+    case ACTIONS.UPLOAD_IMAGE:
+      return {
+        ...state,
+        products: state.products.map((product, ind) =>
+          ind == payload.id
+            ? {
+                ...product,
+                productThumbImgUrl: payload.url,
+              }
+            : product,
+        ),
+      };
+    case ACTIONS.REMOVE_IMAGE:
+      delete state.products[payload.index].productThumbImgUrl;
+      return {...state};
     case ACTIONS.CLEAN_STATE:
       return initialState;
     default:

@@ -28,6 +28,8 @@ export const ButtonStep: FC<ButtonStepProps> = ({disabled, onClick}) => {
         );
       case 2:
         return <>{t('bulk-upload.load-images')}</>;
+      case 3:
+        return <>{t('bulk-upload.confirm')}</>;
       default:
         return <div />;
     }

@@ -34,7 +34,17 @@ export const Steps: FC<StepsProps> = () => {
   };
 
   const handleContinue = (): void => {
-    dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
+    if (state.step != 2) {
+      dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
+    }
+    switch (state.buttonStep) {
+      case 2:
+        dispatch({type: ACTIONS.SET_BTN_STEP, payload: {buttonStep: 3}});
+        break;
+      case 3:
+        alert('Pendiente de programar este paso');
+        break;
+    }
   };
 
   return (

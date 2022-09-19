@@ -264,6 +264,7 @@ export const pt = {
       'O que você quer fazer com os produtos {{productsRepeated}} duplicados?',
     'revision-inventory': 'Revisão de inventário',
     'load-images': 'Cargar imágenes',
+    confirm: 'Confirme',
     'upload-inventory': 'Carregue o inventário',
     'replace-all': 'Substituir tudo',
     'replace-message':
@@ -361,6 +362,9 @@ export const pt = {
     'alert-error-first-bullet': 'Alguns campos obrigatórios estão vazios.',
     'alert-error-second-bullet':
       'Existem campos preenchidos incorretamente ou com formato inválido.',
+    'alert-info-constrains-load-images-1':
+      'As imagens devem estar no formatoPNG.',
+    'alert-info-constrains-load-images-2': 'As imagens não devem exceder 2 MB.',
   },
   'category-form': {
     name: 'Nome da categoria*',
