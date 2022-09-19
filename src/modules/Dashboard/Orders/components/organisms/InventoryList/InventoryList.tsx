@@ -10,7 +10,6 @@ import {SectionCategoryAndStore} from '../../molecules/SectionCategoryAndStore';
 import {ChildInventoryProps, InventoryListTypes} from './types';
 import {InventoryContainer} from './InventoryList.styled';
 import {columns} from './InventoryList.config';
-import {Products} from './InventoryList.mock';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'danger',
@@ -93,7 +92,7 @@ const ChildInventory: FC<ChildInventoryProps> = ({initDataWarehouses}) => {
             setItemsByPage={setItemsByPage}
             handleSpecialPagination={handleSpecialPagination}
             itemsByPage={itemsByPage}
-            totalItems={Products?.pagination?.itemsNumber}
+            totalItems={dataProducts?.pagination?.itemsNumber}
           />
         </InventoryContainer>
         <Backdrop open={loading} />

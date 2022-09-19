@@ -5,7 +5,6 @@ import {useParseXlsx} from 'hooks/useParseXlsx';
 import {ModalConfirm} from 'modules/Dashboard/Orders/components/atoms/ModalConfirm';
 import {FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useNavigate} from 'react-router-dom';
 import {
   BottomNav,
   GoBackButton,
@@ -18,7 +17,6 @@ import {StepsProps} from './types';
 
 export const Steps: FC<StepsProps> = () => {
   const {t} = useTranslation();
-  const history = useNavigate();
   const {state, dispatch} = useUploadBulk();
   const {isValid, productsRepeated, step} = state;
   const {massiveSave} = useParseXlsx();
@@ -50,21 +48,6 @@ export const Steps: FC<StepsProps> = () => {
     return valid == state.products.length;
   };
 
-  const save = (): void => {
-    massiveSave()
-      .then(res => {
-        if (res.status == 200) {
-          dispatch({
-            type: ACTIONS.UPLOAD_FILE_RESET,
-          });
-          history({pathname: '/inventario/bulkload/success'});
-        }
-      })
-      .catch(() => {
-        history({pathname: '/inventario/bulkload/error'});
-      });
-  };
-
   const handleContinue = (): void => {
     if (state.step != 2) {
       dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
@@ -75,7 +58,7 @@ export const Steps: FC<StepsProps> = () => {
         break;
       case 3:
         if (validateContainAllImages()) {
-          save();
+          massiveSave();
         } else {
           setModal(true);
         }
@@ -85,7 +68,7 @@ export const Steps: FC<StepsProps> = () => {
 
   const handleBtnConfirm = (): void => {
     setModal(false);
-    save();
+    massiveSave();
   };
 
   return (

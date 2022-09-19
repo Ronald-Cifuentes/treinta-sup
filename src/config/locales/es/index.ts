@@ -425,6 +425,8 @@ export const es = {
     'btn-exit': 'Salir',
     'btn-cancel': 'Cancelar',
     'btn-yes-continue': 'Sí, Continuar',
+    'error-500-products':
+      'Solo puedes subir hasta un máximo de 500 productos por archivo.',
   },
   'category-form': {
     name: 'Nombre de la categoría*',

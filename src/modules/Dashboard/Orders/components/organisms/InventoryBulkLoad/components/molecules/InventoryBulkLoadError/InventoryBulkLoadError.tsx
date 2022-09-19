@@ -26,23 +26,8 @@ export const InventoryBulkLoadError: FC<InventoryBulkLoadErrorProps> = () => {
   const {massiveSave} = useParseXlsx();
   const {dispatch} = useUploadBulk();
 
-  const save = (): void => {
-    massiveSave()
-      .then(res => {
-        if (res.status == 200) {
-          dispatch({
-            type: ACTIONS.UPLOAD_FILE_RESET,
-          });
-          history({pathname: '/inventario/bulkload/success'});
-        }
-      })
-      .catch(() => {
-        history({pathname: '/inventario/bulkload/error'});
-      });
-  };
-
   const handleBtnReload = (): void => {
-    save();
+    massiveSave();
   };
 
   const handleBtnExit = (): void => {

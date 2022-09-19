@@ -1,14 +1,11 @@
 import {FileRejection} from 'react-dropzone';
 import XLSX from 'xlsx';
 
+import {AxiosError} from 'axios';
 import {ACTIONS, useUploadBulk} from 'context/UploadBulkContext';
-import {
-  DataVerify,
-  MassiveSaveResponseSuccess,
-  UploadProduct,
-} from 'services/models';
-import {AxiosError, AxiosResponse} from 'axios';
 import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
+import {UploadProduct} from 'services/models';
 import {SuppliersProductsServices} from 'services/suppliers.products/suppliers.products.services';
 import {ProductFile, UseParseXlsxOutput} from './types';
 
@@ -17,6 +14,7 @@ const suppliersProductsServices = new SuppliersProductsServices();
 
 export const useParseXlsx = (): UseParseXlsxOutput => {
   const {state, dispatch} = useUploadBulk();
+  const history = useNavigate();
   const {t} = useTranslation();
 
   const parseFile = (
@@ -30,7 +28,6 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
         'productName',
         'productDescription',
         'productCategoryName',
-        'categoryVisible',
         'productSKU',
         'productMeasurement',
         'productMeasurementQuantity',
@@ -72,67 +69,75 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
           },
         });
       } else {
-        const res = await suppliersProductsServices.verify({
-          rows: products,
-          overwrite: false,
-        });
+        if (products.length <= 500) {
+          const res = await suppliersProductsServices.verify({
+            rows: products,
+            overwrite: false,
+          });
 
-        if (res.data.error?.length > 0) {
-          if (
-            res.data.error.includes('There are') &&
-            res.data.error.includes('rows duplicates')
-          ) {
+          if (res.data.error?.length > 0) {
+            if (
+              res.data.error.includes('There are') &&
+              res.data.error.includes('rows duplicates')
+            ) {
+              dispatch({
+                type: ACTIONS.UPLOAD_FILE_ERROR,
+                payload: {
+                  error: t('bulk-upload.error-products-repeated'),
+                },
+              });
+            }
+          } else {
+            if (res.data?.toUpdateRaw.length > 0) {
+              dispatch({
+                type: ACTIONS.UPLOAD_PRODUCTSREPEATED,
+                payload: {
+                  productsRepeated: parseInt(`${res.data?.toUpdateRaw.length}`),
+                },
+              });
+            } else {
+              dispatch({
+                type: ACTIONS.UPLOAD_PRODUCTSREPEATED,
+                payload: {
+                  productsRepeated: 0,
+                },
+              });
+              dispatch({type: ACTIONS.SET_IS_VALID, payload: true});
+            }
+
+            const allProductsBackend = [
+              ...res.data.toInsertRaw,
+              ...res.data.toUpdateRaw,
+            ];
+
+            const productsMerged: UploadProduct[] = [];
+            products.forEach(item => {
+              const indexFound = allProductsBackend.findIndex(
+                item2 => item2.productSKU === item.productSKU?.toString(),
+              );
+              if (indexFound !== -1) {
+                const productResultInfo = allProductsBackend.splice(
+                  indexFound,
+                  1,
+                );
+
+                productsMerged.push({
+                  ...item,
+                  productThumbImgUrl: productResultInfo[0].productThumbImgUrl,
+                });
+              }
+            });
             dispatch({
-              type: ACTIONS.UPLOAD_FILE_ERROR,
-              payload: {
-                error: t('bulk-upload.error-products-repeated'),
-              },
+              type: ACTIONS.UPLOAD_COMPLETED,
+              payload: {products: productsMerged},
             });
           }
         } else {
-          if (res.data?.toUpdateRaw.length > 0) {
-            dispatch({
-              type: ACTIONS.UPLOAD_PRODUCTSREPEATED,
-              payload: {
-                productsRepeated: parseInt(`${res.data?.toUpdateRaw.length}`),
-              },
-            });
-          } else {
-            dispatch({
-              type: ACTIONS.UPLOAD_PRODUCTSREPEATED,
-              payload: {
-                productsRepeated: 0,
-              },
-            });
-            dispatch({type: ACTIONS.SET_IS_VALID, payload: true});
-          }
-          const tmpArray1: DataVerify[] = [],
-            tmpArray2: DataVerify[] = [];
-
-          res.data?.toUpdateRaw.forEach(item => {
-            products.map(
-              product =>
-                item.productSKU == product.productSKU &&
-                tmpArray1.push({
-                  ...product,
-                  productThumbImgUrl: item.productThumbImgUrl,
-                }),
-            );
-          });
-          res.data?.toInsertRaw.forEach(item => {
-            products.map(
-              product =>
-                item.productSKU == product.productSKU &&
-                tmpArray2.push({
-                  ...product,
-                  productThumbImgUrl: item.productThumbImgUrl,
-                }),
-            );
-          });
-          const productsComplete: DataVerify[] = [...tmpArray1, ...tmpArray2];
           dispatch({
-            type: ACTIONS.UPLOAD_COMPLETED,
-            payload: {products: productsComplete},
+            type: ACTIONS.UPLOAD_FILE_ERROR,
+            payload: {
+              error: t('bulk-upload.error-500-products'),
+            },
           });
         }
       }
@@ -205,14 +210,25 @@ export const useParseXlsx = (): UseParseXlsxOutput => {
     }
   };
 
-  const massiveSave = async (): Promise<
-    AxiosResponse<MassiveSaveResponseSuccess>
-  > => {
-    const res = await suppliersProductsServices.massiveSave({
-      rows: state.products,
-      overwrite: state.duplicateStrategy == 'override',
-    });
-    return res;
+  const massiveSave = async (): Promise<void> => {
+    try {
+      const res = await suppliersProductsServices.massiveSave({
+        rows: state.products,
+        overwrite: state.duplicateStrategy == 'override',
+      });
+      if (res.status == 200) {
+        if (res.data.error) {
+          history({pathname: '/inventario/bulkload/error'});
+        } else {
+          dispatch({
+            type: ACTIONS.UPLOAD_FILE_RESET,
+          });
+          history({pathname: '/inventario/bulkload/success'});
+        }
+      }
+    } catch (error) {
+      history({pathname: '/inventario/bulkload/error'});
+    }
   };
   return {onFilesChange, massiveSave};
 };

@@ -376,6 +376,8 @@ export const pt = {
     'btn-exit': 'Sair',
     'btn-cancel': 'Cancelar',
     'btn-yes-continue': 'Sim continuar',
+    'error-500-products':
+      'Você só pode carregar até um máximo de 500 produtos por arquivo.',
   },
   'category-form': {
     name: 'Nome da categoria*',

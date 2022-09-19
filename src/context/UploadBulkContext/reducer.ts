@@ -140,12 +140,14 @@ export const reducer: Reducer<State, Action> = (state, action): State => {
             ? {
                 ...product,
                 productThumbImgUrl: payload.url,
+                productLargeImgUrl: payload.url,
               }
             : product,
         ),
       };
     case ACTIONS.REMOVE_IMAGE:
       delete state.products[payload.index].productThumbImgUrl;
+      delete state.products[payload.index].productLargeImgUrl;
       return {...state};
     case ACTIONS.CLEAN_STATE:
       return initialState;
