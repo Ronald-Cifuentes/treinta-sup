@@ -24,7 +24,7 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = ({
   const history = useNavigate();
 
   const handleDownloadTemplate = (): void => {
-    document.location.href = '/assets/Template_Inventory.xlsx';
+    document.location.href = '/assets/Template_Inventory_001.xlsx';
   };
 
   const handleDownloadInventory = (): void => {
