@@ -864,5 +864,8 @@ export const pt = {
       'discount-value': 'valor de desconto*',
       'total-value': 'valor total do pedido*',
     },
+    'state-bar': {
+      title: 'Status do pedido',
+    },
   },
 };

@@ -952,5 +952,8 @@ export const es = {
       'discount-value': 'Valor descuento*',
       'total-value': 'Valor total del pedido*',
     },
+    'state-bar': {
+      title: 'Estado de la orden',
+    },
   },
 };

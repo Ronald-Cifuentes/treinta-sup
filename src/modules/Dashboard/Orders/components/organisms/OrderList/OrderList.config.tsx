@@ -1,4 +1,4 @@
-import {Tag} from '@30sas/web-ui-kit-core';
+import {ColorTypesTag, Tag} from '@30sas/web-ui-kit-core';
 import {GridActionsColDef, GridColDef, GridRowParams} from '@mui/x-data-grid';
 import {EventProvider} from 'providers/event-provider';
 import NumberFormat from 'react-number-format';
@@ -21,7 +21,7 @@ export const columns: (GridColDef | GridActionsColDef)[] = [
     renderCell: params => (
       <Tag
         label={params?.value.name}
-        variant={OrderStatusTags[params.value.name]}
+        variant={OrderStatusTags[params.value.name] as ColorTypesTag}
       />
     ),
   },

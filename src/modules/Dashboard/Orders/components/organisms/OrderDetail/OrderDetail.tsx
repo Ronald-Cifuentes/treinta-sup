@@ -2,8 +2,9 @@ import {ColorProps} from '@30sas/web-ui-kit-theme';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import {DashboardLayout} from 'components/templates';
 import {useDetails} from 'hooks/useDetails';
+import {useOrders} from 'hooks/useOrders';
 import {EventProvider} from 'providers/event-provider';
-import {FC, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useParams} from 'react-router-dom';
 import {getUser} from 'utils/infoUser';
@@ -13,6 +14,8 @@ import {SectionDestination} from '../../atoms/SectionDestination';
 import {SectionOrigin} from '../../atoms/SectionOrigin';
 import {SectionTable} from '../../atoms/SectionTable';
 import {SectionTotal} from '../../atoms/SectionTotal';
+import {StateBar} from '../../molecules/StateBar';
+import {PointerStates} from '../OrderList/OrderList.const';
 import {getCustomer, getLocation, getProducts} from './OrderDetail.func';
 import {
   AlertError,
@@ -23,6 +26,7 @@ import {
   CloseButton,
   CloseButtonError,
   DetailContainer,
+  DetailContent,
   DetailTitle,
   EmptySpace,
 } from './OrderDetail.styled';
@@ -44,6 +48,9 @@ export const OrderDetail: FC<DetailTypes> = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(true);
   const [trigger, setTrigger] = useState(false);
+  const [openChangeState, setOpenChangeState] = useState<boolean>(false);
+  const [stateSelected, setStateSelected] = useState<string>('');
+  const [select, setSelect] = useState<ChangeEvent<HTMLSelectElement>>();
 
   useEffect(() => {
     if (!trigger) {
@@ -60,6 +67,12 @@ export const OrderDetail: FC<DetailTypes> = () => {
     isErrorSetDetail,
   } = useDetails({
     id,
+  });
+
+  const {mutateSetState} = useOrders({
+    page: 1,
+    size: 100,
+    keyword: id?.slice(0, 7),
   });
 
   useEffect(() => {
@@ -143,44 +156,72 @@ export const OrderDetail: FC<DetailTypes> = () => {
       });
   };
 
+  const handleChangeStates = (e: ChangeEvent<HTMLSelectElement>): void => {
+    setSelect(e);
+    setStateSelected(e.target.value);
+    setOpenChangeState(true);
+  };
+
+  const handleBtnYesChangeState = (): void => {
+    mutateSetState({
+      items: Array.from([id || '']),
+      statusId: PointerStates[stateSelected || ''],
+    })?.then(() => {
+      select && (select.target.selectedIndex = 0);
+      setOpenChangeState(false);
+      refetchDetail();
+    });
+  };
+
   return (
     <DashboardLayout title="" fancyLineProps={LINE_PROPS} sizeFancyLine="0.5px">
       <DetailContainer data-testid="detail">
-        <DetailTitle>
-          {`${t('detail-orders.title')} ${id?.slice(0, 7)}`}
-          {showAlert && !isErrorDetail && !isErrorSetDetail && (
-            <AlertSuccess>
-              <div style={{display: 'flex', flexDirection: 'row'}}>
-                <ErrorOutlineIcon />
-                <AlertSuccessText>
-                  {t('detail-orders.alert.success')}
-                </AlertSuccessText>
-              </div>
-              <CloseButton onClick={() => setShowAlert(false)} />
-            </AlertSuccess>
-          )}
-          {showError && (isErrorDetail || isErrorSetDetail) && (
-            <AlertError>
-              <AlertErrorStrong>
-                <ErrorOutlineIcon />
-                {t('detail-orders.alert.error')}
-              </AlertErrorStrong>
-              <CloseButtonError onClick={() => setShowError(false)} />
-            </AlertError>
-          )}
-          <EmptySpace />
-        </DetailTitle>
-        <form onSubmit={handleSubmit}>
-          <SectionClient data={dataDetail} />
-          <CardinalSection>
-            <SectionOrigin data={dataDetail} />
-            <SectionDestination data={dataDetail} />
-          </CardinalSection>
-          <SectionTotal data={dataDetail} />
-          {trigger && <SectionTable data={dataProduct} />}
-        </form>
+        <DetailContent>
+          <DetailTitle>
+            {`${t('detail-orders.title')} ${id?.slice(0, 7)}`}
+            {showAlert && !isErrorDetail && !isErrorSetDetail && (
+              <AlertSuccess>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                  <ErrorOutlineIcon />
+                  <AlertSuccessText>
+                    {t('detail-orders.alert.success')}
+                  </AlertSuccessText>
+                </div>
+                <CloseButton onClick={() => setShowAlert(false)} />
+              </AlertSuccess>
+            )}
+            {showError && (isErrorDetail || isErrorSetDetail) && (
+              <AlertError>
+                <AlertErrorStrong>
+                  <ErrorOutlineIcon />
+                  {t('detail-orders.alert.error')}
+                </AlertErrorStrong>
+                <CloseButtonError onClick={() => setShowError(false)} />
+              </AlertError>
+            )}
+            <EmptySpace />
+          </DetailTitle>
+          <form onSubmit={handleSubmit}>
+            <SectionClient data={dataDetail} />
+            <CardinalSection>
+              <SectionOrigin data={dataDetail} />
+              <SectionDestination data={dataDetail} />
+            </CardinalSection>
+            <SectionTotal data={dataDetail} />
+            {trigger && <SectionTable data={dataProduct} />}
+          </form>
+        </DetailContent>
+        <StateBar
+          status={dataDetail.status}
+          handleChangeStates={handleChangeStates}
+        />
       </DetailContainer>
       <ModalYesNo {...{open, setOpen, handleBtnYes}} />
+      <ModalYesNo
+        open={openChangeState}
+        setOpen={setOpenChangeState}
+        handleBtnYes={handleBtnYesChangeState}
+      />
     </DashboardLayout>
   );
 };

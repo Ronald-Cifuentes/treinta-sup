@@ -2,18 +2,16 @@ import React, {FC} from 'react';
 import {SpecialSelectLabel, StyledSelect} from './SpecialSelect.styled';
 import {SpecialSelectTypes} from './types';
 
-const Fn: FC<{style?: React.CSSProperties}> = ({style, children}) =>
-  style ? <div style={style}>{children}</div> : <> {children} </>;
-
 export const SpecialSelect: FC<SpecialSelectTypes> = ({
   onChange,
   defaultText,
   defaultSelected,
   options,
   label,
-  styleContainer,
+  style,
   styleLabel,
   styleOptions,
+  className,
 }) => {
   const optionsMap = options?.map((item, ind) => {
     switch (typeof defaultSelected) {
@@ -45,7 +43,7 @@ export const SpecialSelect: FC<SpecialSelectTypes> = ({
     }
   });
   return (
-    <Fn style={styleContainer}>
+    <div className={className} style={style}>
       {label && (
         <SpecialSelectLabel style={styleLabel}>{label}</SpecialSelectLabel>
       )}
@@ -62,6 +60,6 @@ export const SpecialSelect: FC<SpecialSelectTypes> = ({
         )}
         {optionsMap}
       </StyledSelect>
-    </Fn>
+    </div>
   );
 };

@@ -3,8 +3,11 @@ import {CloseFilledIcon} from '@30sas/web-ui-kit-icons';
 
 export const DetailContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 110%;
   background: #f1f0f2;
+`;
+
+export const DetailContent = styled.div`
   padding: 24px 0px 0px 5px;
 `;
 

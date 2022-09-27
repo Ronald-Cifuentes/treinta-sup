@@ -6,7 +6,8 @@ export interface SpecialSelectTypes {
   defaultSelected?: string | number;
   options?: OptionsType[];
   label?: string;
-  styleContainer?: React.CSSProperties;
+  style?: React.CSSProperties;
   styleLabel?: React.CSSProperties;
   styleOptions?: React.CSSProperties;
+  className?: string;
 }
