@@ -134,13 +134,6 @@ export const OrderDetail: FC<DetailTypes> = () => {
 
   const handleBtnYes = (): void => {
     setOpen(false);
-    EventProvider.getInstance().logEventAmplitude(
-      'b2bs_order_details_update_confirmed',
-      {
-        supplier: getUser()?.supplier,
-        order_status: dataDetail.status.name,
-      },
-    );
     mutateSetDetail(data || {})
       ?.then(res => {
         if (res.data.errors.length == 0) {
