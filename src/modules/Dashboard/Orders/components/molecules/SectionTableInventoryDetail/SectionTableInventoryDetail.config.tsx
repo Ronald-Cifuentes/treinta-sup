@@ -29,9 +29,8 @@ export const columns: GridColDef[] = [
     headerAlign: 'center',
     renderCell: params => (
       <div>
-        {params.value > 0 ||
-        (Array.isArray(params.value) && params.value.length > 0)
-          ? params.value
+        {Object.entries(params?.value || {}).length
+          ? params.value?.discountDisplay
           : '0%'}
       </div>
     ),
