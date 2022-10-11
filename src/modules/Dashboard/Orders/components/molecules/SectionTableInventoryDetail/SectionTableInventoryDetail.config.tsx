@@ -19,12 +19,12 @@ export const columns: GridColDef[] = [
     width: 200,
   },
   {
-    field: 'isvisible',
+    field: 'isVisible',
     headerName: 'Es visible',
     width: 200,
     renderCell: params => (
       <div>
-        {params.value?.isvisible ? (
+        {params.value ? (
           <CheckCircleIcon style={{color: 'green'}} />
         ) : (
           <CancelIcon style={{color: 'red'}} />
