@@ -1,4 +1,6 @@
 import {GridColDef} from '@mui/x-data-grid';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export const columns: GridColDef[] = [
   {
@@ -17,9 +19,18 @@ export const columns: GridColDef[] = [
     width: 200,
   },
   {
-    field: 'isOutOfStock',
+    field: 'isvisible',
     headerName: 'Es visible',
     width: 200,
+    renderCell: params => (
+      <div>
+        {params.value?.isvisible ? (
+          <CheckCircleIcon style={{color: 'green'}} />
+        ) : (
+          <CancelIcon style={{color: 'red'}} />
+        )}
+      </div>
+    ),
   },
   {
     field: 'discount',

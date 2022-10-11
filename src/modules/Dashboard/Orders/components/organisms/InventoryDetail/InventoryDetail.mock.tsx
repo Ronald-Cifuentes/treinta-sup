@@ -1,4 +1,7 @@
-import {ProductDetails} from 'services/models/Product.Detail';
+import {
+  ProductDetails,
+  WarehouseDetailDiscount,
+} from 'services/models/Product.Detail';
 
 export const dataDetail: ProductDetails = {
   name: 'Shamp Baby Soft Docil X 200 Ml',
@@ -21,7 +24,7 @@ export const dataDetail: ProductDetails = {
       isOutOfStock: true,
       extID: '',
       stockLimit: 1000,
-      discount: [],
+      discount: {} as WarehouseDetailDiscount,
     },
     {
       id: 1,
@@ -32,7 +35,7 @@ export const dataDetail: ProductDetails = {
       isOutOfStock: true,
       extID: '',
       stockLimit: 1000,
-      discount: [],
+      discount: {} as WarehouseDetailDiscount,
     },
   ],
 };

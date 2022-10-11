@@ -1,6 +1,14 @@
 export interface WarehouseDetailDiscount {
-  is_active: boolean;
-  value: string;
+  discount: unknown;
+  discountprice: number;
+  extid: string;
+  isoutofstock: false;
+  isvisible: true;
+  price: number;
+  stock: number;
+  stocklimit: number;
+  warehouseid: string;
+  warehousename: string;
 }
 
 export interface WarehouseDetail {
@@ -12,7 +20,7 @@ export interface WarehouseDetail {
   isOutOfStock: boolean;
   extID: string;
   stockLimit: number;
-  discount: WarehouseDetailDiscount[] | number | string;
+  discount: WarehouseDetailDiscount;
 }
 
 export interface ProductDetails {
