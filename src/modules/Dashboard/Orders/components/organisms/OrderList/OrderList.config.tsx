@@ -1,9 +1,10 @@
-import {ColorTypesTag, Tag} from '@30sas/web-ui-kit-core';
+import {ColorTypesTag} from '@30sas/web-ui-kit-core';
 import {GridActionsColDef, GridColDef, GridRowParams} from '@mui/x-data-grid';
 import {EventProvider} from 'providers/event-provider';
 import NumberFormat from 'react-number-format';
 import {Link} from 'react-router-dom';
 import {getUser} from 'utils/infoUser';
+import {Tag} from '../../atoms/TagCustom';
 import {OrderStatusTags} from './OrderList.const';
 import {WrapperId} from './OrderList.styled';
 

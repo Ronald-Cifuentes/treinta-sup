@@ -1,25 +1,23 @@
 /* eslint-disable complexity */
 import {Divider, DrawerLeft} from '@30sas/web-ui-kit-core';
 import {
-  FaqIcon,
   DocumentIcon,
-  PackageIcon,
+  FaqIcon,
   LogoutBracketIcon,
+  PackageIcon,
   StarsProfileIcon,
 } from '@30sas/web-ui-kit-icons';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-
-import {ROUTES} from 'routes/types';
-import {useAuth} from 'context/AuthContext';
 import {LogoTreinta} from 'components/atoms';
 import {SUPPORT_LINK} from 'config/constants/parameters';
-
-import {getUser} from 'utils/infoUser';
+import {useAuth} from 'context/AuthContext';
+import {ROUTES} from 'routes/types';
 import {EventProvider} from 'providers/event-provider';
-import {CloseSession} from '../atoms/CloseSession';
-import {LinkButton} from '../molecules/LinkButton/LinkButton';
+import {getUser} from 'utils/infoUser';
+import {CloseSession} from '../../atoms/CloseSession';
+import {LinkButton} from '../../molecules/LinkButton/LinkButton';
 import {
   Box,
   Gap,
@@ -28,10 +26,7 @@ import {
   UserIcon,
   UserName,
 } from './LeftMenu.styled';
-interface ILeftMenuProps {
-  mobileOpen: boolean;
-  onDrawerToggle: () => void;
-}
+import {ILeftMenuProps} from './types';
 
 export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
   const {logOut} = useAuth();

@@ -1,4 +1,5 @@
 import {FC} from 'react';
+import {useTranslation} from 'react-i18next';
 import ICON_SEARCH from '../../../../../../Assets/ICON_SEARCH.svg';
 import {
   EmptyStateSearchContainer,
@@ -7,16 +8,18 @@ import {
 } from './EmptyStateSearch.styled';
 import {EmptyStateSearchProps} from './types';
 
-export const EmptyStateSearch: FC<EmptyStateSearchProps> = () => (
-  <EmptyStateSearchContainer>
-    <EmptyStateSearchImage
-      src={ICON_SEARCH}
-      alt="ICON_SEARCH"
-      className="src"
-    />
-    <EmptyStateSearchTextContent>
-      No tienes ordenes asociadas a este número. Intenta con otro ID o número de
-      orden.
-    </EmptyStateSearchTextContent>
-  </EmptyStateSearchContainer>
-);
+export const EmptyStateSearch: FC<EmptyStateSearchProps> = () => {
+  const {t} = useTranslation();
+  return (
+    <EmptyStateSearchContainer>
+      <EmptyStateSearchImage
+        src={ICON_SEARCH}
+        alt="ICON_SEARCH"
+        className="src"
+      />
+      <EmptyStateSearchTextContent>
+        {t('orders.empty-state.msg-empty')}
+      </EmptyStateSearchTextContent>
+    </EmptyStateSearchContainer>
+  );
+};

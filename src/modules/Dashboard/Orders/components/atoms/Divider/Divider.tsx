@@ -1,7 +1,16 @@
-import styled from 'styled-components';
+import styled, {StyledComponent} from 'styled-components';
 import {Divider} from '@30sas/web-ui-kit-core';
+import {OverridableComponent} from '@mui/material/OverridableComponent';
+import {DividerTypeMap} from '@mui/material';
 
-export const DividerStyled = styled(Divider)<{margin?: number[]}>`
+export const DividerStyled: StyledComponent<
+  OverridableComponent<DividerTypeMap<object, 'hr'>>,
+  never,
+  {
+    margin?: number[] | undefined;
+  },
+  never
+> = styled(Divider)<{margin?: number[]}>`
   &.MuiDivider-root {
     margin: ${({theme, margin = [0]}) => theme.utils.spacing(...margin)};
     border: none;

@@ -251,6 +251,10 @@ export const es = {
       'qty-selected': 'Seleccionado',
     },
     'input-search-placeholder': 'Busca por ID de cliente o número de orden',
+    'empty-state': {
+      'msg-empty':
+        'No tienes ordenes asociadas a este número. Intenta con otro ID o número de orden.',
+    },
   },
   onboarding: {
     'title-name': '¿Cuál es tu nombre?',

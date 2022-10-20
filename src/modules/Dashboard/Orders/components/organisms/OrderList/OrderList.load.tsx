@@ -4,7 +4,7 @@ import {ROUTES} from 'routes/types';
 import {Permissions} from 'config/constants';
 import {useAuthorization, useNavigateI18n} from 'hooks';
 
-import {Orders} from './OrderList';
+import {OrderList} from './OrderList';
 
 export const OrdersLoad: FC = () => {
   const isAllowed = useAuthorization(Permissions.ORDERS_ALL);
@@ -16,5 +16,5 @@ export const OrdersLoad: FC = () => {
       navigate(ROUTES.ORDERS);
     }
   }, []);
-  return <Orders />;
+  return <OrderList />;
 };

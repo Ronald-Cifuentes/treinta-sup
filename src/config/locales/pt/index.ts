@@ -201,6 +201,10 @@ export const pt = {
     },
     'input-search-placeholder':
       'Pesquise por ID do cliente ou número do pedido',
+    'empty-state': {
+      'msg-empty':
+        'Você não tem pedidos associados a este número. Tente outro ID ou número de pedido.',
+    },
   },
   onboarding: {
     'title-name': 'Qual é o seu nome? ',

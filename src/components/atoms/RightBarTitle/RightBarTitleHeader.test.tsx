@@ -1,7 +1,8 @@
-import {screen, render} from '__tests__/test-utils';
+import {screen, renderTheme} from '__tests__/test-utils';
 import {RightBarTitleHeader} from './RightBarTitleHeader';
 
 const goBackSpy = jest.fn();
+jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));
 
 jest.mock('context/DashboardContext/DashboardContext', () => ({
   useDashboard: jest.fn().mockImplementation(() => ({
@@ -17,7 +18,7 @@ jest.mock('context/DashboardContext/DashboardContext', () => ({
 
 describe('RightBarTitleHeader', () => {
   it('Should render correctly', () => {
-    render(
+    renderTheme(
       <RightBarTitleHeader
         title="rightBarHeaderTest"
         lineColor="success"

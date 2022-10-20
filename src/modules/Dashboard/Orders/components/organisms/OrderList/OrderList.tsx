@@ -31,7 +31,7 @@ const dropDownDefaultValue = 25;
 const dropDownDefaultValueSearch = 100;
 const tabDefaultValue = 0;
 
-export const Orders: FC = () => {
+export const OrderList: FC = () => {
   const {t} = useTranslation();
   const initSearchData: string = localStorage.getItem('searchData') || '';
   const [searchData, setSearchData] = useState<string>(initSearchData || '');

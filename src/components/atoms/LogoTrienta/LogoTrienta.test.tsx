@@ -1,4 +1,4 @@
-import {screen, render} from '__tests__/test-utils';
+import {screen, renderTheme} from '__tests__/test-utils';
 
 import {LogoTreinta} from './LogoTrienta';
 
@@ -8,7 +8,7 @@ jest.mock('formik', () => ({
 
 describe('LogoTreinta', () => {
   it('Should render correctly', () => {
-    render(<LogoTreinta />);
+    renderTheme(<LogoTreinta />);
     expect(screen.getByText('Proveedores')).toBeInTheDocument();
   });
 });

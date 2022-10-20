@@ -1,4 +1,11 @@
-import React, {FC} from 'react';
+import {OptionsType} from 'hooks/useCommonDocumentTypes';
+import {FC} from 'react';
+import {
+  getDefaultValue,
+  getItemSelected,
+  getOptions,
+  insertOption,
+} from './SpecialSelect.func';
 import {SpecialSelectLabel, StyledSelect} from './SpecialSelect.styled';
 import {SpecialSelectTypes} from './types';
 
@@ -13,51 +20,46 @@ export const SpecialSelect: FC<SpecialSelectTypes> = ({
   styleOptions,
   className,
 }) => {
-  const optionsMap = options?.map((item, ind) => {
-    switch (typeof defaultSelected) {
-      case 'string':
-        return (
-          <option
-            key={`option-${item.value}`}
-            value={item.value}
-            selected={item.value == defaultSelected}>
-            {item.label}
-          </option>
-        );
-      case 'number':
-        return (
-          <option
-            key={`option-${item.value}`}
-            value={item.value}
-            selected={ind == defaultSelected}>
-            {item.label}
-          </option>
-        );
+  let itemSelected = '';
+  let items: OptionsType[] = getOptions(options);
+  const isNotNumeric = isNaN(
+    Number(defaultSelected === '' ? NaN : defaultSelected),
+  );
 
-      default:
-        return (
-          <option key={`option-${item.value}`} value={item.value}>
-            {item.label}
-          </option>
-        );
+  if (defaultText && items?.[0]?.label !== defaultText) {
+    items = insertOption(items || [], defaultText);
+  }
+
+  if (options && isNotNumeric) {
+    if (defaultSelected) {
+      itemSelected = getItemSelected(
+        items,
+        defaultText ? defaultText : defaultSelected,
+      );
     }
-  });
+  }
+
+  const optionsMap = items?.map(item => (
+    <option
+      style={styleOptions}
+      key={`option-${item?.value}`}
+      value={item?.value}
+      disabled={item?.disabled}>
+      {item?.label}
+    </option>
+  ));
+
+  const defVal = getDefaultValue(defaultText, defaultSelected, itemSelected);
+
   return (
     <div className={className} style={style}>
       {label && (
         <SpecialSelectLabel style={styleLabel}>{label}</SpecialSelectLabel>
       )}
-      <StyledSelect onChange={onChange}>
-        {defaultText && (
-          <option
-            style={styleOptions}
-            value=""
-            disabled
-            selected
-            defaultChecked>
-            {defaultText}
-          </option>
-        )}
+      <StyledSelect
+        data-testid="special-select"
+        onChange={onChange}
+        defaultValue={defVal}>
         {optionsMap}
       </StyledSelect>
     </div>

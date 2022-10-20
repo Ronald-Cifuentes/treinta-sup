@@ -1,24 +1,14 @@
-import {FC, useState} from 'react';
-import {AppBar, LeftBar, RightBar} from '@30sas/web-ui-kit-core';
-
-import {ToastLocations} from 'config/constants';
-import {Layout} from 'components/templates/Layout';
+import {LeftBar, RightBar} from '@30sas/web-ui-kit-core';
 import {SharedRightBar} from 'components/organisms';
+import {Layout} from 'components/templates/Layout';
+import {ToastLocations} from 'config/constants';
 import {useDashboard} from 'context/DashboardContext';
 import {useToast} from 'context/ToastContext/ToastContext';
-
-import {useLocation} from 'react-router-dom';
-import {
-  Title,
-  ToastContent,
-  HeaderContainer,
-  ContentContainer,
-  HeaderLeftContainer,
-  HeaderRightContainer,
-  BottomToastContainer,
-} from './Dashboard.styled';
+import {FC, useState} from 'react';
+import {BottomToastContainer, ToastContent} from './Dashboard.styled';
+import {LeftMenu} from './organisms/LeftMenu';
+import {ContentBody} from './organisms/ContentBody';
 import {DashboardLayoutProps} from './types';
-import {LeftMenuLoad} from './organisms/LeftMenu.load';
 
 export const DashboardLayout: FC<DashboardLayoutProps> = ({
   title,
@@ -34,8 +24,6 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
   const {Toast} = useToast();
   const {rightBarOpen, params} = useDashboard();
   const withPadding = !params?.removePadding;
-  const location = useLocation();
-
   const handleDrawerToggle = (): void => {
     setMobileOpen(!mobileOpen);
   };
@@ -50,43 +38,20 @@ export const DashboardLayout: FC<DashboardLayoutProps> = ({
         </BottomToastContainer>
       </RightBar>
       <LeftBar>
-        <LeftMenuLoad
-          mobileOpen={mobileOpen}
-          onDrawerToggle={handleDrawerToggle}
-        />
-        {location.pathname == '/ordenes' ? (
-          <>
-            <AppBar
-              onClose={handleDrawerToggle}
-              colorFancyLine={baseColor}
-              colorTypeFancyLine={gradient}
-              sizeFancyLine={sizeFancyLine}>
-              <HeaderContainer>
-                <HeaderRightContainer xs={5} md={6}>
-                  <Title
-                    variant="XXLargebold"
-                    color="secondary"
-                    colorType="700">
-                    {title}
-                  </Title>
-                </HeaderRightContainer>
-                {LeftOptions && (
-                  <HeaderLeftContainer xs={7} md={6}>
-                    <LeftOptions />
-                  </HeaderLeftContainer>
-                )}
-              </HeaderContainer>
-            </AppBar>
-            <ContentContainer
-              component="main"
-              sx={{flexGrow: 1}}
-              $withoutPadding={withoutPadding}>
-              {children}
-            </ContentContainer>
-          </>
-        ) : (
-          children
-        )}
+        <LeftMenu mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} />
+        <ContentBody
+          {...{
+            handleDrawerToggle,
+            baseColor,
+            gradient,
+            sizeFancyLine,
+            title,
+            LeftOptions,
+            withoutPadding,
+            children,
+          }}>
+          {children}
+        </ContentBody>
       </LeftBar>
       <ToastContent>
         <Toast location={ToastLocations.GENERAL} />

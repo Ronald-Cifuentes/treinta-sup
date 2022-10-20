@@ -1,4 +1,4 @@
-import {renderHook} from '__tests__/test-utils';
+import {customRenderHook} from '__tests__/test-utils';
 import {UsersService} from 'services/users/users.services';
 
 import {useLoadUserData} from './useLoadUserData';
@@ -23,7 +23,7 @@ jest.spyOn(UsersService.prototype, 'getUser').mockImplementation(spyGetUser);
 
 describe('useLoadUserData', () => {
   it('Should not get user data', async () => {
-    const {waitFor} = renderHook(() => useLoadUserData());
+    const {waitFor} = customRenderHook(() => useLoadUserData());
 
     await waitFor(() => {
       expect(spyGetUser).not.toBeCalled();
@@ -31,7 +31,7 @@ describe('useLoadUserData', () => {
   });
 
   it('Should not set user data', async () => {
-    const {waitFor} = renderHook(() => useLoadUserData());
+    const {waitFor} = customRenderHook(() => useLoadUserData());
 
     await waitFor(() => {
       expect(spySetUser).not.toBeCalled();

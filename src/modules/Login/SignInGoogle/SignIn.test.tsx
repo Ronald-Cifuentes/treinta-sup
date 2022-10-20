@@ -1,4 +1,4 @@
-import {render, screen} from '__tests__/test-utils';
+import {renderThemeAndRouter, screen} from '__tests__/test-utils';
 
 import {SignIn} from './SignIn';
 
@@ -23,7 +23,7 @@ jest.mock('providers/event-provider', () => ({
 
 describe('<SignIn />', () => {
   beforeEach(() => {
-    render(<SignIn />);
+    renderThemeAndRouter(<SignIn />);
   });
 
   it('Should render correctly', () => {

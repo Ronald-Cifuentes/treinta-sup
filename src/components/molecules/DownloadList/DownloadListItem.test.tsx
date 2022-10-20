@@ -1,11 +1,11 @@
 import {PdfIcon} from '@30sas/web-ui-kit-icons';
-import {render, screen} from '__tests__/test-utils';
+import {renderTheme, screen} from '__tests__/test-utils';
 
 import {DownloadListItem} from './DownloadListItem';
 
 describe('<DownloadListItem />', () => {
   it('Should render correctly', () => {
-    render(
+    renderTheme(
       <DownloadListItem
         text="test"
         color="red"

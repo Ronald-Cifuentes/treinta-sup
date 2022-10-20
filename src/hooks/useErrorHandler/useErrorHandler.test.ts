@@ -1,4 +1,4 @@
-import {renderHook} from '__tests__/test-utils';
+import {customRenderHook} from '__tests__/test-utils';
 
 import {useErrorHandler} from './useErrorHandler';
 
@@ -14,40 +14,40 @@ jest.mock('context/ToastContext', () => ({
 
 describe('useErrorHandler', () => {
   it('Should show error with action create', () => {
-    renderHook(() =>
+    customRenderHook(() =>
       useErrorHandler(true, {entity: 'product', action: 'create'}),
     );
 
     expect(spySetLabel).toBeCalledWith('commons.error-create');
   });
   it('Should show error with action update', () => {
-    renderHook(() =>
+    customRenderHook(() =>
       useErrorHandler(true, {entity: 'transaction', action: 'update'}),
     );
 
     expect(spySetLabel).toBeCalledWith('commons.error-update');
   });
   it('Should show error with action delete', () => {
-    renderHook(() =>
+    customRenderHook(() =>
       useErrorHandler(true, {entity: 'category', action: 'delete'}),
     );
 
     expect(spySetLabel).toBeCalledWith('commons.error-delete');
   });
   it('Should show error with action read', () => {
-    renderHook(() =>
+    customRenderHook(() =>
       useErrorHandler(true, {entity: 'contact', action: 'read'}),
     );
 
     expect(spySetLabel).toBeCalledWith('commons.error-read');
   });
   it('Should show error with custom error', () => {
-    renderHook(() => useErrorHandler(true, {message: 'custom-message'}));
+    customRenderHook(() => useErrorHandler(true, {message: 'custom-message'}));
 
     expect(spySetLabel).toBeCalledWith('custom-message');
   });
   it('Should show error with generic error', () => {
-    renderHook(() => useErrorHandler(true));
+    customRenderHook(() => useErrorHandler(true));
 
     expect(spySetLabel).toBeCalledWith('commons.generic-error');
   });

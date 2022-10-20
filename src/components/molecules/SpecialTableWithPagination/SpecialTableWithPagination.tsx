@@ -61,7 +61,6 @@ export const SpecialTableWithPagination: FC<
       <LayoutHeader>
         <WrapperDropdownFrecuency>
           <Dropdown
-            AlingMenu="right"
             dropdownOptions={selectDropDownOptions()}
             elementId="test"
             errorText="Error text"

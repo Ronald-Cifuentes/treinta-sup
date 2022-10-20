@@ -1,4 +1,4 @@
-import {renderHook} from '__tests__/test-utils';
+import {customRenderHook} from '__tests__/test-utils';
 
 import {useCurrencyFormatter} from './useCurrencyFormatter';
 
@@ -10,7 +10,7 @@ jest.mock('context/AuthContext/AuthContext', () => ({
 
 describe('useCurrencyFormatter', () => {
   it('Should format currency with Colombian format', () => {
-    const {result} = renderHook(() => useCurrencyFormatter());
+    const {result} = customRenderHook(() => useCurrencyFormatter());
 
     expect(result.current.country.name).toBe('Colombia');
     expect(result.current.countryId).toBe(1);

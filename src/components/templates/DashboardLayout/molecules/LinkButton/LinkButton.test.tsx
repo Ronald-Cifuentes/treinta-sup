@@ -1,4 +1,4 @@
-import {render, screen} from '__tests__/test-utils';
+import {renderThemeAndRouter, screen} from '__tests__/test-utils';
 
 import {ROUTES, RoutesSpanish} from 'routes/types';
 
@@ -15,7 +15,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('LinkButton', () => {
   it('Should render a line if href corresponds to current location', () => {
-    render(
+    renderThemeAndRouter(
       <LinkButton icon={() => <div />} label="" href={ROUTES.INVENTORY} />,
     );
     expect(screen.getByTestId('dashboard_linkButton_line')).toBeInTheDocument();

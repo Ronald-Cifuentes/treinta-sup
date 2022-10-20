@@ -1,4 +1,5 @@
-import {renderHook} from '__tests__/test-utils';
+import {act} from 'react-dom/test-utils';
+import {customRenderHook} from '__tests__/test-utils';
 
 import {useInitConfigs} from './useInitConfigs';
 
@@ -20,8 +21,10 @@ jest.mock('firebase/auth', () => ({
 
 describe('useInitConfigs', () => {
   it('should init i18n provider', () => {
-    const {result} = renderHook(() => useInitConfigs());
-    result.current.init();
+    const {result} = customRenderHook(() => useInitConfigs());
+    act(() => {
+      result.current.init();
+    });
     expect(spyInit).toBeCalled();
   });
 });

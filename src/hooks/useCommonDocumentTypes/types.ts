@@ -7,8 +7,9 @@ import {
 } from 'react-query';
 
 export interface OptionsType {
-  label?: string;
-  value?: string;
+  label: string;
+  value: string;
+  disabled?: boolean;
 }
 
 export interface ActionCommonDocumentTypes {

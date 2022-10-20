@@ -1,8 +1,9 @@
-import {ColorTypesTag, Tag} from '@30sas/web-ui-kit-core';
+import {ColorTypesTag} from '@30sas/web-ui-kit-core';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StatusDetail} from 'services/models';
 import {optionsChangeState} from '../../atoms/ChangeStates/ChangeStates.mock';
+import {Tag} from '../../atoms/TagCustom';
 import {OrderStatusTags} from '../../organisms/OrderList/OrderList.const';
 import {
   StateBarContainer,

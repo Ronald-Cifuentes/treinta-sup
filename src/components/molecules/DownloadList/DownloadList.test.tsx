@@ -1,4 +1,4 @@
-import {render, screen} from '__tests__/test-utils';
+import {renderTheme, screen} from '__tests__/test-utils';
 
 import {DownloadList} from './DownloadList';
 
@@ -22,7 +22,7 @@ jest.mock('context/ToastContext/ToastContext', () => ({
 }));
 describe('<DownloadList />', () => {
   it('Should render correctly', () => {
-    render(<DownloadList user={undefined} moduleName="test" />);
+    renderTheme(<DownloadList user={undefined} moduleName="test" />);
     expect(screen.queryAllByTestId('download_list_option')).toBeDefined();
   });
 });

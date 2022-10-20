@@ -1,11 +1,9 @@
+import {LanguagesMap} from 'config/constants';
 import {FC, useMemo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Tag} from '@30sas/web-ui-kit-core';
-
-import {LanguagesMap} from 'config/constants';
-
-import {LogoTreintaProps} from './types';
+import {Tag} from 'modules/Dashboard/Orders/components/atoms/TagCustom/Tag';
 import {LogoContainer} from './LogoTrienta.styled';
+import {LogoTreintaProps} from './types';
 
 export const LogoTreinta: FC<LogoTreintaProps> = ({
   isSmall = false,

@@ -5,7 +5,7 @@ import {ThemeProvider} from 'styled-components';
 // import {ErrorBoundary} from 'react-error-boundary';
 import {TreintaTheme} from '@30sas/web-ui-kit-theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 // import {Error} from 'modules/Error';
 import {HeadTags} from 'components/molecules';
@@ -13,7 +13,7 @@ import {AuthProvider} from 'context/AuthContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
 import {DashboardProvider} from 'context/DashboardContext';
 import {StoreContext} from 'context/StoreProvider/StoreProvider';
-import {ToastProvider as ToastDashboardProvider} from 'context/ToastContext/ToastContext';
+import {ToastProvider} from 'context/ToastContext/ToastProvider';
 import {Backdrop} from '@30sas/web-ui-kit-core';
 import {UploadBulkProvider} from 'context/UploadBulkContext';
 import {GlobalStyle} from './config/GlobalStyle';
@@ -38,21 +38,21 @@ const App: FC = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={TreintaTheme}>
         <GlobalStyle />
-        <Router>
+        <BrowserRouter>
           <ConfigProvider>
             <HeadTags>
               <AuthProvider>
-                <ToastDashboardProvider>
+                <ToastProvider>
                   <UploadBulkProvider>
                     <DashboardProvider>
                       <Routes />
                     </DashboardProvider>
                   </UploadBulkProvider>
-                </ToastDashboardProvider>
+                </ToastProvider>
               </AuthProvider>
             </HeadTags>
           </ConfigProvider>
-        </Router>
+        </BrowserRouter>
         <Backdrop open={loading} />
       </ThemeProvider>
     </QueryClientProvider>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {ROUTES} from 'routes/types';
 import {userConfig} from '__mocks__/user.mock';
-import {renderHook} from '__tests__/test-utils';
+import {customRenderHook} from '__tests__/test-utils';
 import {UsersService} from 'services/users/users.services';
 
 import {useAuth} from './AuthContext';
@@ -46,7 +46,7 @@ describe('<AuthContext /> - useAuth', () => {
       .spyOn(UsersService.prototype, 'validateUser')
       .mockImplementation(spyValidateUser);
 
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const {result, waitFor} = customRenderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       expect(spyValidateUser).not.toBeCalled();
@@ -62,7 +62,7 @@ describe('<AuthContext /> - useAuth', () => {
       .spyOn(UsersService.prototype, 'validateUser')
       .mockImplementation(spyValidateUser);
 
-    const {waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const {waitFor} = customRenderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       expect(spyValidateUser).not.toBeCalled();
@@ -70,7 +70,7 @@ describe('<AuthContext /> - useAuth', () => {
     });
   });
   it('Should call logout invalid user', async () => {
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const {result, waitFor} = customRenderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       result.current.logOut(ROUTES.LOGIN, '');
@@ -78,7 +78,7 @@ describe('<AuthContext /> - useAuth', () => {
     });
   });
   it('Should call sign in with google', async () => {
-    const {result, waitFor} = renderHook(() => useAuth(), AuthProvider);
+    const {result, waitFor} = customRenderHook(() => useAuth(), AuthProvider);
 
     await waitFor(() => {
       result.current.googleSignIn();

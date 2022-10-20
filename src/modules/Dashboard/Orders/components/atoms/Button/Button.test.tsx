@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '__tests__/test-utils';
+import {fireEvent, renderTheme, screen} from '__tests__/test-utils';
 
 import {ButtonStyled} from './Button';
 
@@ -6,7 +6,7 @@ const spy = jest.fn();
 
 describe('<ButtonStyled />', () => {
   beforeEach(() => {
-    render(
+    renderTheme(
       <ButtonStyled
         label="test"
         textColor="danger"
