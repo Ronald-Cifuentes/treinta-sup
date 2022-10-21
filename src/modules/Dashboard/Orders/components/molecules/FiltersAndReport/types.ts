@@ -15,6 +15,7 @@ export interface ReturnDate {
   dateTwo: string;
 }
 export interface PropTypesFiltersAndReport {
-  onChange?: (e: ReturnDate, type: TreintaSelectedCalendarType) => void;
   disabled?: boolean;
+  showModal?: () => void;
+  onChange?: (e: ReturnDate, type: TreintaSelectedCalendarType) => void;
 }

@@ -1,26 +1,32 @@
-import {Backdrop, SearchInput} from '@30sas/web-ui-kit-core';
+import {subMonths} from 'date-fns';
+import addDays from 'date-fns/addDays';
+import {useTranslation} from 'react-i18next';
+import {format, utcToZonedTime} from 'date-fns-tz';
 import {ColorProps} from '@30sas/web-ui-kit-theme';
 import {GridSelectionModel} from '@mui/x-data-grid';
-import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
-import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
-import {DashboardLayout} from 'components/templates';
-import {subMonths} from 'date-fns';
-import {format, utcToZonedTime} from 'date-fns-tz';
-import addDays from 'date-fns/addDays';
-import {OrderStatus, useOrders} from 'hooks/useOrders';
+import {Backdrop, SearchInput} from '@30sas/web-ui-kit-core';
 import {ChangeEvent, FC, SetStateAction, useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {ChangeStates} from '../../atoms/ChangeStates';
+
+import {DashboardLayout} from 'components/templates';
+import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
+import {ModalGeneric} from 'modules/Dashboard/Orders/components/atoms/ModalGeneric';
+import {SpecialTableWithPagination} from 'components/molecules/SpecialTableWithPagination';
+
+import {OrderStatus, useOrders} from 'hooks/useOrders';
+
 import {ModalYesNo} from '../../atoms/ModalYesNo';
-import {EmptyStateSearch} from '../../molecules/EmptyStateSearch';
-import {FiltersAndReport} from '../../molecules/FiltersAndReport';
+import {ChangeStates} from '../../atoms/ChangeStates';
+
 import {
   CalendarFromTo,
   ReturnDate,
 } from '../../molecules/FiltersAndReport/types';
-import {columns, optionsTabs} from './OrderList.config';
+import {EmptyStateSearch} from '../../molecules/EmptyStateSearch';
+import {FiltersAndReport} from '../../molecules/FiltersAndReport';
+
 import {PointerStates} from './OrderList.const';
 import {WrapperSearchBar} from './OrderList.styled';
+import {columns, optionsTabs} from './OrderList.config';
 
 const LINE_PROPS: ColorProps = {
   baseColor: 'gray',
@@ -59,6 +65,8 @@ export const OrderList: FC = () => {
       timeZone: 'America/Bogota',
     }),
   });
+
+  const [showModalGoogle, setShowModalGoogle] = useState<boolean>(false);
 
   const {dataRetrieve, refetchRetrieve, mutateSetState} = useOrders(
     searchData
@@ -207,60 +215,75 @@ export const OrderList: FC = () => {
     setPage(1);
   };
 
+  const showModal = (): void => {
+    setShowModalGoogle(true);
+  };
+
+  const closeModal = (): void => {
+    setShowModalGoogle(false);
+  };
+
   return (
-    <DashboardLayout
-      title={t('orders.title')}
-      fancyLineProps={LINE_PROPS}
-      sizeFancyLine="0.5px">
-      <WrapperSearchBar>
-        <SearchInput
-          fullWidth
-          placeholder={`${t('orders.input-search-placeholder')}`}
-          backgroundColor="white"
-          onBlur={searchOnBlur}
-          onClear={searchOnClear}
-          onChange={searchOnChange}
-          value={searchBar}
-          showClearButton
+    <>
+      <ModalGeneric openModal={showModalGoogle} closeModal={closeModal} />
+      <DashboardLayout
+        title={t('orders.title')}
+        fancyLineProps={LINE_PROPS}
+        sizeFancyLine="0.5px">
+        <WrapperSearchBar>
+          <SearchInput
+            fullWidth
+            placeholder={`${t('orders.input-search-placeholder')}`}
+            backgroundColor="white"
+            onBlur={searchOnBlur}
+            onClear={searchOnClear}
+            onChange={searchOnChange}
+            value={searchBar}
+            showClearButton
+          />
+        </WrapperSearchBar>
+        <FiltersAndReport
+          onChange={handleOnChangeDate}
+          disabled={!searchData}
+          showModal={showModal}
         />
-      </WrapperSearchBar>
-      <FiltersAndReport onChange={handleOnChangeDate} disabled={!searchData} />
-      <SpecialLineTabs
-        optionsTabs={
-          searchData
-            ? [{key: 'ALL', label: 'Resultados de busqueda', value: '0'}]
-            : optionsTabs
-        }
-        onChange={handleOnChangeLineTabs}
-      />
-      {rows?.length == 0 ? (
-        <EmptyStateSearch />
-      ) : (
-        <SpecialTableWithPagination
-          formattedData={rows}
-          dropDownDefaultValue={
-            searchData ? dropDownDefaultValueSearch : dropDownDefaultValue
+        <SpecialLineTabs
+          optionsTabs={
+            searchData
+              ? [{key: 'ALL', label: 'Resultados de busqueda', value: '0'}]
+              : optionsTabs
           }
-          setItemsByPage={handleSetItemsByPage}
-          handleSpecialPagination={handleSpecialPagination}
-          page={page}
-          itemsByPage={itemsByPage}
-          totalItems={dataRetrieve?.pagination?.itemsNumber}
-          handleGrid={handleGrid}
-          columns={columns}
-          checkboxSelection={true}
-          onlyOneOption={!!searchData}
+          onChange={handleOnChangeLineTabs}
         />
-      )}
-      <ChangeStates
-        currentStatus={searchData ? tabSearch : tab}
-        open={openModalChangeStates}
-        setOpen={setOpenModalChangeStates}
-        count={countCheckboxesSelected}
-        handleChangeStates={handleChangeStates}
-      />
-      <ModalYesNo {...{setOpen, open, handleBtnYes}} />
-      <Backdrop open={loading} />
-    </DashboardLayout>
+        {rows?.length == 0 ? (
+          <EmptyStateSearch />
+        ) : (
+          <SpecialTableWithPagination
+            formattedData={rows}
+            dropDownDefaultValue={
+              searchData ? dropDownDefaultValueSearch : dropDownDefaultValue
+            }
+            setItemsByPage={handleSetItemsByPage}
+            handleSpecialPagination={handleSpecialPagination}
+            page={page}
+            itemsByPage={itemsByPage}
+            totalItems={dataRetrieve?.pagination?.itemsNumber}
+            handleGrid={handleGrid}
+            columns={columns}
+            checkboxSelection={true}
+            onlyOneOption={!!searchData}
+          />
+        )}
+        <ChangeStates
+          currentStatus={searchData ? tabSearch : tab}
+          open={openModalChangeStates}
+          setOpen={setOpenModalChangeStates}
+          count={countCheckboxesSelected}
+          handleChangeStates={handleChangeStates}
+        />
+        <ModalYesNo {...{setOpen, open, handleBtnYes}} />
+        <Backdrop open={loading} />
+      </DashboardLayout>
+    </>
   );
 };
