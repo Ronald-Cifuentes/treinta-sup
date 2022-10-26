@@ -5,7 +5,7 @@ import {DividerTypeMap} from '@mui/material';
 
 export const DividerStyled: StyledComponent<
   OverridableComponent<DividerTypeMap<object, 'hr'>>,
-  never,
+  object,
   {
     margin?: number[] | undefined;
   },

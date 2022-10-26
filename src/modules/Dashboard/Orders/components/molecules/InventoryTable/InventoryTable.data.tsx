@@ -1,5 +1,5 @@
 import {Column} from '@30sas/web-ui-kit-core';
-import {TFunction} from 'react-i18next';
+import {TFunction} from 'i18next';
 import {ImageProduct} from '../../atoms/ImageProduct';
 import {LayoutProduct} from '../../atoms/LayoutProduct';
 import {ProductLoad} from '../../atoms/ProductLoad/ProductLoad';

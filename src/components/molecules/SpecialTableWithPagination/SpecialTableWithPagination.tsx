@@ -23,7 +23,7 @@ export const SpecialTableWithPagination: FC<
   PropTypesSpecialTableWithPagination
 > = ({
   formattedData,
-  dropDownDefaultValue = 8,
+  dropDownDefaultValue = 25,
   itemsByPage,
   setItemsByPage,
   handleSpecialPagination,

@@ -8,6 +8,7 @@ module.exports = {
     '^__mocks__/(.*)$': '<rootDir>/__mocks__/$1',
     '.+\\.(css|styl|less|sass|scss)$':
       '<rootDir>/node_modules/jest-css-modules-transform',
+    '^axios$': require.resolve('axios'),
   },
   testPathIgnorePatterns: [
     '<rootDir>/.husky/',

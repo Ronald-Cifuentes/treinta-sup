@@ -40,9 +40,7 @@ export const AxiosInterceptor: FC<{children: JSX.Element}> = ({children}) => {
       return response;
     };
 
-    const resInterceptor = (
-      response: AxiosResponse,
-    ): AxiosResponse | undefined => {
+    const resInterceptor = (response: AxiosResponse): AxiosResponse => {
       setLoad(false);
       const token = localStorage.getItem('dataRes');
       if (token) {
@@ -55,6 +53,7 @@ export const AxiosInterceptor: FC<{children: JSX.Element}> = ({children}) => {
       } else {
         return response;
       }
+      return {} as AxiosResponse;
     };
 
     const errInterceptor = (error: {
@@ -105,8 +104,10 @@ export const addHeaders = async (url: string): Promise<AxiosRequestHeaders> => {
     return {
       Authorization: `Bearer ${token}`,
       'x-api-key': process.env.REACT_APP_B2B_SERVICE_API_KEY || '',
-    };
+    } as unknown as AxiosRequestHeaders;
   } else {
-    return {'x-api-key': process.env.REACT_APP_B2B_SERVICE_API_KEY || ''};
+    return {
+      'x-api-key': process.env.REACT_APP_B2B_SERVICE_API_KEY || '',
+    } as unknown as AxiosRequestHeaders;
   }
 };

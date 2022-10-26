@@ -123,6 +123,8 @@ export const StepOne: FC<StepOneProps> = () => {
             maxSize={5 * 1024 * 1024}
             status={status}
             loading={false}
+            dataTestIdInput="file-drop-massive-load"
+            dataTestIdDeleteButton="file-drop-delete-massive-save"
           />
           {productsRepeated > 0 && (
             <ProductsRepeatedOptions productsRepeated={productsRepeated} />
