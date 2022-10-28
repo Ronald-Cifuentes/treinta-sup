@@ -5,9 +5,9 @@ export const Gap = styled.div`
 `;
 
 export const ProfileCard = styled.div`
+  border-radius: 8px;
   background-color: ${({theme}) => theme.colors.gray[200]};
   border: 1px solid ${({theme}) => theme.colors.gray[200]};
-  border-radius: 8px;
 `;
 
 export const BusinessButtonsContainer = styled.div`
@@ -32,9 +32,9 @@ export const BoxComingSoon = styled.div`
 `;
 
 export const UserBox = styled.div`
-  display: flex;
   width: 100%;
   height: 32px;
+  display: flex;
   background: #f4f5f6;
   border-radius: 10px;
   margin: 48px 0px 68px 0px;
@@ -49,31 +49,29 @@ export const UserIcon = styled.div`
 
 export const UserName = styled.p`
   display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  font-style: normal;
   align-items: center;
   font-family: 'Nunito Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 20px;
 `;
 
 export const SubtitleSidebar = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   width: 100%;
   height: 28px;
-  padding: 8px 4px 8px 8px;
-
-  background: #ffffff;
-  border-radius: 4px;
-
-  font-family: 'Nunito Sans', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 10px;
-  line-height: 12px;
+  display: flex;
   color: #67737e;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+  font-style: normal;
+  border-radius: 4px;
+  flex-direction: row;
+  align-items: center;
+  background: #ffffff;
   letter-spacing: 0.03em;
+  padding: 8px 4px 8px 8px;
   text-transform: uppercase;
+  font-family: 'Nunito Sans', sans-serif;
 `;
