@@ -14,8 +14,6 @@ describe('<Detail/>', () => {
   test('#1. Exist', () => {
     customRender(<OrderList />, MockProvider);
     const detail = screen.getByTestId('dashboard-layout');
-    // render(<h1>Hola</h1>);
-    // const detail = screen.getByText('Hola');
     expect(detail).toBeInTheDocument();
   });
 });

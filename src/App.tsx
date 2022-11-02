@@ -8,7 +8,7 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {BrowserRouter} from 'react-router-dom';
 
 // import {Error} from 'modules/Error';
-import {HeadTags} from 'components/molecules';
+// import {HeadTags} from 'components/molecules';
 import {AuthProvider} from 'context/AuthContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
 import {DashboardProvider} from 'context/DashboardContext';
@@ -40,17 +40,17 @@ const App: FC = () => {
         <GlobalStyle />
         <BrowserRouter>
           <ConfigProvider>
-            <HeadTags>
-              <AuthProvider>
-                <ToastProvider>
-                  <UploadBulkProvider>
-                    <DashboardProvider>
-                      <Routes />
-                    </DashboardProvider>
-                  </UploadBulkProvider>
-                </ToastProvider>
-              </AuthProvider>
-            </HeadTags>
+            {/* <HeadTags> */}
+            <AuthProvider>
+              <ToastProvider>
+                <UploadBulkProvider>
+                  <DashboardProvider>
+                    <Routes />
+                  </DashboardProvider>
+                </UploadBulkProvider>
+              </ToastProvider>
+            </AuthProvider>
+            {/* </HeadTags> */}
           </ConfigProvider>
         </BrowserRouter>
         <Backdrop open={loading} />

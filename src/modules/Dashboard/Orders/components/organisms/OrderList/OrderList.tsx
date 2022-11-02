@@ -192,7 +192,6 @@ export const OrderList: FC = () => {
         setItemsByPage(() => dropDownDefaultValue);
       }
       setPage(() => 1);
-      // setEnter(true);
       localStorage.setItem('searchData', e.target.value as string);
     }
   };
