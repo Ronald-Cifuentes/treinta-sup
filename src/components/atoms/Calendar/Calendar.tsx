@@ -31,7 +31,6 @@ import {
   TagContainer,
 } from './Calendar.styled';
 import {
-  getCounter,
   handleShouldDisableDate,
   handleShouldDisableDays,
 } from './Calendar.func';
@@ -69,7 +68,6 @@ export const Calendar: FC<TreintaCalendarProps> = ({
   disableSpecificDates,
   disableDays,
 }) => {
-  // const staticDatePicker = useRef() as MutableRefObject<HTMLDivElement>;
   const [seledvalue, setValue] = useState<number | Date>(value);
   const [valueInput, setValueInput] = useState<string | null>(
     format(new Date(), formatDate, {locale: localeMap[locale]}),
@@ -87,7 +85,7 @@ export const Calendar: FC<TreintaCalendarProps> = ({
     setAnchorEl(null);
   };
 
-  const counter = getCounter(views);
+  const counter = views.length;
 
   const handleChange = (value: CalendarStartEnd): void => {
     countTimes++;

@@ -1,19 +1,6 @@
 import {daysOfWeekEn, daysOfWeekEs} from './Calendar.const';
 import {DayOfWeekEn, DayOfWeekEs, DaysOfWeek, StartEnd} from './types';
 
-export const getCounter = (views): number => {
-  switch (true) {
-    case views.length == 1 && views.includes('day'):
-      return 1;
-    case views.length == 1 && views.includes('month'):
-      return 1;
-    case views.length == 1 && views.includes('year'):
-      return 1;
-    default:
-      return 0;
-  }
-};
-
 export const currentDay = new Date().getDate();
 
 export const getLastDayOfPreviousMonth = (): number => {
