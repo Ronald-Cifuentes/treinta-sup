@@ -17,11 +17,12 @@ import {StateBarProps} from './types';
 export const StateBar: FC<StateBarProps> = ({
   status = {} as StatusDetail,
   handleChangeStates,
+  dataTestId = 'state-bar-test',
 }) => {
   const {t} = useTranslation();
 
   return (
-    <StateBarContainer>
+    <StateBarContainer data-testid={dataTestId}>
       <StateBarContent>
         <StateBarStatusTitle>
           {t('detail-orders.state-bar.title')}
