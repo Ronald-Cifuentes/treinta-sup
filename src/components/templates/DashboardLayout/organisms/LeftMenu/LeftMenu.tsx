@@ -1,13 +1,14 @@
 /* eslint-disable complexity */
 import {Divider, DrawerLeft} from '@30sas/web-ui-kit-core';
 import {
-  DocumentIcon,
   FaqIcon,
-  LogoutBracketIcon,
   PackageIcon,
-  StarsProfileIcon,
+  DocumentIcon,
+  LogoutBracketIcon,
 } from '@30sas/web-ui-kit-icons';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {LogoTreinta} from 'components/atoms';
@@ -37,6 +38,8 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
 
   const user = getUser();
 
+  const showReport = process.env.REACT_APP_SHOW_DOWNLOAD_ORDERS;
+
   return (
     <>
       <DrawerLeft mobileOpen={mobileOpen} onClose={onDrawerToggle}>
@@ -47,10 +50,25 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
           </UserIcon>
           <UserName>{user?.name?.slice(0, 20)}</UserName>
         </UserBox>
-
         <SubtitleSidebar>{t('left-menu.subtitle')}</SubtitleSidebar>
-
         <Box>
+          {showReport === 'true' && (
+            <LinkButton
+              //icon={DownLgIcon}
+              icon={FileDownloadIcon}
+              label={t('left-menu.reports')}
+              href={ROUTES.REPORTS}
+              onClick={() => {
+                EventProvider.getInstance().logEventAmplitude(
+                  `b2bs_navbar_action_selected`,
+                  {
+                    supplier: getUser()?.supplier,
+                    action: t('left-menu.reports'),
+                  },
+                );
+              }}
+            />
+          )}
           <LinkButton
             icon={DocumentIcon}
             label={t('left-menu.orders')}
@@ -80,23 +98,8 @@ export const LeftMenu: FC<ILeftMenuProps> = ({mobileOpen, onDrawerToggle}) => {
             }}
           />
         </Box>
-
-        <SubtitleSidebar>{t('left-menu.manageContacts')}</SubtitleSidebar>
-
-        <div>
-          <LinkButton
-            icon={StarsProfileIcon}
-            label={t('left-menu.clients')}
-            externalLink=""
-            labelColorTypes="700"
-            target="_blank"
-          />
-        </div>
-
         <Gap />
-
         <Divider />
-
         <div
           onClick={() => {
             EventProvider.getInstance().logEventAmplitude(

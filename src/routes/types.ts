@@ -5,6 +5,7 @@ export enum ROUTES {
   LOGIN = 'LOGIN',
   ORDERS = 'ORDERS',
   INVENTORY = 'INVENTORY',
+  REPORTS = 'REPORTS',
 }
 
 export enum RoutesSpanish {
@@ -12,6 +13,7 @@ export enum RoutesSpanish {
   LOGIN = '/ingresar',
   ORDERS = '/ordenes',
   INVENTORY = '/inventario',
+  REPORTS = '/reportes',
 }
 
 export enum RoutesPortuguese {
@@ -19,6 +21,7 @@ export enum RoutesPortuguese {
   LOGIN = '/login',
   ORDERS = '/ordenes',
   INVENTORY = '/inventario',
+  REPORTS = '/reportes',
 }
 
 export const ROUTES_MAP = {

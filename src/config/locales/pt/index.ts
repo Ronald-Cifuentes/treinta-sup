@@ -3,6 +3,7 @@ import {StoreTypeKeys} from 'config/constants';
 
 export const pt = {
   commons: {
+    ready: 'Preparar',
     spaces:
       'Certifique-se de remover quaisquer espaços vazios no início ou no final.',
     supplier: 'Fornecedor',
@@ -222,16 +223,20 @@ export const pt = {
       'Você ultrapassou os 150 dígitos permitidos neste espaço',
   },
   'left-menu': {
+    subtitle: 'Gerencie sua operação',
     'edit-business': 'Editar negócio',
     'add-business': 'Adicionar outro negócio',
     balance: 'Balanço',
     debts: 'Dívidas',
+    orders: 'Relatório de pedidos',
+    reports: 'Baixe seus pedidos',
     inventory: 'Inventário',
     delivery: 'Envios',
     'manage-contacts': 'Administre seus grupos',
     'extra-income': 'Rendimentos extras',
     clients: 'Clientes',
     soon: 'Em Breve',
+    new: '¡Novo!',
     suppliers: 'Fornecedores',
     profile: 'Perfil',
     help: 'Ajuda',
@@ -871,5 +876,15 @@ export const pt = {
     'state-bar': {
       title: 'Status do pedido',
     },
+  },
+  download_orders: {
+    title: 'Baixe seus pedidos',
+    instructions:
+      'Nesta seção você pode baixar os cortes das ordens para seu alistamento.',
+    instro1: 'Selecione o dia.',
+    instro2: 'Selecione o corte e faça o download.',
+    instro3:
+      'Um arquivo excel será gerado para cada corte com todas as informações necessárias.',
+    btn_title: 'Ver guia',
   },
 };

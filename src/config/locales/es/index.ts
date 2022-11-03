@@ -271,12 +271,13 @@ export const es = {
     'field-max-lenght': 'Excediste el maximo de 150 caracteres para este campo',
   },
   'left-menu': {
-    subtitle: 'Gestiona tus ventas',
+    subtitle: 'Gestiona tu operación',
     'edit-business': 'Editar negocio',
     'add-business': 'Agregar otro negocio',
     balance: 'Balance',
     debts: 'Deudas',
-    orders: 'Órdenes',
+    orders: 'Reporte de Órdenes',
+    reports: 'Descarga tus Órdenes',
     inventory: 'Inventario',
     delivery: 'Envíos',
     'manage-contacts': 'Gestiona tus contactos',
@@ -959,5 +960,15 @@ export const es = {
     'state-bar': {
       title: 'Estado de la orden',
     },
+  },
+  download_orders: {
+    title: 'Descarga tus órdenes',
+    instructions:
+      'En esta sección podrás descargar los cortes de las órdenes para su alistamiento.',
+    instro1: 'Selecciona el día.',
+    instro2: 'Selecciona el corte y descárgalo.',
+    instro3:
+      'Se generará un archivo excel por cada corte con toda la información necesaria.',
+    btn_title: 'Ver guía',
   },
 };
