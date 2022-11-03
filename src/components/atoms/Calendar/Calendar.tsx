@@ -219,7 +219,7 @@ export const Calendar: FC<TreintaCalendarProps> = ({
             <TagContainer>
               <Tag
                 label={`${bottomTag} ${tagDateFormatted}`}
-                dataTestId="tag_calendar"
+                data-testid="tag_calendar"
                 iconExitActive
                 variant="info"
                 size="large"
