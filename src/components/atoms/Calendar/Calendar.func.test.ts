@@ -29,7 +29,7 @@ describe('Calendar.func', () => {
     );
   });
 
-  test('#3. getPreviousDay', () => {
+  test('#3. getPreviousDay - Without parameters', () => {
     const current = new Date();
     const previousDay = current.getDate() - 1;
     let validate: unknown;
@@ -42,7 +42,12 @@ describe('Calendar.func', () => {
     expect(getPreviousDay()).toBe(validate);
   });
 
-  test('#4. getNextDay', () => {
+  test('#4. getPreviousDay - With parameters', () => {
+    expect(getPreviousDay(FormatDay('2020-10-01'))).toBe(31);
+    expect(getPreviousDay(FormatDay('2020-10-05'))).toBe(4);
+  });
+
+  test('#5. getNextDay - Without parameters', () => {
     const current = new Date();
     const nextDay = current.getDate() + 1;
     let validate: unknown;
@@ -55,7 +60,17 @@ describe('Calendar.func', () => {
     expect(getNextDay()).toBe(validate);
   });
 
-  test('#5. FormatDay', () => {
+  test('#6. getNextDay - With parameters', () => {
+    expect(getNextDay(FormatDay('2022-10-17'))).toBe(18);
+    expect(getNextDay(FormatDay('2022-10-31'))).toBe(1);
+  });
+
+  test('#7. FormatDay - Without parameters', () => {
+    expect(FormatDay).toThrow(Error);
+    expect(FormatDay).toThrow('Define una fecha en FormatDay');
+  });
+
+  test('#8. FormatDay - With parameter', () => {
     expect(FormatDay(testDay).toString()).toBe(
       new Date(
         new Date(testDay).toLocaleString('en-US', {timeZone: 'UTC'}),
@@ -63,14 +78,21 @@ describe('Calendar.func', () => {
     );
   });
 
-  test('#6. formatDateToString', () => {
+  test('#8. formatDateToString - Witout parameters', () => {
+    expect(formatDateToString).toThrow(Error);
+    expect(formatDateToString).toThrow(
+      'Define una fecha en formatDateToString',
+    );
+  });
+
+  test('#9. formatDateToString - With parameters', () => {
     const date: Date = FormatDay(new Date());
     expect(formatDateToString(new Date())).toBe(
       `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
     );
   });
 
-  test('#7. formattArrayDate', () => {
+  test('#10. formattArrayDate', () => {
     expect(formattArrayDate([formattedTestDay.toString()])).toStrictEqual([
       `${formattedTestDay.getFullYear()}-${
         formattedTestDay.getMonth() + 1
@@ -78,15 +100,57 @@ describe('Calendar.func', () => {
     ]);
   });
 
-  test('#8. handleShouldDisableDate', () => {
+  test('#11. handleShouldDisableDate', () => {
     expect(
       handleShouldDisableDate(formattedTestDay, [formattedTestDay.toString()]),
     ).toStrictEqual(true);
   });
 
-  test('#9. handleShouldDisableDays', () => {
-    expect(handleShouldDisableDays(formattedTestDay, ['M'])).toStrictEqual(
-      true,
-    );
+  test('#12. handleShouldDisableDays - Español', () => {
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-03'), ['L']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-04'), ['M']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-05'), ['W']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-06'), ['J']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-07'), ['V']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-08'), ['S']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-09'), ['D']),
+    ).toStrictEqual(true);
+  });
+
+  test('#13. handleShouldDisableDays - Inglés', () => {
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-03'), ['MO']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-04'), ['TU']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-05'), ['WE']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-06'), ['TH']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-07'), ['FR']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-08'), ['SA']),
+    ).toStrictEqual(true);
+    expect(
+      handleShouldDisableDays(FormatDay('2022-10-09'), ['SU']),
+    ).toStrictEqual(true);
   });
 });
