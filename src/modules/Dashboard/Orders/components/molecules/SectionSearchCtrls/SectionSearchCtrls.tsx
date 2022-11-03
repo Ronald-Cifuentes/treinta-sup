@@ -2,7 +2,8 @@ import {Button, SearchInput} from '@30sas/web-ui-kit-core';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
-// import env from 'react-dotenv';
+import {EventProvider} from 'providers/event-provider';
+import {getUser} from 'utils/infoUser';
 import {LanguagesMap} from '../../../../../../config/constants/languages';
 import {ButtonDownload} from '../../atoms/ButtonDownload';
 import {
@@ -33,6 +34,12 @@ export const SectionSearchCtrls: FC<SectionSearchCtrlsTypes> = ({
 
   const handleUploadInventory = (): void => {
     if (process.env.REACT_APP_SHOW_BULK_LOAD == 'true') {
+      EventProvider.getInstance().logEventAmplitude(
+        `b2bs_inventory_upload_started`,
+        {
+          supplier: getUser()?.supplier,
+        },
+      );
       history({pathname: '/inventario/bulkload'});
     } else {
       alert('Esta funcionalidad no esta disponible');

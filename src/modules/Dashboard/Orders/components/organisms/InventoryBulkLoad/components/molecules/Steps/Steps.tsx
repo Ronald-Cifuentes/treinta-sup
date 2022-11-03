@@ -5,6 +5,8 @@ import {useParseXlsx} from 'hooks/useParseXlsx';
 import {ModalConfirm} from 'modules/Dashboard/Orders/components/atoms/ModalConfirm';
 import {FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {EventProvider} from 'providers/event-provider';
+import {getUser} from 'utils/infoUser';
 import {
   BottomNav,
   GoBackButton,
@@ -38,10 +40,19 @@ export const Steps: FC<StepsProps> = () => {
     });
   };
 
+  const logInventoryMassiveSaveConfirmed = (): void => {
+    EventProvider.getInstance().logEventAmplitude(
+      `b2bs_inventory_massive_save_confirmed`,
+      {
+        supplier: getUser()?.supplier,
+      },
+    );
+  };
+
   const validateContainAllImages = (): boolean => {
     let valid = 0;
-    for (let i = 0; i < state.products.length; i++) {
-      if (state.products[i].productThumbImgUrl) {
+    for (const element of state.products) {
+      if (element.productThumbImgUrl) {
         valid++;
       }
     }
@@ -53,12 +64,21 @@ export const Steps: FC<StepsProps> = () => {
       dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
     }
     switch (state.buttonStep) {
+      case 0:
+        EventProvider.getInstance().logEventAmplitude(
+          `b2bs_inventory_upload_confirmed`,
+          {
+            supplier: getUser()?.supplier,
+          },
+        );
+        break;
       case 2:
         dispatch({type: ACTIONS.SET_BTN_STEP, payload: {buttonStep: 3}});
         break;
       case 3:
         if (validateContainAllImages()) {
           massiveSave();
+          logInventoryMassiveSaveConfirmed();
         } else {
           setModal(true);
         }
@@ -69,6 +89,7 @@ export const Steps: FC<StepsProps> = () => {
   const handleBtnConfirm = (): void => {
     setModal(false);
     massiveSave();
+    logInventoryMassiveSaveConfirmed();
   };
 
   return (
