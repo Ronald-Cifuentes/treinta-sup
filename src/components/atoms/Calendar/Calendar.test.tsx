@@ -1,10 +1,16 @@
 /* eslint-disable jest/no-conditional-expect */
 import {DateIcon} from '@30sas/web-ui-kit-icons';
-import {screen, fireEvent, cleanup, renderTheme} from '__tests__/test-utils';
+import {
+  cleanup,
+  fireEvent,
+  queryByAttribute,
+  renderTheme,
+  screen,
+} from '__tests__/test-utils';
 
 import userEvent from '@testing-library/user-event';
+import {Trigger} from 'utils/Trigger';
 import {Calendar} from './Calendar';
-import {LocaleOptions, TimeOptions} from './types';
 import {
   currentDay,
   FormatDay,
@@ -12,15 +18,20 @@ import {
   getPreviousDay,
 } from './Calendar.func';
 import {formattedTestDay} from './Calendar.mock';
+import {LocaleOptions, TimeOptions, TreintaCalendarProps} from './types';
 
 const spyOnChange = jest.fn();
 const spyOnClick = jest.fn();
 
-// DTI - Data Test Id
-const DTI_CALENDAR = 'mockedDateField';
-const DTI_TEXT_FIELD = 'calendar-text-field';
+const getById = queryByAttribute.bind(null, 'id');
 
-const INVARIABLE_PROPS_DAY = {
+// DTI - Data Test Id
+const DTI_CALENDAR = 'calendar-test';
+const DTI_TEXT_FIELD = 'calendar-text-field-test';
+const DTI_TAG = 'calendar-tag-test';
+const DTI_RESET_CALENDAR = 'trigger-btn-test';
+
+const INVARIABLE_PROPS_DAY: TreintaCalendarProps = {
   Icon: DateIcon,
   locale: 'es' as LocaleOptions,
   label: 'Calendario',
@@ -28,6 +39,8 @@ const INVARIABLE_PROPS_DAY = {
   onClick: spyOnClick,
   formatDate: 'd MMM yyyy',
   dataTestId: DTI_CALENDAR,
+  dataTestIdTextField: DTI_TEXT_FIELD,
+  dataTestIdTag: DTI_TAG,
   views: ['day'] as Array<TimeOptions>,
   openTo: 'day' as TimeOptions,
   value: formattedTestDay,
@@ -132,6 +145,7 @@ describe('<Calendar />', () => {
     renderTheme(
       <Calendar {...INVARIABLE_PROPS_DAY} disableDays={['D', 'TH']} />,
     );
+
     // Open PopUp Callendar
     const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
     userEvent.click(btnCalendar);
@@ -143,5 +157,31 @@ describe('<Calendar />', () => {
     // Validate 2022-10-09
     const boxCalendarD = screen.getByText(9);
     expect(boxCalendarD).toHaveClass('Mui-disabled');
+  });
+
+  test('#9. reset Calendar', () => {
+    renderTheme(
+      <Trigger triggerProp="resetCalendar" dataTestIdBtn={DTI_RESET_CALENDAR}>
+        <Calendar {...INVARIABLE_PROPS_DAY} />
+      </Trigger>,
+    );
+
+    // Open PopUp Callendar
+    const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
+    userEvent.click(btnCalendar);
+
+    const selectedDate = screen.getByText(15);
+    userEvent.click(selectedDate);
+
+    // Get change in input
+    const inputCalendar = getById(btnCalendar, 'mui-16') as HTMLInputElement;
+    expect(inputCalendar.value).toStrictEqual('15 oct 2022');
+
+    // Reset Callendar
+    const btnResetCalendar = screen.getByTestId(DTI_RESET_CALENDAR);
+    userEvent.click(btnResetCalendar);
+
+    // Get change in input
+    expect(inputCalendar.value).toStrictEqual('11 oct 2022');
   });
 });

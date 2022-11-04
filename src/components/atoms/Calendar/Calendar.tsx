@@ -52,7 +52,9 @@ export const Calendar: FC<TreintaCalendarProps> = ({
   minDate,
   maxDate,
   disabled,
-  dataTestId,
+  dataTestId = 'calendar-test',
+  dataTestIdTextField = 'calendar-text-field-test',
+  dataTestIdTag = 'calendar-tag-test',
   disablePast,
   disableFuture,
   required = false,
@@ -126,7 +128,7 @@ export const Calendar: FC<TreintaCalendarProps> = ({
     if (resetCalendar) {
       setValue(value);
       setValueInput(
-        format(new Date(), formatDate, {locale: localeMap[locale]}),
+        format(value as Date, formatDate, {locale: localeMap[locale]}),
       );
       setTagDateFormatted(
         format(value as Date, 'd MMM', {locale: localeMap[locale]}),
@@ -154,7 +156,7 @@ export const Calendar: FC<TreintaCalendarProps> = ({
           sx={TextFieldStyle}
           variant="outlined"
           value={valueInput}
-          data-testid="calendar-text-field"
+          data-testid={dataTestIdTextField}
           onClick={event => {
             onClick();
             openDateRangePicker(
@@ -219,7 +221,7 @@ export const Calendar: FC<TreintaCalendarProps> = ({
             <TagContainer>
               <Tag
                 label={`${bottomTag} ${tagDateFormatted}`}
-                data-testid="tag_calendar"
+                data-testid={dataTestIdTag}
                 iconExitActive
                 variant="info"
                 size="large"
