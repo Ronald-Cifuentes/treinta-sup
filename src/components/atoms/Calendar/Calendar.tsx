@@ -55,6 +55,7 @@ export const Calendar: FC<TreintaCalendarProps> = ({
   dataTestId = 'calendar-test',
   dataTestIdTextField = 'calendar-text-field-test',
   dataTestIdTag = 'calendar-tag-test',
+  dataTestIdDisplay = 'calendar-display-test',
   disablePast,
   disableFuture,
   required = false,
@@ -200,7 +201,14 @@ export const Calendar: FC<TreintaCalendarProps> = ({
               disablePast={disablePast}
               disableHighlightToday={false}
               disableFuture={disableFuture}
-              renderInput={params => <TextField {...params} />}
+              renderInput={params => (
+                <TextField
+                  data-testid={dataTestIdDisplay}
+                  sx={{backgroundColor: 'red'}}
+                  value="testing"
+                  {...params}
+                />
+              )}
               onChange={handleChange}
               shouldDisableDate={(dateParam: Date | StartEnd) =>
                 handleShouldDisableDate(dateParam, disableSpecificDates) ||
