@@ -18,24 +18,6 @@ export const Container = styled.div<ContainerTag>`
   `}
   ${({theme, variant}) => {
     switch (true) {
-      case variant === 'default':
-        return css`
-          background: ${theme?.colors.gray[400]};
-          & svg:first-child {
-            width: ${theme.utils.spacing(3)};
-            height: ${theme.utils.spacing(3)};
-            & path {
-              fill: ${theme.colors.gray[800]};
-            }
-          }
-          & svg:last-child {
-            width: ${theme.utils.spacing(3)};
-            height: ${theme.utils.spacing(3)};
-            & path {
-              fill: ${theme.colors.gray[600]};
-            }
-          }
-        `;
       case variant === 'success':
         return css`
           background: ${theme?.colors.success[200]};

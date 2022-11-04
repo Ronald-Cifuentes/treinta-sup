@@ -3,7 +3,7 @@ import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StatusDetail} from 'services/models';
 import {optionsChangeState} from '../../atoms/ChangeStates/ChangeStates.mock';
-import {Tag} from '../../atoms/TagCustom';
+import {Tag} from '../../../../../../components/atoms/TagCustom';
 import {OrderStatusTags} from '../../organisms/OrderList/OrderList.const';
 import {
   StateBarContainer,
@@ -17,11 +17,12 @@ import {StateBarProps} from './types';
 export const StateBar: FC<StateBarProps> = ({
   status = {} as StatusDetail,
   handleChangeStates,
+  dataTestId = 'state-bar-test',
 }) => {
   const {t} = useTranslation();
 
   return (
-    <StateBarContainer>
+    <StateBarContainer data-testid={dataTestId}>
       <StateBarContent>
         <StateBarStatusTitle>
           {t('detail-orders.state-bar.title')}

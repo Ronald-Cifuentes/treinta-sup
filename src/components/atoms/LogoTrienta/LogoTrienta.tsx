@@ -1,7 +1,7 @@
 import {LanguagesMap} from 'config/constants';
 import {FC, useMemo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Tag} from 'modules/Dashboard/Orders/components/atoms/TagCustom/Tag';
+import {Tag} from 'components/atoms/TagCustom/Tag';
 import {LogoContainer} from './LogoTrienta.styled';
 import {LogoTreintaProps} from './types';
 

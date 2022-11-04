@@ -35,7 +35,7 @@ export interface BaseProps {
   margin: string;
   padding: string;
   $color: string;
-  $colorType: string;
+  $colorType: number | GradientColor;
   $numberOfLines?: number;
   ellipsis?: boolean;
   uppercase?: boolean;

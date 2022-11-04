@@ -1,13 +1,9 @@
 /* eslint-disable import/no-default-export */
 import {FC, useContext} from 'react';
 import {ThemeProvider} from 'styled-components';
-// import {datadogRum} from '@datadog/browser-rum';
-// import {ErrorBoundary} from 'react-error-boundary';
 import {TreintaTheme} from '@30sas/web-ui-kit-theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {BrowserRouter} from 'react-router-dom';
-
-// import {Error} from 'modules/Error';
 import {HeadTags} from 'components/molecules';
 import {AuthProvider} from 'context/AuthContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
@@ -28,12 +24,10 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 const App: FC = () => {
   const {loading} = useContext(StoreContext);
-  // const errorHandler = (error: Error, info): void => {
-  //  // TODO: Add datadog rum
-  //  console.error(error, info);
-  // };
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={TreintaTheme}>
