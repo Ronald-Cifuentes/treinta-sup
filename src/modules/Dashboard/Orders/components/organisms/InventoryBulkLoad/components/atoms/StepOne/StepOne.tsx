@@ -129,7 +129,7 @@ export const StepOne: FC<StepOneProps> = () => {
           {productsRepeated > 0 && (
             <ProductsRepeatedOptions productsRepeated={productsRepeated} />
           )}
-          {status == 'error' && error.details?.length && (
+          {status == 'error' && error.details?.length > 0 && (
             <WrapperBtnError>
               <ButtonError onClick={() => setModal(true)}>
                 {t('bulk-upload.show-error-detail')}

@@ -55,8 +55,7 @@ export const AuthProvider: FC = ({children}) => {
     userData: UserConfig,
     providerId: string,
   ): void => {
-    const {uid, email, displayName, photoURL, phoneNumber} =
-      userData as UserConfig;
+    const {uid, email, displayName, photoURL, phoneNumber} = userData;
     const userConfigObj: UserConfig = {
       uid,
       email,
@@ -107,9 +106,9 @@ export const AuthProvider: FC = ({children}) => {
         if (token) {
           const accessToken: string = JSON.stringify(token);
           User = accessToken ? jwt_decode(accessToken) : null;
-          User?.user_id
-            ? EventProvider.getInstance().setUserId(User?.user_id)
-            : null;
+          if (User?.user_id) {
+            EventProvider.getInstance().setUserId(User?.user_id);
+          }
         }
       })
       .catch(function () {
