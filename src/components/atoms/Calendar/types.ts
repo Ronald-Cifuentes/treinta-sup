@@ -27,6 +27,7 @@ export type TreintaCalendarProps = {
   dataTestId?: string;
   dataTestIdTextField?: string;
   dataTestIdTag?: string;
+  dataTestIdDisplay?: string;
   required?: boolean;
   value?: number | Date;
   formatDate?: string;

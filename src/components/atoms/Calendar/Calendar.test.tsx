@@ -29,21 +29,24 @@ const getById = queryByAttribute.bind(null, 'id');
 const DTI_CALENDAR = 'calendar-test';
 const DTI_TEXT_FIELD = 'calendar-text-field-test';
 const DTI_TAG = 'calendar-tag-test';
+const DTI_DISPLAY = 'calendar-display-test';
 const DTI_RESET_CALENDAR = 'trigger-btn-test';
 
 const INVARIABLE_PROPS_DAY: TreintaCalendarProps = {
   Icon: DateIcon,
   locale: 'es' as LocaleOptions,
-  label: 'Calendario',
   onChange: spyOnChange,
   onClick: spyOnClick,
+  label: 'Calendario',
   formatDate: 'd MMM yyyy',
   dataTestId: DTI_CALENDAR,
   dataTestIdTextField: DTI_TEXT_FIELD,
   dataTestIdTag: DTI_TAG,
+  dataTestIdDisplay: DTI_DISPLAY,
   views: ['day'] as Array<TimeOptions>,
   openTo: 'day' as TimeOptions,
   value: formattedTestDay,
+  required: true,
 };
 
 describe('<Calendar />', () => {
@@ -162,7 +165,13 @@ describe('<Calendar />', () => {
   test('#9. reset Calendar', () => {
     renderTheme(
       <Trigger triggerProp="resetCalendar" dataTestIdBtn={DTI_RESET_CALENDAR}>
-        <Calendar {...INVARIABLE_PROPS_DAY} />
+        <Calendar
+          {...{
+            ...INVARIABLE_PROPS_DAY,
+            onChange: undefined,
+            onClick: undefined,
+          }}
+        />
       </Trigger>,
     );
 
@@ -183,5 +192,36 @@ describe('<Calendar />', () => {
 
     // Get change in input
     expect(inputCalendar.value).toStrictEqual('11 oct 2022');
+  });
+
+  test('#10. other props', () => {
+    renderTheme(
+      <Calendar
+        {...INVARIABLE_PROPS_DAY}
+        bottomTag="bottomTagTest"
+        required={undefined}
+        label={undefined}
+        formatDate={undefined}
+        Icon={undefined}
+        dataTestId={undefined}
+        dataTestIdTextField={undefined}
+        dataTestIdTag={undefined}
+        dataTestIdDisplay={undefined}
+      />,
+    );
+
+    // Open PopUp Callendar
+    const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
+    userEvent.click(btnCalendar);
+
+    // Should be in the document because it has a default value
+    expect(btnCalendar).toBeInTheDocument();
+  });
+
+  test('#11. should onchange date', () => {
+    renderTheme(<Calendar {...INVARIABLE_PROPS_DAY} />);
+    const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
+    fireEvent.change(btnCalendar);
+    expect(spyOnChange).toHaveBeenCalledTimes(1);
   });
 });

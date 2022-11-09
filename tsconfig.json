@@ -1,10 +1,10 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2020",
     "lib": [
       "DOM",
-      "ES6",
+      "ES2020",
       "DOM.Iterable",
       "ScriptHost",
       "ES2016.Array.Include"
@@ -25,12 +25,6 @@
     "jsx": "react-jsx",
     "baseUrl": "./src"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "src/_pages",
-    "node_modules",
-    "src/_components"
-  ]
+  "include": ["src"],
+  "exclude": ["src/_pages", "node_modules", "src/_components"]
 }
