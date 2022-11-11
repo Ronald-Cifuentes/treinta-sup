@@ -92,13 +92,11 @@ export const columns: (GridColDef | GridActionsColDef)[] = [
 
 export const optionsTabs = [
   {key: 'ALL', label: 'Todos', value: '0'},
-  {key: 'PLACED', label: 'Recibidos', value: '1'},
-  {key: 'CONFIRM', label: 'Confirmados', value: '7'},
-  {key: 'PACKED', label: 'Preparados', value: '2'},
+  {key: 'PLACED', label: 'Recibida', value: '1'},
+  {key: 'CONFIRMED', label: 'En Proceso', value: '7'},
   {key: 'SHIPPED', label: 'En ruta', value: '3'},
-  {key: 'DELIVERED', label: 'Entregado', value: '4'},
-  {key: 'CANCELED', label: 'Cancelado', value: '5'},
-  {key: 'RETURN_STARTED', label: 'Devolución en proceso', value: '10'},
+  {key: 'DELIVERED', label: 'Entregada', value: '4'},
+  {key: 'CANCELED', label: 'Cancelada', value: '5'},
+  {key: 'RETURNED', label: 'Devuelta', value: '9'},
   {key: 'PARTIALLY_RETURNED', label: 'Devolución parcial', value: '8'},
-  {key: 'RETURNED', label: 'Devuelto', value: '9'},
 ];

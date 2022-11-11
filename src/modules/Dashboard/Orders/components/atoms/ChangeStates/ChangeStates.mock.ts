@@ -1,28 +1,22 @@
 export const optionsChangeState = {
   '1': [
-    {label: 'Confirmado', value: 'Confirmado'},
-    {label: 'Cancelado', value: 'Cancelado'},
+    {label: 'En Proceso', value: 'En Proceso'},
+    {label: 'Cancelada', value: 'Cancelada'},
   ],
   '7': [
-    {label: 'Preparado', value: 'Preparado'},
-    {label: 'Cancelado', value: 'Cancelado'},
+    {label: 'En Ruta', value: 'En Ruta'},
+    {label: 'Cancelada', value: 'Cancelada'},
   ],
   '2': [
     {label: 'En Ruta', value: 'En Ruta'},
-    {label: 'Cancelado', value: 'Cancelado'},
+    {label: 'Cancelada', value: 'Cancelada'},
   ],
   '3': [
-    {label: 'Entregado', value: 'Entregado'},
-    {label: 'En proceso de devolución', value: 'En proceso de devolución'},
-    {label: 'Devolución parcial', value: 'Devolución parcial'},
-    {label: 'Devuelto', value: 'Devuelto'},
+    {label: 'Entregada', value: 'Entregada'},
+    {label: 'Devuelta', value: 'Devuelta'},
+    {label: 'Devolución Parcial', value: 'Devolución Parcial'},
+    {label: 'Cancelada', value: 'Cancelada'},
   ],
-  '6': [{label: 'Devuelto', value: 'Devuelto'}],
   '8': [{label: 'En Ruta', value: 'En Ruta'}],
-  '10': [
-    {label: 'En Ruta', value: 'En Ruta'},
-    {label: 'Devolución parcial', value: 'Devolución parcial'},
-    {label: 'Devuelto', value: 'Devuelto'},
-  ],
   '9': [{label: 'En Ruta', value: 'En Ruta'}],
 };
