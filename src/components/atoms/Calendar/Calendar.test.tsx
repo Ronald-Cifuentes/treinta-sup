@@ -1,12 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import {DateIcon} from '@30sas/web-ui-kit-icons';
-import {
-  cleanup,
-  fireEvent,
-  queryByAttribute,
-  renderTheme,
-  screen,
-} from '__tests__/test-utils';
+import {cleanup, fireEvent, renderTheme, screen} from '__tests__/test-utils';
 
 import userEvent from '@testing-library/user-event';
 import {Trigger} from 'utils/Trigger';
@@ -22,8 +16,6 @@ import {LocaleOptions, TimeOptions, TreintaCalendarProps} from './types';
 
 const spyOnChange = jest.fn();
 const spyOnClick = jest.fn();
-
-const getById = queryByAttribute.bind(null, 'id');
 
 // DTI - Data Test Id
 const DTI_CALENDAR = 'calendar-test';
@@ -65,15 +57,7 @@ describe('<Calendar />', () => {
     expect(spyOnClick).toHaveBeenCalledTimes(1);
   });
 
-  test('#3. not selected the testday', () => {
-    renderTheme(<Calendar {...{...INVARIABLE_PROPS_DAY, value: undefined}} />);
-    const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
-    userEvent.click(btnCalendar);
-    const boxCalendarFuture = screen.getByText(formattedTestDay.getDate());
-    expect(boxCalendarFuture).not.toHaveClass('Mui-selected');
-  });
-
-  test('#4. selected current day', () => {
+  test('#3. selected current day', () => {
     renderTheme(<Calendar {...INVARIABLE_PROPS_DAY} />);
     const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
     userEvent.click(btnCalendar);
@@ -82,7 +66,7 @@ describe('<Calendar />', () => {
     expect(boxCalendarFuture).toHaveClass('Mui-selected');
   });
 
-  test('#5. enable past and future day', () => {
+  test('#4. enable past and future day', () => {
     renderTheme(<Calendar {...INVARIABLE_PROPS_DAY} />);
     // Open PopUp Callendar
     const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
@@ -100,7 +84,7 @@ describe('<Calendar />', () => {
     expect(boxCalendarFuture).not.toHaveClass('Mui-disabled');
   });
 
-  test('#6. disable past and future day', () => {
+  test('#5. disable past and future day', () => {
     renderTheme(
       <Calendar
         {...INVARIABLE_PROPS_DAY}
@@ -125,7 +109,7 @@ describe('<Calendar />', () => {
     expect(boxCalendarFuture).toHaveClass('Mui-disabled');
   });
 
-  test('#7. disable specific day', () => {
+  test('#6. disable specific day', () => {
     const day = `${formattedTestDay.getFullYear()}-${
       formattedTestDay.getMonth() + 1
     }-${formattedTestDay.getDate() - 2}`;
@@ -144,7 +128,7 @@ describe('<Calendar />', () => {
     expect(boxCalendar).toHaveClass('Mui-disabled');
   });
 
-  test('#8. disable daysOfWeek', () => {
+  test('#7. disable daysOfWeek', () => {
     renderTheme(
       <Calendar {...INVARIABLE_PROPS_DAY} disableDays={['D', 'TH']} />,
     );
@@ -162,7 +146,7 @@ describe('<Calendar />', () => {
     expect(boxCalendarD).toHaveClass('Mui-disabled');
   });
 
-  test('#9. reset Calendar', () => {
+  test('#8. reset Calendar', () => {
     renderTheme(
       <Trigger triggerProp="resetCalendar" dataTestIdBtn={DTI_RESET_CALENDAR}>
         <Calendar
@@ -183,7 +167,9 @@ describe('<Calendar />', () => {
     userEvent.click(selectedDate);
 
     // Get change in input
-    const inputCalendar = getById(btnCalendar, 'mui-16') as HTMLInputElement;
+    const inputCalendar = btnCalendar.querySelector(
+      'input',
+    ) as HTMLInputElement;
     expect(inputCalendar.value).toStrictEqual('15 oct 2022');
 
     // Reset Callendar
@@ -194,7 +180,7 @@ describe('<Calendar />', () => {
     expect(inputCalendar.value).toStrictEqual('11 oct 2022');
   });
 
-  test('#10. other props', () => {
+  test('#9. other props', () => {
     renderTheme(
       <Calendar
         {...INVARIABLE_PROPS_DAY}
@@ -216,12 +202,5 @@ describe('<Calendar />', () => {
 
     // Should be in the document because it has a default value
     expect(btnCalendar).toBeInTheDocument();
-  });
-
-  test('#11. should onchange date', () => {
-    renderTheme(<Calendar {...INVARIABLE_PROPS_DAY} />);
-    const btnCalendar = screen.getByTestId(DTI_TEXT_FIELD);
-    fireEvent.change(btnCalendar);
-    expect(spyOnChange).toHaveBeenCalledTimes(1);
   });
 });
