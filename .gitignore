@@ -34,3 +34,4 @@ yarn.lock
 firebase-debug.
 .firebase
 .npmrc
+.scannerwork/
