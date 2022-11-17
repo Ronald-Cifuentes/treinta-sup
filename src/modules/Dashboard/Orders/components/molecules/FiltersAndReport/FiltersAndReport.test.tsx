@@ -28,13 +28,7 @@ describe('<FiltersAndReport/>', () => {
     expect(btnDatastudio).toBeInTheDocument();
   });
 
-  test('#3. Exist - Render correctly BTN-ORDERUPDATE', () => {
-    renderRouter(<FiltersAndReport />);
-    const btnOrderupdate = screen.getByTestId('btn-orderupdate');
-    expect(btnOrderupdate).toBeInTheDocument();
-  });
-
-  test('#8. disable prop', () => {
+  test('#3. disable prop', () => {
     renderThemeAndRouter(<FiltersAndReport disabled />);
     const btnOrderupdate = screen.getByTestId('calendar-input');
     expect(btnOrderupdate).toBeInTheDocument();
@@ -59,19 +53,26 @@ describe('<FiltersAndReport/>', () => {
     renderRouter(<FiltersAndReport />);
 
     // Get button Order Update
-    const btnOrderupdate = screen.getByTestId('btn-orderupdate');
-
-    // Set alert
-    global.alert = jest.fn();
-
-    // Click on button Order Update
-    fireEvent.click(btnOrderupdate);
-
-    // Review
-    expect(global.alert).toHaveBeenCalledTimes(1);
+    const btnOrderupdate = screen.queryByTestId('btn-orderupdate');
+    expect(btnOrderupdate).not.toBeInTheDocument();
   });
 
-  test('#7. Available Permisions in REACT_APP_ORDERS_UPDATE', () => {
+  test('#7. Exist - Render correctly BTN-ORDERUPDATE', () => {
+    // Set true .env variable
+    process.env.REACT_APP_ORDERS_UPDATE = 'true';
+    expect(process.env.REACT_APP_ORDERS_UPDATE).toBe('true');
+
+    // Render
+    renderRouter(<FiltersAndReport />);
+
+    // Get button Order Update
+    const btnOrderupdate = screen.getByTestId('btn-orderupdate');
+
+    // Validate
+    expect(btnOrderupdate).toBeInTheDocument();
+  });
+
+  test('#8. Available Permisions in REACT_APP_ORDERS_UPDATE', () => {
     // Set available .env variable
     process.env.REACT_APP_ORDERS_UPDATE = 'true';
     expect(process.env.REACT_APP_ORDERS_UPDATE).toBe('true');

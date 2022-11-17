@@ -28,11 +28,7 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({
   const history = useNavigate();
 
   const handleUpdate = (): void => {
-    if (process.env.REACT_APP_ORDERS_UPDATE) {
-      history({pathname: '/ordenes/actualizar'});
-    } else {
-      alert('No tienes permisos para esta funcionalidad');
-    }
+    history({pathname: '/ordenes/actualizar'});
   };
 
   return (
@@ -57,12 +53,16 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({
             </DownloadLink>
           </Button>
         </Modal>
-        <UpdateButton
-          data-testid={dataTestIdOrderUpdate}
-          onClick={handleUpdate}>
-          <UpdateIcon />
-          {t('orders.filters-and-reports.btn-update-orders')}
-        </UpdateButton>
+        {process.env.REACT_APP_ORDERS_UPDATE == 'true' ? (
+          <UpdateButton
+            data-testid={dataTestIdOrderUpdate}
+            onClick={handleUpdate}>
+            <UpdateIcon />
+            {t('orders.filters-and-reports.btn-update-orders')}
+          </UpdateButton>
+        ) : (
+          <div />
+        )}
       </Actions>
     </MainContainer>
   );
