@@ -81,7 +81,7 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "test": "jest --config ./jest.config.js",
     "test:watch": "jest --config ./jest.config.js --watch --notify",
-    "test:cov": "jest --coverage --silent --detectOpenHandles",
+    "test:cov": "jest --coverage --runInBand --silent",
     "test-with-coverage": "node_modules/.bin/jest --config ./jest.config.js --coverage=true --maxWorkers=2 --silent",
     "precommit": "lint-staged",
     "prepare": "husky install"
