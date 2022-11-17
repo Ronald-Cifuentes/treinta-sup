@@ -8,7 +8,7 @@ import {ButtonStepProps} from './types';
 export const ButtonStep: FC<ButtonStepProps> = ({
   disabled,
   onClick,
-  dataTestId = 'button-step',
+  dataTestId = 'order-bulk-update-button-step',
 }) => {
   const {t} = useTranslation();
   const {state, dispatch} = useUploadBulk();
@@ -22,18 +22,18 @@ export const ButtonStep: FC<ButtonStepProps> = ({
   const Content = (): React.ReactElement => {
     switch (state.buttonStep) {
       case 0:
-        return <>{t('bulk-upload.continue-revision')}</>;
+        return <>{t('order-bulk-update.continue-revision')}</>;
       case 1:
         return (
           <>
             <img src={ICON_CORRECT_ERROR} alt="" />
-            {t('bulk-upload.upload-file-again')}
+            {t('order-bulk-update.upload-file-again')}
           </>
         );
       case 2:
-        return <>{t('bulk-upload.load-images')}</>;
+        return <>{t('order-bulk-update.load-images')}</>;
       case 3:
-        return <>{t('bulk-upload.confirm')}</>;
+        return <>{t('order-bulk-update.confirm')}</>;
       default:
         return <div />;
     }

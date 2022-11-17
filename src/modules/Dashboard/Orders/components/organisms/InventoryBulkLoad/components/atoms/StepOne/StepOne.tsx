@@ -7,7 +7,7 @@ import {ModalErrorWarehouse} from 'modules/Dashboard/Orders/components/atoms/Mod
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {ProductsRepeatedOptions} from '../../atoms/ProductsRepeatedOptions';
-import {ButtonError} from '../Buttons/Buttons.styled';
+import {ButtonError} from '../../../../../../../../../components/atoms/Buttons/Buttons.styled';
 import {
   Card,
   IconContainer,

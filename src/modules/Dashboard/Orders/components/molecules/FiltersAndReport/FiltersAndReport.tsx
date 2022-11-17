@@ -1,58 +1,69 @@
-import {FC} from 'react';
 import {CalendarsInput} from '@30sas/web-ui-kit-core';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-
-import {EventProvider} from 'providers/event-provider';
-
-import {getUser} from 'utils/infoUser';
-
-import {PropTypesFiltersAndReport} from './types';
-
+import {FC} from 'react';
+import {useTranslation} from 'react-i18next';
+import {useNavigate} from 'react-router-dom';
 import {
-  Modal,
-  Button,
   Actions,
-  Download,
-  MainContainer,
-  DownloadLink,
+  Button,
   CalendarContainer,
+  DownloadLink,
+  MainContainer,
+  Modal,
+  UpdateButton,
+  UpdateIcon,
 } from './FiltersAndReport.styled';
+import {PropTypesFiltersAndReport} from './types';
 
 export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({
   onChange,
   disabled,
   showModal,
-}) => (
-  <MainContainer data-testid="filters-and-report">
-    <CalendarContainer>
-      {disabled ? <CalendarsInput locale="es" onChange={onChange} /> : <div />}
-    </CalendarContainer>
-    <Actions>
-      <Download>
-        <Button
-          onClick={() => {
-            EventProvider.getInstance().logEventAmplitude(
-              'b2bs_orders_report_downloaded',
-              {
-                supplier: getUser()?.supplier,
-              },
-            );
-          }}>
-          <FileDownloadIcon />
-          <DownloadLink
-            href="https://metabase.treinta.co/dashboard/178-reportes-herramienta-suppliers?fecha=2022-07-01"
-            target="_blank"
-            rel="noreferrer">
-            Descargar reporte
-          </DownloadLink>
-        </Button>
-      </Download>
-      <Modal>
-        <Button onClick={showModal}>
-          <FileDownloadIcon />
-          <DownloadLink>Reporte DataStudio</DownloadLink>
-        </Button>
-      </Modal>
-    </Actions>
-  </MainContainer>
-);
+  dataTestId = 'filters-and-report',
+  dataTestIdDataStudio = 'btn-datastudio',
+  dataTestIdOrderUpdate = 'btn-orderupdate',
+  dataTestIdCalendarInput = 'calendar-input',
+}) => {
+  const {t} = useTranslation();
+  const history = useNavigate();
+
+  const handleUpdate = (): void => {
+    if (process.env.REACT_APP_ORDERS_UPDATE) {
+      history({pathname: '/ordenes/actualizar'});
+    } else {
+      alert('No tienes permisos para esta funcionalidad');
+    }
+  };
+
+  return (
+    <MainContainer data-testid={dataTestId}>
+      <CalendarContainer>
+        {disabled ? (
+          <CalendarsInput
+            dataTestId={dataTestIdCalendarInput}
+            locale="es"
+            onChange={onChange}
+          />
+        ) : (
+          <div />
+        )}
+      </CalendarContainer>
+      <Actions>
+        <Modal>
+          <Button data-testid={dataTestIdDataStudio} onClick={showModal}>
+            <FileDownloadIcon />
+            <DownloadLink>
+              {t('orders.filters-and-reports.btn-datastudio')}
+            </DownloadLink>
+          </Button>
+        </Modal>
+        <UpdateButton
+          data-testid={dataTestIdOrderUpdate}
+          onClick={handleUpdate}>
+          <UpdateIcon />
+          {t('orders.filters-and-reports.btn-update-orders')}
+        </UpdateButton>
+      </Actions>
+    </MainContainer>
+  );
+};

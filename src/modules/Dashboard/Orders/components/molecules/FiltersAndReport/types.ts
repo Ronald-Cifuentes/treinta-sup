@@ -18,4 +18,8 @@ export interface PropTypesFiltersAndReport {
   disabled?: boolean;
   showModal?: () => void;
   onChange?: (e: ReturnDate, type: TreintaSelectedCalendarType) => void;
+  dataTestId?: string;
+  dataTestIdDataStudio?: string;
+  dataTestIdOrderUpdate?: string;
+  dataTestIdCalendarInput?: string;
 }

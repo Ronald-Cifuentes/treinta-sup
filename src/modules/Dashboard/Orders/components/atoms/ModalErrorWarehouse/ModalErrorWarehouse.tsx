@@ -2,7 +2,7 @@ import {Popup} from '@30sas/web-ui-kit-core';
 import {useUploadBulk} from 'context/UploadBulkContext';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
-import {ButtonInfo} from '../../organisms/InventoryBulkLoad/components/atoms/Buttons/Buttons.styled';
+import {ButtonInfo} from '../../../../../../components/atoms/Buttons/Buttons.styled';
 import {
   BodyModal,
   BodyScroll,

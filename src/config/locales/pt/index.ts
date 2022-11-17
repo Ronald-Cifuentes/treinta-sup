@@ -193,6 +193,10 @@ export const pt = {
   },
   orders: {
     title: 'Gestiona tus órdenes',
+    'filters-and-reports': {
+      'btn-datastudio': 'Relatório do DataStudio',
+      'btn-update-orders': 'Atualizar pedidos',
+    },
     table: {
       rowsPerPage: 'Filas por página:',
     },
@@ -876,6 +880,32 @@ export const pt = {
     'state-bar': {
       title: 'Status do pedido',
     },
+  },
+  'order-bulk-update': {
+    'button-go-back': 'Atualize seus pedidos',
+    help: {
+      'text-review':
+        'Revise o PDF explicativo sobre as alterações de status do pedido.',
+      'text-learn':
+        'Saiba como fazer upload em massa da atualização do pedido com nosso guia em vídeo',
+      'text-link': 'Visualizar guia',
+    },
+    'upload-bulk-update': 'Carregar atualização',
+    'revision-bulk-update': 'Revisão de atualizações',
+    templates: {
+      title: 'Grave os dados em seu arquivo de atualização de status',
+      description:
+        'Baixe o modelo para registrar a atualização de status e faça o upload',
+      'btn-template': 'Baixar modelo',
+      'btn-pdf': 'Baixar pdf explicativo',
+    },
+    'upload-file': 'Faça upload do arquivo de atualização de status',
+    'excel-instructions':
+      'Siga as instruções que você encontrará no excel para fazer upload de suas atualizações sem problemas',
+    'drag-file': 'Arraste seu arquivo aqui',
+    'select-from-computer': 'selecione-o do seu computador',
+    'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo: 15 MB',
+    'continue-revision': 'Continue a revisar',
   },
   download_orders: {
     title: 'Baixe seus pedidos',

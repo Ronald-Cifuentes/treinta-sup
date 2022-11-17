@@ -1,6 +1,6 @@
 import {TFunction} from 'i18next';
 import {ReactNode} from 'react';
-import {ButtonError} from '../Buttons/Buttons.styled';
+import {ButtonError} from '../../../../../../../../../components/atoms/Buttons/Buttons.styled';
 import {WrapperBtnError} from './StepTwo.styled';
 
 export const getAlertContentSuccess = (t: TFunction): ReactNode => (

@@ -3,7 +3,7 @@ import {DashboardLayout} from 'components/templates';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
-import {ButtonWarning} from '../../atoms/Buttons/Buttons.styled';
+import {ButtonWarning} from '../../../../../../../../../components/atoms/Buttons/Buttons.styled';
 import {
   ArrowBtn,
   IconCheck,

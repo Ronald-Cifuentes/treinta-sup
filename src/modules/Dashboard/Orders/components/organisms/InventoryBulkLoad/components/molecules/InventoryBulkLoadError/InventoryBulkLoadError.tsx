@@ -5,7 +5,10 @@ import {useParseXlsx} from 'hooks/useParseXlsx';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
-import {ButtonInfo, ButtonWarning} from '../../atoms/Buttons/Buttons.styled';
+import {
+  ButtonInfo,
+  ButtonWarning,
+} from '../../../../../../../../../components/atoms/Buttons/Buttons.styled';
 import {
   IconError,
   InventoryBulkLoadErrorContainer,
@@ -20,7 +23,11 @@ const LINE_PROPS: ColorProps = {
   gradient: '500',
 };
 
-export const InventoryBulkLoadError: FC<InventoryBulkLoadErrorProps> = () => {
+export const InventoryBulkLoadError: FC<InventoryBulkLoadErrorProps> = ({
+  dataTestId = 'inventory-bulkload-error',
+  dataTestIdBtnReload = 'btn-reload',
+  dataTestIdBtnExit = 'btn-exit',
+}) => {
   const {t} = useTranslation();
   const history = useNavigate();
   const {massiveSave} = useParseXlsx();
@@ -39,19 +46,21 @@ export const InventoryBulkLoadError: FC<InventoryBulkLoadErrorProps> = () => {
 
   return (
     <DashboardLayout title="" fancyLineProps={LINE_PROPS} sizeFancyLine="0.5px">
-      <InventoryBulkLoadErrorContainer>
+      <InventoryBulkLoadErrorContainer data-testid={dataTestId}>
         <IconError />
         <TextParagraphError>
           {t('bulk-upload.inventory-bulk-load-error')}
         </TextParagraphError>
         <LayoutButtons>
           <WrapButton>
-            <ButtonWarning onClick={handleBtnReload}>
+            <ButtonWarning
+              data-testid={dataTestIdBtnReload}
+              onClick={handleBtnReload}>
               {t('bulk-upload.btn-reload')}
             </ButtonWarning>
           </WrapButton>
           <WrapButton>
-            <ButtonInfo onClick={handleBtnExit}>
+            <ButtonInfo data-testid={dataTestIdBtnExit} onClick={handleBtnExit}>
               {t('bulk-upload.btn-exit')}
             </ButtonInfo>
           </WrapButton>

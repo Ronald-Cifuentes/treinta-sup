@@ -1,3 +1,5 @@
 export interface InventoryBulkLoadErrorProps {
-  prop?: string;
+  dataTestId?: string;
+  dataTestIdBtnReload?: string;
+  dataTestIdBtnExit?: string;
 }

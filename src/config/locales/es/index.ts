@@ -243,6 +243,10 @@ export const es = {
   },
   orders: {
     title: 'Gestiona tus órdenes',
+    'filters-and-reports': {
+      'btn-datastudio': 'Reporte DataStudio',
+      'btn-update-orders': 'Actualizar órdenes',
+    },
     table: {
       rowsPerPage: 'Filas por página:',
     },
@@ -960,6 +964,32 @@ export const es = {
     'state-bar': {
       title: 'Estado de la orden',
     },
+  },
+  'order-bulk-update': {
+    'button-go-back': 'Actualiza tus órdenes',
+    help: {
+      'text-review':
+        'Revisa el PDF explicativo sobre cambio de estados de órdenes.',
+      'text-learn':
+        'Aprende a cargar masivamente la actualización de órdenes con nuestro video guía',
+      'text-link': 'Ver guía',
+    },
+    'upload-bulk-update': 'Sube actualización',
+    'revision-bulk-update': 'Revisión de actualizaciones',
+    templates: {
+      title: 'Registra los datos en tu archivo de actualización de estados',
+      description:
+        'Descarga la plantilla para registrar la actualización de estados y cárgalo',
+      'btn-template': 'Descargar plantilla',
+      'btn-pdf': 'Descarga pdf explicativo',
+    },
+    'upload-file': 'Sube el archivo de actualización de estados',
+    'excel-instructions':
+      'Sigue las instrucciones que encontrarás en el excel para subir tus actualizaciones sin problema',
+    'drag-file': 'Arrastra tu archivo aquí',
+    'select-from-computer': 'selecciónalo desde tu computador',
+    'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo: 15MB',
+    'continue-revision': 'Continuar a revisión',
   },
   download_orders: {
     title: 'Descarga tus órdenes',

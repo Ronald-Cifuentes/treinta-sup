@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {
   ButtonInfo,
   ButtonSuccess,
-} from '../../organisms/InventoryBulkLoad/components/atoms/Buttons/Buttons.styled';
+} from '../../../../../../components/atoms/Buttons/Buttons.styled';
 import {
   BodyModal,
   HeadModal,
