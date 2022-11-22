@@ -15,8 +15,8 @@ const moduleName = 'order_bulk_update';
 export const ACTIONS = {
   UPLOAD_FILE_RESET: `${moduleName}/file_reset`,
   UPLOAD_FILE_SUCCESS: `${moduleName}/file_success`,
-  SET_IS_VALID: `${moduleName}/set_is_valid`,
   UPLOAD_FILE_ERROR: `${moduleName}/file_error`,
+  SET_IS_VALID: `${moduleName}/set_is_valid`,
 };
 
 export const reducer: Reducer<State, Action> = (
@@ -24,11 +24,6 @@ export const reducer: Reducer<State, Action> = (
   {type, payload},
 ): State => {
   switch (type) {
-    case ACTIONS.SET_IS_VALID:
-      return {
-        ...state,
-        isValid: payload?.isValid || false,
-      };
     case ACTIONS.UPLOAD_FILE_RESET:
       return initialState;
     case ACTIONS.UPLOAD_FILE_SUCCESS:
@@ -46,6 +41,11 @@ export const reducer: Reducer<State, Action> = (
         states: [],
         statesRepeated: 0,
         isValid: false,
+      };
+    case ACTIONS.SET_IS_VALID:
+      return {
+        ...state,
+        isValid: payload?.isValid || false,
       };
     default:
       return state;
