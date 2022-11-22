@@ -1,17 +1,18 @@
 /* eslint-disable import/no-default-export */
-import {FC, useContext} from 'react';
-import {ThemeProvider} from 'styled-components';
+import {Backdrop} from '@30sas/web-ui-kit-core';
 import {TreintaTheme} from '@30sas/web-ui-kit-theme';
-import {QueryClient, QueryClientProvider} from 'react-query';
-import {BrowserRouter} from 'react-router-dom';
 import {HeadTags} from 'components/molecules';
 import {AuthProvider} from 'context/AuthContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
 import {DashboardProvider} from 'context/DashboardContext';
+import {OrderBulkUpdateProvider} from 'context/OrderBulkUpdateContext';
 import {StoreContext} from 'context/StoreProvider/StoreProvider';
 import {ToastProvider} from 'context/ToastContext/ToastProvider';
-import {Backdrop} from '@30sas/web-ui-kit-core';
 import {UploadBulkProvider} from 'context/UploadBulkContext';
+import {FC, useContext} from 'react';
+import {QueryClient, QueryClientProvider} from 'react-query';
+import {BrowserRouter} from 'react-router-dom';
+import {ThemeProvider} from 'styled-components';
 import {GlobalStyle} from './config/GlobalStyle';
 import {Routes} from './routes';
 
@@ -38,9 +39,11 @@ const App: FC = () => {
               <AuthProvider>
                 <ToastProvider>
                   <UploadBulkProvider>
-                    <DashboardProvider>
-                      <Routes />
-                    </DashboardProvider>
+                    <OrderBulkUpdateProvider>
+                      <DashboardProvider>
+                        <Routes />
+                      </DashboardProvider>
+                    </OrderBulkUpdateProvider>
                   </UploadBulkProvider>
                 </ToastProvider>
               </AuthProvider>
