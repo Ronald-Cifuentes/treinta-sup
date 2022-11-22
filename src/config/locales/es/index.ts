@@ -1000,5 +1000,8 @@ export const es = {
     instro3:
       'Se generará un archivo excel por cada corte con toda la información necesaria.',
     btn_title: 'Ver guía',
+    select_date: 'Elegir Fecha',
+    select_batch: 'Cortes',
+    batch_empty: 'No hay cortes disponibles en esta bodega.',
   },
 };

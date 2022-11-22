@@ -916,5 +916,8 @@ export const pt = {
     instro3:
       'Um arquivo excel será gerado para cada corte com todas as informações necessárias.',
     btn_title: 'Ver guia',
+    select_date: 'Escolha a data',
+    select_batch: 'Cortes',
+    batch_empty: 'Não há cortes disponíveis nesta adega.',
   },
 };

@@ -1,9 +1,9 @@
 import {AxiosResponse} from 'axios';
 
-import {Order} from 'services/models';
+import {Order, DownloadOrders} from 'services/models';
 import {ApiProvider} from 'providers/api-provider';
 import {Status} from 'hooks/useOrders';
-import {PropTypesGetOrders, StatusResponse} from './types';
+import {StatusResponse, PropTypesGetOrders} from './types';
 
 export class OrderServices {
   private api: ApiProvider;
@@ -37,5 +37,10 @@ export class OrderServices {
     return this.api.patch(`/suppliers/orders/status`, {
       orders: items?.map(item => ({orderId: item, statusId})),
     });
+  }
+
+  getOrdersByDay(date: string): Promise<AxiosResponse<DownloadOrders[]>> {
+    const dateParam = date;
+    return this.api.get<Order[]>(`/suppliers/orders/batch-by-day/${dateParam}`);
   }
 }

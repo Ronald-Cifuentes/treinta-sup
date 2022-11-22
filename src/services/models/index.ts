@@ -8,3 +8,4 @@ export * from './Common';
 export * from './Product';
 export * from './GeneralTypes';
 export * from './Bulk';
+export * from './DownloadOrders';
