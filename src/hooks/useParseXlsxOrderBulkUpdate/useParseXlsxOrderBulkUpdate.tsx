@@ -11,6 +11,13 @@ export const useParseXlsxOrderBulkUpdate =
     const {dispatch} = useOrderBulkUpdate();
     const {t} = useTranslation();
 
+    const onReaderLoad = (event: ProgressEvent<FileReader>): void => {
+      const ab = event.target?.result;
+      const states = parseFile(ab);
+      // eslint-disable-next-line no-console
+      console.log('onReaderLoad', {event, states});
+    };
+
     const onReaderError = (): void => {
       dispatch({
         type: ACTIONS.UPLOAD_FILE_ERROR,
@@ -22,16 +29,9 @@ export const useParseXlsxOrderBulkUpdate =
       });
     };
 
-    const onReaderLoad = (event: ProgressEvent<FileReader>): void => {
-      const ab = event.target?.result;
-      const states = parseFile(ab);
-      // eslint-disable-next-line no-console
-      console.log('onReaderLoad', {event, states});
-    };
-
     const invalidFile = (fileRejections: FileRejection[]): void => {
       // eslint-disable-next-line no-console
-      console.log('invalidFile', {fileRejections});
+      console.log('invalidFile', fileRejections);
       dispatch({
         type: ACTIONS.UPLOAD_FILE_ERROR,
         payload: {
@@ -48,11 +48,8 @@ export const useParseXlsxOrderBulkUpdate =
         type: ACTIONS.UPLOAD_FILE_SUCCESS,
         payload: {file, statesRepeated: 0},
       });
-
       reader.onload = onReaderLoad;
-
       reader.readAsArrayBuffer(file);
-
       reader.onerror = onReaderError;
     };
 
