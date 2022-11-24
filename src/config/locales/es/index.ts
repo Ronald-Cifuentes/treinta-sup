@@ -986,6 +986,9 @@ export const es = {
     'upload-file': 'Sube el archivo de actualización de estados',
     'excel-instructions':
       'Sigue las instrucciones que encontrarás en el excel para subir tus actualizaciones sin problema',
+    'tittle-error': 'Archivo inválido.',
+    'main-text-error':
+      'Verifica que tu archivo sea formato XLSX, Que tenga las mismas columnas que la plantilla y que no supere los 1000 registros.',
     'drag-file': 'Arrastra tu archivo aquí',
     'select-from-computer': 'selecciónalo desde tu computador',
     'already-upload': 'Listo para cargar.',

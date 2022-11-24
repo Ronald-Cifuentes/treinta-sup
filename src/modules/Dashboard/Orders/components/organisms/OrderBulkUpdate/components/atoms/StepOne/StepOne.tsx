@@ -31,7 +31,8 @@ export const StepOne: FC<StepOneProps> = ({dataTestId = 'step-one-test'}) => {
       },
     },
     error: {
-      mainText: '',
+      title: t('order-bulk-update.tittle-error'),
+      mainText: t('order-bulk-update.main-text-error'),
       endText: {
         text: t('order-bulk-update.drag-file'),
         linkText: `${t('order-bulk-update.select-from-computer')}

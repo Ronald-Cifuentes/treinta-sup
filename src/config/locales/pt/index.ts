@@ -902,6 +902,9 @@ export const pt = {
     'upload-file': 'Faça upload do arquivo de atualização de status',
     'excel-instructions':
       'Siga as instruções que você encontrará no excel para fazer upload de suas atualizações sem problemas',
+    'tittle-error': 'Arquivo inválido.',
+    'main-text-error':
+      'Verifique se o seu arquivo está no formato XLSX, se possui as mesmas colunas do modelo e se não excede 1000 registros.',
     'drag-file': 'Arraste seu arquivo aqui',
     'select-from-computer': 'selecione-o do seu computador',
     'already-upload': 'Pronto para carregar.',
