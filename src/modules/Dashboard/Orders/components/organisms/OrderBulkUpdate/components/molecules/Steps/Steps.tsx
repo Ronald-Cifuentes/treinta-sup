@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable max-lines */
 import {Grid} from '@30sas/web-ui-kit-core';
-import {FC} from 'react';
+import {ACTIONS, useOrderBulkUpdate} from 'context/OrderBulkUpdateContext';
+import {FC, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {BottomNav, GoBackButton, NavBar} from '../../../OrderBulkUpdate.styled';
 import {ButtonStep} from '../../atoms/ButtonStep';
@@ -23,11 +24,23 @@ export const Steps: FC<StepsProps> = ({
   dataTestIdBtnStep = 'btn-step-test',
 }) => {
   const {t} = useTranslation();
-  const state = {isValid: false, step: 0};
+  const {state, dispatch} = useOrderBulkUpdate();
   const {isValid, step} = state;
 
+  useEffect(() => {
+    if (step < 0) {
+      dispatch({type: ACTIONS.SET_STEP, payload: {step: 0}});
+    }
+    if (step > 1) {
+      dispatch({type: ACTIONS.SET_STEP, payload: {step: 1}});
+    }
+  }, [dispatch, step]);
+
   const handleGoBackButton = (): void => {
-    console.log('Pendiente de programar');
+    dispatch({type: ACTIONS.SET_STEP, payload: {step: 0}});
+    dispatch({
+      type: ACTIONS.UPLOAD_FILE_RESET,
+    });
   };
 
   return (

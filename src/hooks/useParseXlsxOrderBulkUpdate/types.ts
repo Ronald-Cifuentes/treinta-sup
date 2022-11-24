@@ -1,5 +1,4 @@
 import {FileRejection} from 'react-dropzone';
-import {DataVerify} from 'services/models/States';
 
 export type OnFilesChange = (
   acceptFiles: File[],
@@ -10,4 +9,10 @@ export interface UseParseXlsxOrderBulkUpdateResponse {
   onFilesChange: OnFilesChange;
 }
 
-export interface StatesFile extends DataVerify {}
+export interface HandleObject extends Object {
+  [key: string]: unknown;
+}
+
+export interface StatesFile {
+  [key: string]: HandleObject;
+}

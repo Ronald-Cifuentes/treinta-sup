@@ -15,7 +15,25 @@ export const useParseXlsxOrderBulkUpdate =
       const ab = event.target?.result;
       const states = parseFile(ab);
       // eslint-disable-next-line no-console
-      console.log('onReaderLoad', {event, states});
+      console.log('xxx', {states, x: states?.length});
+
+      if (
+        Object.values(states?.[1]).length === 3 &&
+        Object.values(states?.[1])?.find(item => item == 'Consecutivo*') &&
+        Object.values(states?.[1])?.find(item => item == 'Estado*') &&
+        Object.values(states?.[1])?.find(item => item == 'Tipificación')
+      ) {
+        dispatch({type: ACTIONS.SET_IS_VALID, payload: {isValid: true}});
+      } else {
+        dispatch({
+          type: ACTIONS.UPLOAD_FILE_ERROR,
+          payload: {
+            error: {
+              errorMessage: t('bulk-upload.error-invalid-format'),
+            },
+          },
+        });
+      }
     };
 
     const onReaderError = (): void => {

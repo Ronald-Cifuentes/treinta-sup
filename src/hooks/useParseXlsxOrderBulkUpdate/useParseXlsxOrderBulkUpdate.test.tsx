@@ -1,3 +1,4 @@
+import {cleanup} from '@testing-library/react';
 import {ACTIONS} from 'context/OrderBulkUpdateContext';
 import {FileRejection} from 'react-dropzone';
 import {useParseXlsxOrderBulkUpdate} from './useParseXlsxOrderBulkUpdate';
@@ -41,15 +42,17 @@ class FileReaderMock {
 }
 
 describe('useParseXlsxOrderBulkUpdate', () => {
+  beforeEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
+
   const file = new Blob(['Test'], {
     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,',
   });
+
   const fileReader = new FileReaderMock();
   jest.spyOn(window, 'FileReader').mockImplementation(() => fileReader);
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
 
   test('#1. validFile', () => {
     fileReader.result = 'file content';
@@ -67,6 +70,8 @@ describe('useParseXlsxOrderBulkUpdate', () => {
         statesRepeated: 0,
       },
     });
+
+    fileReader.removeEventListener.mockImplementation((_, fn) => fn());
   });
 
   test('#2. invalidFile', () => {

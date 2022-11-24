@@ -8,6 +8,7 @@ export const initialState: State = {
   isValid: false,
   error: {} as VerifyResponseError,
   statesRepeated: 0,
+  step: 0,
 };
 
 const moduleName = 'order_bulk_update';
@@ -17,6 +18,7 @@ export const ACTIONS = {
   UPLOAD_FILE_SUCCESS: `${moduleName}/file_success`,
   UPLOAD_FILE_ERROR: `${moduleName}/file_error`,
   SET_IS_VALID: `${moduleName}/set_is_valid`,
+  SET_STEP: `${moduleName}/set_step`,
 };
 
 export const reducer: Reducer<State, Action> = (
@@ -46,6 +48,11 @@ export const reducer: Reducer<State, Action> = (
       return {
         ...state,
         isValid: payload?.isValid || false,
+      };
+    case ACTIONS.SET_STEP:
+      return {
+        ...state,
+        step: payload?.step || 0,
       };
     default:
       return state;

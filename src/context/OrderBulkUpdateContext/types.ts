@@ -13,6 +13,7 @@ export interface State {
   files: File[];
   statesRepeated: number;
   states: States[];
+  step: number;
 }
 
 export type Payload = Partial<State> & {

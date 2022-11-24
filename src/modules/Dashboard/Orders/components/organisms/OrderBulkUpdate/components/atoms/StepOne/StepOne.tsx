@@ -15,8 +15,6 @@ export const StepOne: FC<StepOneProps> = ({dataTestId = 'step-one-test'}) => {
   const [modal, setModal] = useState(false);
   const {state} = useOrderBulkUpdate();
   const {files, status} = state;
-  // eslint-disable-next-line no-console
-  console.log('StepOne', state);
   const {onFilesChange} = useParseXlsxOrderBulkUpdate();
   const theme = useTheme();
 
