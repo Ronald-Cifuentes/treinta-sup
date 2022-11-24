@@ -52,4 +52,12 @@ describe('OrderBulkUpdate/Reducer', () => {
     // it's empty on purpose because it's just starting to fetch posts
     expect(reducer({} as State, startAction)).toEqual({});
   });
+
+  test('#7. should handle SET_STEP', () => {
+    const startAction = {
+      type: ACTIONS.SET_STEP,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({step: 0});
+  });
 });
