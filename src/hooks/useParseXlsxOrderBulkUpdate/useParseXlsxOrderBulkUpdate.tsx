@@ -4,7 +4,16 @@ import {useTranslation} from 'react-i18next';
 import {UseParseXlsxOrderBulkUpdateResponse} from './types';
 import {parseFile} from './useParseXlsxOrderBulkUpdate.func';
 
-const reader = new FileReader();
+const reviewLength = (arr: unknown[][]): boolean => {
+  let element = true;
+  for (let item = 0; item < arr.length; item++) {
+    element = Object.entries(arr[item]).length == 3;
+    if (!element) {
+      break;
+    }
+  }
+  return element;
+};
 
 export const useParseXlsxOrderBulkUpdate =
   (): UseParseXlsxOrderBulkUpdateResponse => {
@@ -14,15 +23,19 @@ export const useParseXlsxOrderBulkUpdate =
     const onReaderLoad = (event: ProgressEvent<FileReader>): void => {
       const ab = event.target?.result;
       const states = parseFile(ab);
-      // eslint-disable-next-line no-console
-      console.log('xxx', {states, x: states?.length});
 
       if (
+        states &&
+        Array.isArray(states) &&
+        states?.[1] &&
         Object.values(states?.[1]).length === 3 &&
+        reviewLength(states) &&
         Object.values(states?.[1])?.find(item => item == 'Consecutivo*') &&
         Object.values(states?.[1])?.find(item => item == 'Estado*') &&
-        Object.values(states?.[1])?.find(item => item == 'Tipificación')
+        Object.values(states?.[1])?.find(item => item == 'Tipificacion') &&
+        Object.values(states).length <= 1002
       ) {
+        dispatch({type: ACTIONS.UPLOAD_FILE_SUCCESS});
         dispatch({type: ACTIONS.SET_IS_VALID, payload: {isValid: true}});
       } else {
         dispatch({
@@ -48,13 +61,15 @@ export const useParseXlsxOrderBulkUpdate =
     };
 
     const invalidFile = (fileRejections: FileRejection[]): void => {
-      // eslint-disable-next-line no-console
-      console.log('invalidFile', fileRejections);
+      const {file} = fileRejections?.[0]
+        ? fileRejections[0]
+        : {file: undefined};
       dispatch({
         type: ACTIONS.UPLOAD_FILE_ERROR,
         payload: {
           error: {
             errorMessage: 'Error archivo invalido.',
+            ...(file && {files: [file]}),
           },
         },
       });
@@ -62,13 +77,11 @@ export const useParseXlsxOrderBulkUpdate =
 
     const validFile = (acceptFiles: File[]): void => {
       const file: File = acceptFiles[0];
-      dispatch({
-        type: ACTIONS.UPLOAD_FILE_SUCCESS,
-        payload: {file, statesRepeated: 0},
-      });
+      const reader = new FileReader();
       reader.onload = onReaderLoad;
-      reader.readAsArrayBuffer(file);
       reader.onerror = onReaderError;
+      reader.readAsArrayBuffer(file);
+      dispatch({type: ACTIONS.SET_CONTENT, payload: {file}});
     };
 
     const onFilesChange = (

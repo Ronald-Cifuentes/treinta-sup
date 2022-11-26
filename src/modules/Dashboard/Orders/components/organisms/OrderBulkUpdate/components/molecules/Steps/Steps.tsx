@@ -63,7 +63,7 @@ export const Steps: FC<StepsProps> = ({
           <HelpQuestionIcon />
           <HelpStrong>{t('order-bulk-update.help.text-review')}</HelpStrong>
           {t('order-bulk-update.help.text-learn')}
-          <HelpLink href="https://youtube.com" target="_blank" rel="noreferrer">
+          <HelpLink target="_blank" rel="noreferrer">
             <HelpPlayIcon />
             {t('order-bulk-update.help.text-link')}
           </HelpLink>

@@ -17,8 +17,6 @@ describe('OrderBulkUpdate/Reducer', () => {
     // it's empty on purpose because it's just starting to fetch posts
     expect(reducer({} as State, startAction)).toEqual({
       status: 'success',
-      files: [undefined],
-      isValid: false,
     });
   });
 
@@ -59,5 +57,13 @@ describe('OrderBulkUpdate/Reducer', () => {
     };
     // it's empty on purpose because it's just starting to fetch posts
     expect(reducer({} as State, startAction)).toEqual({step: 0});
+  });
+
+  test('#8. should handle SET_CONTENT', () => {
+    const startAction = {
+      type: ACTIONS.SET_CONTENT,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({files: [undefined]});
   });
 });

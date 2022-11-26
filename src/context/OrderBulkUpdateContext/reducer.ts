@@ -17,6 +17,7 @@ export const ACTIONS = {
   UPLOAD_FILE_RESET: `${moduleName}/file_reset`,
   UPLOAD_FILE_SUCCESS: `${moduleName}/file_success`,
   UPLOAD_FILE_ERROR: `${moduleName}/file_error`,
+  SET_CONTENT: `${moduleName}/set_content`,
   SET_IS_VALID: `${moduleName}/set_is_valid`,
   SET_STEP: `${moduleName}/set_step`,
 };
@@ -31,9 +32,7 @@ export const reducer: Reducer<State, Action> = (
     case ACTIONS.UPLOAD_FILE_SUCCESS:
       return {
         ...state,
-        files: [payload?.file] as File[],
         status: 'success',
-        isValid: false,
       };
     case ACTIONS.UPLOAD_FILE_ERROR:
       return {
@@ -43,6 +42,11 @@ export const reducer: Reducer<State, Action> = (
         states: [],
         statesRepeated: 0,
         isValid: false,
+      };
+    case ACTIONS.SET_CONTENT:
+      return {
+        ...state,
+        files: [payload?.file] as File[],
       };
     case ACTIONS.SET_IS_VALID:
       return {

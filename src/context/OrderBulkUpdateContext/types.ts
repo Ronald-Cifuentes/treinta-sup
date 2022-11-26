@@ -2,6 +2,7 @@ import {States} from 'services/models/States';
 
 export interface VerifyResponseError {
   errorMessage?: string;
+  files?: File[];
 }
 
 export type Status = 'normal' | 'error' | 'success' | 'info';
