@@ -7,3 +7,4 @@ export * from './useNavigateI18n';
 export * from './useAuthorization';
 export * from './useCurrencyFormatter';
 export * from './useEventInfo/useEventInfo';
+export * from './useDownloadOrders';

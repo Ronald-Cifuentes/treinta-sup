@@ -18,7 +18,7 @@ export const Instructions: FC = () => {
   const {t} = useTranslation();
 
   return (
-    <Container>
+    <Container data-testid="instructions_test">
       <ImageContainer>
         <GreenContainer>
           <Faq color="#009940" />
