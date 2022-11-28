@@ -7,7 +7,7 @@ import {parseFile} from './useParseXlsxOrderBulkUpdate.func';
 const reviewLength = (arr: unknown[][]): boolean => {
   let element = true;
   for (const item of arr) {
-    element = Object.entries(item).length == 3;
+    element = Object.entries(item).length >= 2;
     if (!element) {
       break;
     }
