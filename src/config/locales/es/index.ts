@@ -990,6 +990,13 @@ export const es = {
     'select-from-computer': 'selecciónalo desde tu computador',
     'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo: 15MB',
     'continue-revision': 'Continuar a revisión',
+    'bulk-update-success':
+      '¡Listo! El estado de tus órdenes fue actualizado exitosamente.',
+    'bulk-update-error':
+      'Hubo un problema y no pudimos guardar tus actualizaciones. Vuelve a cargar o intentalo de nuevo más tarde.',
+    'btn-orders': 'Ver órdenes',
+    'btn-reload': 'Volver a cargar',
+    'btn-exit': 'Salir',
   },
   download_orders: {
     title: 'Descarga tus órdenes',
