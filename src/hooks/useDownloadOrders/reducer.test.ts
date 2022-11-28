@@ -6,13 +6,13 @@ describe('useDownloadOrders reducer', () => {
       reducer(initialState, {
         type: BATCH_ACTIONS.LIST,
       }),
-    ).toEqual({});
+    ).toEqual({items: []});
   });
 
   it('2. should handle GET_BATCH_DOWNLOAD_ORDERS', () => {
     const startAction = {
       type: BATCH_ACTIONS.LIST,
     };
-    expect(reducer({}, startAction)).toEqual({});
+    expect(reducer({}, startAction)).toEqual({items: []});
   });
 });

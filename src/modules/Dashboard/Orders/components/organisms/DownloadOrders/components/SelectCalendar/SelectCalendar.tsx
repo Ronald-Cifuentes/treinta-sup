@@ -38,7 +38,7 @@ export const SelectCalendar: FC<SelectCalendarProps> = ({
               formattedTestDay.getMonth() + 1
             }-${formattedTestDay.getDate() - 2}`,
           ]}
-          disableDays={['D', 'TH']}
+          disableDays={['D']}
         />
       </SelectDate>
     </Container>

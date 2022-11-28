@@ -919,5 +919,9 @@ export const pt = {
     select_date: 'Escolha a data',
     select_batch: 'Cortes',
     batch_empty: 'Não há cortes disponíveis nesta adega.',
+    batch_day_empty: 'Não há resultados.',
+    tooltipMessage: 'Este corte ainda não está disponível.',
+    batch_day_empty_result:
+      'Não há pedidos disponíveis para download neste corte',
   },
 };
