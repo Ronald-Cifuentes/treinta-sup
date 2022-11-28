@@ -13,7 +13,7 @@ export const SectionTemplates: FC<SectionTemplatesProps> = () => {
   const theme = useTheme();
 
   const handleDownloadTemplate = (): void => {
-    document.location.href = '/assets/Plantilla_carga_masiva_estados.xlsx';
+    document.location.href = '/assets/Plantilla_carga_masiva_estados_V2.xlsx';
   };
 
   const handleDownloadPdf = (): void => {
