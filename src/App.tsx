@@ -6,6 +6,7 @@ import {HeadTags} from 'components/molecules';
 import {AuthProvider} from 'context/AuthContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
 import {DashboardProvider} from 'context/DashboardContext';
+import {OrderBulkUpdateProvider} from 'context/OrderBulkUpdateContext';
 import {StoreContext} from 'context/StoreProvider/StoreProvider';
 import {ToastProvider} from 'context/ToastContext/ToastProvider';
 import {UploadBulkProvider} from 'context/UploadBulkContext';
@@ -39,9 +40,11 @@ const App: FC = () => {
               <AuthProvider>
                 <ToastProvider>
                   <UploadBulkProvider>
-                    <DashboardProvider>
-                      <Routes />
-                    </DashboardProvider>
+                    <OrderBulkUpdateProvider>
+                      <DashboardProvider>
+                        <Routes />
+                      </DashboardProvider>
+                    </OrderBulkUpdateProvider>
                   </UploadBulkProvider>
                 </ToastProvider>
               </AuthProvider>
