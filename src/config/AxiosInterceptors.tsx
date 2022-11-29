@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios, {
   AxiosRequestConfig,
   AxiosRequestHeaders,
@@ -19,7 +20,7 @@ export const publicUrls = [
 
 export const timeout = Number(
   process.env.REACT_APP_MAX_TIMEOUT || axios.defaults.timeout,
-) as number;
+);
 
 // axios AxiosInstance
 export const AxiosInstance = axios.create({
@@ -40,6 +41,17 @@ export const AxiosInterceptor: FC<{children: JSX.Element}> = ({children}) => {
       return response;
     };
 
+    const handleXLSXDownload = (response): void => {
+      const blob = new Blob([response.data as ArrayBuffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      const dateDownload = new Date().getTime();
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `download_file_${dateDownload}.xlsx`;
+      link.click();
+    };
+
     const resInterceptor = (response: AxiosResponse): AxiosResponse => {
       setLoad(false);
       const token = localStorage.getItem('dataRes');
@@ -51,7 +63,16 @@ export const AxiosInterceptor: FC<{children: JSX.Element}> = ({children}) => {
         sessionStorage.clear();
         signOut(auth);
       } else {
-        return response;
+        if (
+          response.headers['content-type'] ===
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        ) {
+          // xlsx Response
+          handleXLSXDownload(response);
+        } else {
+          // JSON Response
+          return response;
+        }
       }
       return {} as AxiosResponse;
     };

@@ -14,7 +14,7 @@ export const reducer: Reducer<DeliversResponse, ActionOrders> = (
   {type, payload},
 ): DeliversResponse => {
   if (type === BATCH_ACTIONS.LIST) {
-    return {...state, items: payload};
+    return {...state, items: payload || []};
   }
   return state;
 };

@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import {FC, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
+import {FC, useEffect, useState} from 'react';
 import InfoIcon from '@mui/icons-material/Info';
+import {ActionButton, Toast} from '@30sas/web-ui-kit-core';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 import {useDownloadOrders} from 'hooks/useDownloadOrders';
@@ -10,6 +11,7 @@ import {format} from 'date-fns';
 import {
   Hour,
   Place,
+  GetBatch,
   RowPlace,
   BatchInfo,
   RowBatches,
@@ -18,24 +20,63 @@ import {
   BatchesMessage,
 } from './DeliversTable.styled';
 
-import {DeliversTableProps} from './types';
+import {DeliversTableProps, GetOrdersByDateProps} from './types';
 
 export const DeliversTable: FC<DeliversTableProps> = ({
   dataTestId = 'delivers_table_test',
   date = new Date(),
+  dataTestIdGetBatch = 'get_batch',
 }) => {
   const {t} = useTranslation();
   const selectDateRequest = format(date as Date, 'yyyy-MM-dd');
 
-  const {dataRetrieve, refetchRetrieve} = useDownloadOrders(selectDateRequest);
+  const {dataRetrieve, refetchRetrieve, getUseOrdersDownloadByDate} =
+    useDownloadOrders(selectDateRequest);
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   useEffect(() => {
     refetchRetrieve();
   }, [date, refetchRetrieve]);
 
+  const getOrdersDownloadByDate = async (
+    warehouseId: string,
+    supplierId: string,
+    batchHour: string,
+    batchDate: string,
+    // eslint-disable-next-line max-params
+  ): Promise<GetOrdersByDateProps> => {
+    const data = await getUseOrdersDownloadByDate(
+      warehouseId,
+      supplierId,
+      batchHour,
+      batchDate,
+    );
+
+    if (data !== undefined) {
+      setShowToast(true);
+    }
+
+    return data as GetOrdersByDateProps;
+  };
+
   return (
     <div data-testid={dataTestId}>
-      <>{dataRetrieve?.items?.length === 0 && <h1>No hay resultados</h1>}</>
+      <>
+        {dataRetrieve?.items?.length === 0 && (
+          <h1>{t('download_orders.batch_day_empty')}</h1>
+        )}
+      </>
+      {showToast && (
+        <Toast
+          label={t('download_orders.batch_day_empty_result')}
+          // eslint-disable-next-line react/jsx-no-bind
+          onClose={function handleClose() {
+            return setShowToast(!showToast);
+          }}
+          open
+          severity="danger"
+        />
+      )}
       <>
         {dataRetrieve?.items?.map((deliver, index1) => {
           const ind1 = `batch-list-${index1}`;
@@ -49,8 +90,39 @@ export const DeliversTable: FC<DeliversTableProps> = ({
                   const ind = `batch-info-${index2}`;
                   return (
                     <BatchInfo key={ind}>
-                      <FileDownloadIcon color="primary" />
-                      <Hour>{batch.hour}</Hour>
+                      <GetBatch
+                        data-testid={dataTestIdGetBatch}
+                        onClick={() =>
+                          getOrdersDownloadByDate(
+                            deliver.warehouseId,
+                            deliver.supplierId,
+                            batch.hour,
+                            batch.date,
+                          )
+                        }>
+                        <FileDownloadIcon
+                          color={
+                            batch.isEnable === true ? 'primary' : 'disabled'
+                          }
+                        />
+                        {batch.isEnable === true && (
+                          <Hour color="#2d79f4" action="underline">
+                            {batch.hour}
+                          </Hour>
+                        )}
+                      </GetBatch>
+                      {batch.isEnable === false && (
+                        <ActionButton
+                          width={22}
+                          label={batch.hour}
+                          colorBg="neutrals"
+                          colorBgType="300"
+                          colorIcon="gray"
+                          colorIconType="700"
+                          labelColors="gray"
+                          toolTipText={t('download_orders.tooltipMessage')}
+                        />
+                      )}
                     </BatchInfo>
                   );
                 })}

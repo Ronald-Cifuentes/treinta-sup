@@ -1,6 +1,7 @@
 /* eslint-disable import/no-default-export */
 import {Backdrop} from '@30sas/web-ui-kit-core';
 import {TreintaTheme} from '@30sas/web-ui-kit-theme';
+import * as Sentry from '@sentry/react';
 import {HeadTags} from 'components/molecules';
 import {AuthProvider} from 'context/AuthContext';
 import {ConfigProvider} from 'context/ConfigContext/ConfigContext';
@@ -56,4 +57,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export default Sentry.withProfiler(App);

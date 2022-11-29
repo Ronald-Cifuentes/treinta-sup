@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import {TreintaTheme} from '@30sas/web-ui-kit-theme';
 
+import {HourActionProps} from './types';
+
 export const ContainerRow = styled.div`
   width: 100%;
   display: flex;
@@ -52,10 +54,27 @@ export const BatchInfo = styled.div`
   margin-bottom: ${TreintaTheme.spacing.md};
 `;
 
-export const Hour = styled.p`
-  color: #2d79f4;
+export const BatchDisabled = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-top: ${TreintaTheme.spacing.md};
+  margin-left: ${TreintaTheme.spacing.md};
+  margin-right: ${TreintaTheme.spacing.md};
+  margin-bottom: ${TreintaTheme.spacing.md};
+`;
+
+export const GetBatch = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
+
+export const Hour = styled.p<HourActionProps>`
+  color: ${props => props.color};
   margin-left: 10px;
-  text-decoration: underline;
+  text-decoration: ${props => props.action};
   font-family: 'Nunito Sans', sans-serif;
   font-size: ${TreintaTheme.fonts['nunito'].small.fontSize};
   font-style: ${TreintaTheme.fonts['nunito'].small.fontStyle};
