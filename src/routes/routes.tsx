@@ -5,6 +5,8 @@ import {InventoryBulkLoadSuccess} from 'modules/Dashboard/Orders/components/orga
 import {InventoryDetail} from 'modules/Dashboard/Orders/components/organisms/InventoryDetail';
 import {InventoryList} from 'modules/Dashboard/Orders/components/organisms/InventoryList';
 import {OrderBulkUpdate} from 'modules/Dashboard/Orders/components/organisms/OrderBulkUpdate';
+import {OrderBulkUpdateError} from 'modules/Dashboard/Orders/components/organisms/OrderBulkUpdate/components/molecules/OrderBulkUpdateError';
+import {OrderBulkUpdateSuccess} from 'modules/Dashboard/Orders/components/organisms/OrderBulkUpdate/components/molecules/OrderBulkUpdateSuccess';
 import {OrderDetail} from 'modules/Dashboard/Orders/components/organisms/OrderDetail';
 import {lazy} from 'react';
 import {PrivateRoute} from './PrivateRoute/PrivateRoute';
@@ -40,6 +42,18 @@ const controlAccess = (getI18nRoute: (arg0: ROUTES) => unknown): Route[] => [
         {
           path: `${getI18nRoute(ROUTES.ORDERS)}/actualizar`,
           element: <OrderBulkUpdate />,
+          isPrivate: true,
+        },
+        // TODO: ES NECESARIO REMOVER ESTA RUTA CUANDO EL ESTEN LISTAS LAS ACCIONES QUE ACCEDEN A ESTAS PAGINAS PUES SE REQUIERE QUE EL CONTENIDO SEA DINAMICO
+        {
+          path: `${getI18nRoute(ROUTES.ORDERS)}/actualizar/error`,
+          element: <OrderBulkUpdateError />,
+          isPrivate: true,
+        },
+        // TODO: ES NECESARIO REMOVER ESTA RUTA CUANDO EL ESTEN LISTAS LAS ACCIONES QUE ACCEDEN A ESTAS PAGINAS PUES SE REQUIERE QUE EL CONTENIDO SEA DINAMICO
+        {
+          path: `${getI18nRoute(ROUTES.ORDERS)}/actualizar/success`,
+          element: <OrderBulkUpdateSuccess />,
           isPrivate: true,
         },
       ]
