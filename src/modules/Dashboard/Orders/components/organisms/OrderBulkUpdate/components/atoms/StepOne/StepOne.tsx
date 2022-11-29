@@ -1,7 +1,8 @@
-import {Box, FileDrop, Typography, variant} from '@30sas/web-ui-kit-core';
+import {Box, FileDrop, Typography} from '@30sas/web-ui-kit-core';
 import {PackageIcon} from '@30sas/web-ui-kit-icons';
+import {useOrderBulkUpdate} from 'context/OrderBulkUpdateContext';
 import {useTheme} from 'hooks';
-import {useParseXlsx} from 'hooks/useParseXlsx';
+import {useParseXlsxOrderBulkUpdate} from 'hooks/useParseXlsxOrderBulkUpdate';
 import {ModalErrorWarehouse} from 'modules/Dashboard/Orders/components/atoms/ModalErrorWarehouse';
 import {FC, useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -12,12 +13,9 @@ import {StepOneProps} from './types';
 export const StepOne: FC<StepOneProps> = ({dataTestId = 'step-one-test'}) => {
   const {t} = useTranslation();
   const [modal, setModal] = useState(false);
-  const state = {
-    files: {name: 'test'},
-    status: 'normal' as variant,
-  };
+  const {state} = useOrderBulkUpdate();
   const {files, status} = state;
-  const {onFilesChange} = useParseXlsx();
+  const {onFilesChange} = useParseXlsxOrderBulkUpdate();
   const theme = useTheme();
 
   const handleDeleteFile = (): null => null;
@@ -31,7 +29,8 @@ export const StepOne: FC<StepOneProps> = ({dataTestId = 'step-one-test'}) => {
       },
     },
     error: {
-      mainText: '',
+      title: t('order-bulk-update.tittle-error'),
+      mainText: t('order-bulk-update.main-text-error'),
       endText: {
         text: t('order-bulk-update.drag-file'),
         linkText: `${t('order-bulk-update.select-from-computer')}
