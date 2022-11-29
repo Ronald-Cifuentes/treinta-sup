@@ -20,7 +20,7 @@ export const publicUrls = [
 
 export const timeout = Number(
   process.env.REACT_APP_MAX_TIMEOUT || axios.defaults.timeout,
-) as number;
+);
 
 // axios AxiosInstance
 export const AxiosInstance = axios.create({

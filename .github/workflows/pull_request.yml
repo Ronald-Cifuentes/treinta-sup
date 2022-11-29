@@ -45,7 +45,7 @@ jobs:
         run: yarn
 
       - name: Build packages
-        run: CI=true yarn test
+        run: CI=true yarn test:cov
 
       - name: Set branch name
         id: set-branch
