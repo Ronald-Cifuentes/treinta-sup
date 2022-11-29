@@ -44,11 +44,13 @@ const controlAccess = (getI18nRoute: (arg0: ROUTES) => unknown): Route[] => [
           element: <OrderBulkUpdate />,
           isPrivate: true,
         },
+        // TODO: ES NECESARIO REMOVER ESTA RUTA CUANDO EL ESTEN LISTAS LAS ACCIONES QUE ACCEDEN A ESTAS PAGINAS PUES SE REQUIERE QUE EL CONTENIDO SEA DINAMICO
         {
           path: `${getI18nRoute(ROUTES.ORDERS)}/actualizar/error`,
           element: <OrderBulkUpdateError />,
           isPrivate: true,
         },
+        // TODO: ES NECESARIO REMOVER ESTA RUTA CUANDO EL ESTEN LISTAS LAS ACCIONES QUE ACCEDEN A ESTAS PAGINAS PUES SE REQUIERE QUE EL CONTENIDO SEA DINAMICO
         {
           path: `${getI18nRoute(ROUTES.ORDERS)}/actualizar/success`,
           element: <OrderBulkUpdateSuccess />,
