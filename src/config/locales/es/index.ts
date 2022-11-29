@@ -1010,5 +1010,9 @@ export const es = {
     select_date: 'Elegir Fecha',
     select_batch: 'Cortes',
     batch_empty: 'No hay cortes disponibles en esta bodega.',
+    batch_day_empty: 'No hay resultados.',
+    tooltipMessage: 'Este corte aún no está disponible.',
+    batch_day_empty_result:
+      'No hay órdenes disponibles para descargar en este corte',
   },
 };

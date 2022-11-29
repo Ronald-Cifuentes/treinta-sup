@@ -48,7 +48,7 @@ export class LogProvider {
         clientToken: tokenDataDog,
         env,
         site: 'datadoghq.com',
-        service: 'treinta-web-app',
+        service: 'treinta-web-suppliers',
         version: pkg.version,
         sampleRate: 100,
         trackInteractions: env === 'production',

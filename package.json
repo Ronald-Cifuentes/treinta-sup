@@ -18,6 +18,8 @@
     "@mui/x-data-grid": "^5.17.8",
     "@mui/x-date-pickers": "^5.0.5",
     "@mui/x-date-pickers-pro": "^5.0.5",
+    "@sentry/react": "^7.20.1",
+    "@sentry/tracing": "^7.20.1",
     "@splitsoftware/splitio-react": "1.8.0",
     "@types/ua-parser-js": "0.7.36",
     "amplitude-js": "8.21.1",

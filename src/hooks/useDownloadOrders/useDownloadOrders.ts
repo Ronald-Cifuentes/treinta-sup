@@ -1,20 +1,18 @@
-import {useQuery} from 'react-query';
-
-import logger from 'use-reducer-logger';
-import {useReducer, useEffect} from 'react';
-
+import {format, parse} from 'date-fns';
 import {useErrorHandler} from 'hooks';
+import {useEffect, useReducer} from 'react';
+import {useQuery} from 'react-query';
 import {OrderServices} from 'services/suppliers.orders/suppliers.orders.services';
-
-import {initialState, BATCH_ACTIONS, reducer} from './reducer';
+import logger from 'use-reducer-logger';
+import {BATCH_ACTIONS, initialState, reducer} from './reducer';
+import {UseDownloadOrdersResponse, UseOrdersDownloadByDate} from './types';
 
 const orderServices = new OrderServices();
-
-import {UseDownloadOrdersResponse} from './types';
 
 export const useDownloadOrders = (date: string): UseDownloadOrdersResponse => {
   const [result, dispatchRetrieve] = useReducer(logger(reducer), initialState);
 
+  /* Action getOrdersByDay */
   const {
     refetch: refetchRetrieve,
     isError: isErrorRetrieve,
@@ -29,6 +27,33 @@ export const useDownloadOrders = (date: string): UseDownloadOrdersResponse => {
   useEffect(() => {
     dispatchRetrieve({type: BATCH_ACTIONS.LIST, payload: responseRetrieve});
   }, [responseRetrieve]);
+  /* Action getOrdersByDay */
+
+  /* Action GetDownloadBatchsbyDay */
+
+  const getUseOrdersDownloadByDate: UseOrdersDownloadByDate = async (
+    warehouseId,
+    supplierId,
+    batchHour,
+    batchDate,
+    // eslint-disable-next-line max-params
+  ) => {
+    //
+    const parseDate = parse(
+      `${batchDate} ${batchHour}`,
+      'yyyy-MM-dd hh:mm aa',
+      new Date(),
+    );
+    const {data} = await orderServices.getDownloadBatchsByDay(
+      warehouseId,
+      supplierId,
+      format(parseDate, 'k:mm'),
+      batchDate,
+    );
+    return data;
+  };
+
+  /* Action GetDownloadBatchsbyDay */
 
   useErrorHandler(isErrorRetrieve, {action: 'read', entity: 'product'});
 
@@ -36,8 +61,9 @@ export const useDownloadOrders = (date: string): UseDownloadOrdersResponse => {
     isErrorRetrieve,
     isLoadingRetrieve,
     isSuccessRetrieve,
-    dataRetrieve: result || {items: []},
+    dataRetrieve: result,
     dispatchRetrieve,
     refetchRetrieve,
+    getUseOrdersDownloadByDate,
   };
 };
