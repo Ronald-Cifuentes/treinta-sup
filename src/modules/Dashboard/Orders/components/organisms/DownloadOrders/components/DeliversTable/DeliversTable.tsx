@@ -8,6 +8,8 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {useDownloadOrders} from 'hooks/useDownloadOrders';
 
 import {format} from 'date-fns';
+import {EventProvider} from 'providers/event-provider/event-provider';
+import {getUser} from 'utils/infoUser';
 import {
   Hour,
   Place,
@@ -43,6 +45,7 @@ export const DeliversTable: FC<DeliversTableProps> = ({
     supplierId: string,
     batchHour: string,
     batchDate: string,
+    warehouseName: string,
     // eslint-disable-next-line max-params
   ): Promise<GetOrdersByDateProps> => {
     const data = await getUseOrdersDownloadByDate(
@@ -54,6 +57,17 @@ export const DeliversTable: FC<DeliversTableProps> = ({
 
     if (data !== undefined) {
       setShowToast(true);
+    } else {
+      // Send event to Amplitude only when file is downloaded
+      EventProvider.getInstance().logEventAmplitude(
+        `b2bs_orders_cut_off_downloaded`,
+        {
+          supplier: getUser()?.supplier,
+          warehouse: warehouseName,
+          cutOffDate: batchDate,
+          cutOffHour: batchHour,
+        },
+      );
     }
 
     return data as GetOrdersByDateProps;
@@ -98,6 +112,7 @@ export const DeliversTable: FC<DeliversTableProps> = ({
                             deliver.supplierId,
                             batch.hour,
                             batch.date,
+                            deliver.name,
                           )
                         }>
                         <FileDownloadIcon

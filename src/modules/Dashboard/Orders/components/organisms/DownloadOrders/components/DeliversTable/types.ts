@@ -12,6 +12,7 @@ export interface HourActionProps {
 
 export interface GetOrdersByDateProps {
   warehouseId?: string;
+  warehouseName?: string;
   supplierId?: string;
   batchHour?: string;
   batchDate?: string;
