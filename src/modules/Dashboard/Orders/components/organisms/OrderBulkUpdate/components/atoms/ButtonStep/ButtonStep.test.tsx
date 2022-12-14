@@ -1,11 +1,19 @@
 import {cleanup, fireEvent, render, screen} from '__tests__/test-utils';
+//import {useOrderBulkUpdate} from 'context/OrderBulkUpdateContext';
 import {ButtonStep} from './ButtonStep';
 
 const state: {buttonStep: number | null} = {buttonStep: null};
 const spyDispatch = jest.fn();
 
-jest.mock('context/UploadBulkContext', () => ({
-  useUploadBulk: () => ({
+jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));
+
+// jest.mock('context/OrderBulkUpdateContext');
+// const OrderBulkUpdate = useOrderBulkUpdate as jest.Mock;
+// const dispatch = jest.fn();
+// const state = {};
+
+jest.mock('context/OrderBulkUpdateContext', () => ({
+  useOrderBulkUpdate: () => ({
     state,
     dispatch: spyDispatch,
   }),
@@ -53,9 +61,9 @@ describe('<ButtonStep />', () => {
     fireEvent.click(btnStep);
     expect(spyOnClick).toHaveBeenCalledTimes(1);
     const input = screen.getByText(
-      'order-bulk-update.continue-revision',
+      'order-bulk-update.btn-continue-revision',
     ) as HTMLInputElement;
-    expect(input.textContent).toBe('order-bulk-update.continue-revision');
+    expect(input.textContent).toBe('order-bulk-update.btn-continue-revision');
   });
 
   test('#6. internal onclick - case 1', () => {
@@ -66,9 +74,9 @@ describe('<ButtonStep />', () => {
     fireEvent.click(btnStep);
     expect(spyOnClick).toHaveBeenCalledTimes(0);
     const input = screen.getByText(
-      'order-bulk-update.upload-file-again',
+      'order-bulk-update.btn-upload-file-again',
     ) as HTMLInputElement;
-    expect(input.textContent).toBe('order-bulk-update.upload-file-again');
+    expect(input.textContent).toBe('order-bulk-update.btn-upload-file-again');
   });
 
   test('#7. internal onclick - case 2', () => {
@@ -79,21 +87,8 @@ describe('<ButtonStep />', () => {
     fireEvent.click(btnStep);
     expect(spyOnClick).toHaveBeenCalledTimes(1);
     const input = screen.getByText(
-      'order-bulk-update.load-images',
+      'order-bulk-update.btn-confirm',
     ) as HTMLInputElement;
-    expect(input.textContent).toBe('order-bulk-update.load-images');
-  });
-
-  test('#8. internal onclick - case 3', () => {
-    const spyOnClick = jest.fn();
-    state.buttonStep = 3;
-    render(<ButtonStep onClick={spyOnClick} />);
-    const btnStep = screen.getByTestId('order-bulk-update-button-step');
-    fireEvent.click(btnStep);
-    expect(spyOnClick).toHaveBeenCalledTimes(1);
-    const input = screen.getByText(
-      'order-bulk-update.confirm',
-    ) as HTMLInputElement;
-    expect(input.textContent).toBe('order-bulk-update.confirm');
+    expect(input.textContent).toBe('order-bulk-update.btn-confirm');
   });
 });

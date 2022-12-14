@@ -66,4 +66,77 @@ describe('OrderBulkUpdate/Reducer', () => {
     // it's empty on purpose because it's just starting to fetch posts
     expect(reducer({} as State, startAction)).toEqual({files: [undefined]});
   });
+
+  test('#9. should handle FORMATTED_DATA', () => {
+    const startAction = {
+      type: ACTIONS.FORMATTED_DATA,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({formattedData: []});
+  });
+
+  test('#10. should handle SET_BUTTON_STEP', () => {
+    const startAction = {
+      type: ACTIONS.SET_BUTTON_STEP,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({buttonStep: 0});
+  });
+
+  test('#11. should handle SET_RESPONSE_VERIFICATION', () => {
+    const startAction = {
+      type: ACTIONS.SET_RESPONSE_VERIFICATION,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({
+      responseVerification: {
+        errors: [],
+        success: [],
+      },
+    });
+  });
+
+  test('#12. should handle SET_RESPONSE_MASSIVE_SAVE', () => {
+    const startAction = {
+      type: ACTIONS.SET_RESPONSE_MASSIVE_SAVE,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({
+      responseMassiveSave: {},
+    });
+  });
+
+  test('#13. should handle SET_COUNT_RESPONSE_MASSIVE_SAVE', () => {
+    const startAction = {
+      type: ACTIONS.SET_COUNT_RESPONSE_MASSIVE_SAVE,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({
+      countResponseMassiveSave: [],
+    });
+  });
+
+  test('#14. should handle SET_REMAINING_TASKS', () => {
+    const startAction = {
+      type: ACTIONS.SET_REMAINING_TASKS,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({
+      remainingTasks: 0,
+    });
+  });
+
+  test('#15. should handle SET_PARAMETERS_LOADING', () => {
+    const startAction = {
+      type: ACTIONS.SET_PARAMETERS_LOADING,
+    };
+    // it's empty on purpose because it's just starting to fetch posts
+    expect(reducer({} as State, startAction)).toEqual({
+      parametersLoading: {
+        numberBatch: 0,
+        totalArray: 0,
+        totalTasks: 0,
+      },
+    });
+  });
 });

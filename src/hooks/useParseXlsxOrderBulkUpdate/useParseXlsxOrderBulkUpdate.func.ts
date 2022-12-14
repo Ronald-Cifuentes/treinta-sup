@@ -1,4 +1,6 @@
 import XLSX from 'xlsx';
+import {optionsTabs} from 'modules/Dashboard/Orders/components/organisms/OrderList/OrderList.config';
+import {MassiveStatusVerification} from './../../services/suppliers.orders/types';
 import {StatesFile} from './types';
 
 export const parseFile = (
@@ -12,4 +14,13 @@ export const parseFile = (
     blankrows: false,
   }) as unknown as StatesFile;
   return data;
+};
+
+export const formatData = (states): MassiveStatusVerification[] => {
+  const statesMap = states.slice(2);
+  return statesMap.map(element => ({
+    sequenceId: element?.['A'],
+    status: optionsTabs.find(x => x.label === element?.['B'])?.key,
+    typification: element?.['C'],
+  }));
 };

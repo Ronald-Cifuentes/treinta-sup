@@ -43,7 +43,7 @@ describe('Calendar.func', () => {
   });
 
   test('#4. getPreviousDay - With parameters', () => {
-    expect(getPreviousDay(FormatDay('2020-10-01'))).toBe(31);
+    expect(getPreviousDay(FormatDay('2020-10-01'))).toBe(30);
     expect(getPreviousDay(FormatDay('2020-10-05'))).toBe(4);
   });
 

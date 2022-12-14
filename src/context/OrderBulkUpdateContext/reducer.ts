@@ -1,5 +1,7 @@
+/* eslint-disable complexity */
 import {Reducer} from 'react';
-import {Action, State, VerifyResponseError} from './types';
+import {ResponseVerification} from 'services/suppliers.orders/types';
+import {Action, ResponseMassiveSave, State, VerifyResponseError} from './types';
 
 export const initialState: State = {
   states: [],
@@ -9,6 +11,17 @@ export const initialState: State = {
   error: {} as VerifyResponseError,
   statesRepeated: 0,
   step: 0,
+  formattedData: [],
+  buttonStep: 0,
+  responseVerification: {} as ResponseVerification,
+  responseMassiveSave: {} as ResponseMassiveSave,
+  countResponseMassiveSave: [],
+  remainingTasks: 0,
+  parametersLoading: {
+    totalArray: 0,
+    totalTasks: 0,
+    numberBatch: 0,
+  },
 };
 
 const moduleName = 'order_bulk_update';
@@ -20,6 +33,13 @@ export const ACTIONS = {
   SET_CONTENT: `${moduleName}/set_content`,
   SET_IS_VALID: `${moduleName}/set_is_valid`,
   SET_STEP: `${moduleName}/set_step`,
+  FORMATTED_DATA: `${moduleName}/formatted_data`,
+  SET_BUTTON_STEP: `${moduleName}/set_button_step`,
+  SET_RESPONSE_VERIFICATION: `${moduleName}/set_response_verification`,
+  SET_RESPONSE_MASSIVE_SAVE: `${moduleName}/set_response_massive_save`,
+  SET_COUNT_RESPONSE_MASSIVE_SAVE: `${moduleName}/set_count_response_massive_save`,
+  SET_REMAINING_TASKS: `${moduleName}/set_remainig_tasks`,
+  SET_PARAMETERS_LOADING: `${moduleName}/set_parameters_loading`,
 };
 
 export const reducer: Reducer<State, Action> = (
@@ -57,6 +77,48 @@ export const reducer: Reducer<State, Action> = (
       return {
         ...state,
         step: payload?.step || 0,
+      };
+    case ACTIONS.FORMATTED_DATA:
+      return {
+        ...state,
+        formattedData: payload?.formattedData || [],
+      };
+    case ACTIONS.SET_BUTTON_STEP:
+      return {
+        ...state,
+        buttonStep: payload?.buttonStep || 0,
+      };
+    case ACTIONS.SET_RESPONSE_VERIFICATION:
+      return {
+        ...state,
+        responseVerification: payload?.responseVerification || {
+          success: [],
+          errors: [],
+        },
+      };
+    case ACTIONS.SET_RESPONSE_MASSIVE_SAVE:
+      return {
+        ...state,
+        responseMassiveSave: {...payload?.responseMassiveSave},
+      };
+    case ACTIONS.SET_COUNT_RESPONSE_MASSIVE_SAVE:
+      return {
+        ...state,
+        countResponseMassiveSave: payload?.countResponseMassiveSave || [],
+      };
+    case ACTIONS.SET_REMAINING_TASKS:
+      return {
+        ...state,
+        remainingTasks: payload?.remainingTasks || 0,
+      };
+    case ACTIONS.SET_PARAMETERS_LOADING:
+      return {
+        ...state,
+        parametersLoading: {
+          totalArray: payload?.parametersLoading?.totalArray || 0,
+          totalTasks: payload?.parametersLoading?.totalTasks || 0,
+          numberBatch: payload?.parametersLoading?.numberBatch || 0,
+        },
       };
     default:
       return state;

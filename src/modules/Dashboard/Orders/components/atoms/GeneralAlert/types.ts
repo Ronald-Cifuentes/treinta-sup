@@ -1,9 +1,9 @@
 import {ReactNode} from 'react';
 
 export interface AlertProps {
-  content: ReactNode;
+  content: ReactNode | string;
   onClose?: () => void;
-  dataTestIdCloseButton: string;
+  dataTestIdCloseButton?: string;
   type: 'success' | 'danger' | 'warning' | 'info';
   border?: 'normal' | 'radius';
 }

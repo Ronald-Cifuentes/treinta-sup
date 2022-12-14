@@ -14,6 +14,8 @@ export const AlertContainerSuccess = styled.div<AlertContainerSuccessProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  ${({border}) => border == 'radius' && 'border-radius: 8px;'};
 `;
 
 export const AlertIconSuccess = styled(CloseFilledIcon)`

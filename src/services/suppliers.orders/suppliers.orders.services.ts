@@ -3,7 +3,12 @@ import {AxiosResponse} from 'axios';
 import {Order, DownloadOrders} from 'services/models';
 import {ApiProvider} from 'providers/api-provider';
 import {Status} from 'hooks/useOrders';
-import {StatusResponse, PropTypesGetOrders} from './types';
+import {
+  StatusResponse,
+  PropTypesGetOrders,
+  GetMassiveStatusVerificationProps,
+  SetMassiveStatusSave,
+} from './types';
 
 export interface AxiosResponseXLSX extends AxiosResponse {}
 export class OrderServices {
@@ -58,5 +63,17 @@ export class OrderServices {
         responseType: 'blob',
       },
     );
+  }
+
+  getMassiveStatusVerification(
+    data: GetMassiveStatusVerificationProps = [],
+  ): Promise<AxiosResponse> {
+    return this.api.post(`/suppliers/orders/massive-status-verification`, data);
+  }
+
+  setMassiveStatusSave(
+    data: SetMassiveStatusSave = {} as SetMassiveStatusSave,
+  ): Promise<AxiosResponse> {
+    return this.api.patch(`/suppliers/orders/massive-status`, data);
   }
 }

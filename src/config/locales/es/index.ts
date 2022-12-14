@@ -966,6 +966,16 @@ export const es = {
     },
   },
   'order-bulk-update': {
+    'orders-update-title': 'Tus órdenes se están actualizando',
+    'orders-update-process': 'Procesando actualización de estados',
+    'order-update-waiting':
+      'Por favor espera. Tus estados se están actualizando',
+    'orders-update-data':
+      '{{numberUpdates}} de {{numberTotal}} órdenes actualizadas',
+    'orders-update-message':
+      'El proceso puede tardar unos minutos. No refresques ni cierres la página hasta que tu carga se complete.',
+    'status-update-error':
+      'No puede ser actualizado de {{keyFrom}} a {{keyTo}}',
     'button-go-back': 'Actualiza tus órdenes',
     help: {
       'text-review':
@@ -995,7 +1005,11 @@ export const es = {
     'file-upload-success': 'Tu archivo cargó exitosamente.',
     'update-message': 'Arrastrastra tu archivo',
     'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo: 15MB',
-    'continue-revision': 'Continuar a revisión',
+    'btn-continue-revision': 'Continuar a revisión',
+    'btn-upload-file-again': 'Volver a subir archivo',
+    'btn-confirm': 'Confirmar actualización',
+    'check-state-changes-orders':
+      'Revisa los cambios de estado que realizarás a las ordenes cargadas.',
     'bulk-update-success':
       '¡Listo! El estado de tus órdenes fue actualizado exitosamente.',
     'bulk-update-error':
@@ -1003,6 +1017,18 @@ export const es = {
     'btn-orders': 'Ver órdenes',
     'btn-reload': 'Volver a cargar',
     'btn-exit': 'Salir',
+    'success-toast-message': '¡Genial! No se han encontrado errores.',
+    'error-toast-message-one': 'Se han encontrado un total de ',
+    'error-toast-message-two': ' errores.',
+    'error-change-logic-message':
+      'Hay un error(es) en la lógica de cambio de estados.',
+    'error-change-consecutives-message':
+      'Hay un(os) consecutivo(s) que no existen.',
+    'check-change-state-and-typifications':
+      'Revisión de cambios de estados y tipificaciones.',
+    'title-modal': 'Está seguro que desea modificar estos estados',
+    'btn-modal-confirm': 'Sí',
+    'btn-modal-cancel': 'No',
   },
   download_orders: {
     title: 'Descarga tus órdenes',

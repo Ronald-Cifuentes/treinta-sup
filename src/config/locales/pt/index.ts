@@ -882,6 +882,15 @@ export const pt = {
     },
   },
   'order-bulk-update': {
+    'orders-update-title': 'Seus pedidos estão sendo atualizados',
+    'orders-update-process': 'Atualização do status de processamento',
+    'order-update-waiting': 'Por favor, espere. Seus status estão atualizando',
+    'orders-update-data':
+      '{{numberUpdates}} de {{numberTotal}} pedidos atualizados',
+    'orders-update-message':
+      'O processo pode demorar alguns minutos. Não atualize ou feche a página até que o upload seja concluído.',
+    'status-update-error':
+      'Não pode ser atualizado de {{keyFrom}} para {{keyTo}}',
     'button-go-back': 'Atualize seus pedidos',
     help: {
       'text-review':
@@ -911,7 +920,30 @@ export const pt = {
     'file-upload-success': 'Seu arquivo foi carregado com sucesso.',
     'update-message': 'Foi atualizado com sucesso.',
     'format-allowed': 'Formato permitido: Excel (XLSX) | Peso máximo: 15 MB',
-    'continue-revision': 'Continue a revisar',
+    'btn-continue-revision': 'Continue a revisar',
+    'btn-upload-file-again': 'Reenviar arquivo',
+    'btn-confirm': 'Confirmar atualização',
+    'check-state-changes-orders':
+      'Revise as mudanças de status que você fará nos pedidos carregados.',
+    'bulk-update-success':
+      'Inteligente! O estado das suas encomendas foi atualizado com sucesso.',
+    'bulk-update-error':
+      'Ocorreu um problema e não foi possível salvar suas atualizações. Atualize ou tente novamente mais tarde.',
+    'btn-orders': 'Ver pedidos',
+    'btn-reload': 'Recarregar',
+    'btn-exit': 'Sair',
+    'success-toast-message': 'Legal! Nenhum erro encontrado.',
+    'error-toast-message-one': 'Um total de ',
+    'error-toast-message-two': ' erros foram encontrados',
+    'error-change-logic-message':
+      'Há um(s) erro(s) na lógica de mudança de estado.',
+    'error-change-consecutives-message':
+      'Há uma(s) consecutiva(s) que não existe(m).',
+    'check-change-state-and-typifications':
+      'Revisão de mudanças de status e tipificações.',
+    'title-modal': 'Tem certeza de que deseja modificar esses status?',
+    'btn-modal-confirm': 'Sim',
+    'btn-modal-cancel': 'Não',
   },
   download_orders: {
     title: 'Baixe seus pedidos',

@@ -59,25 +59,43 @@ const StylesTableMui = {
   },
 };
 
-export const TableMui: FC<PropTypesTableMui> = ({
-  formattedData,
+export const TableMui: FC<PropTypesTableMui> = props => {
+  const {
+    formattedData,
+    pageSize = 8,
+    handleGrid,
+    columns,
+    checkboxSelection,
+    className,
+    getRowClassName,
+  } = props;
+
+  return (
+    <TableMuiRoot className={className} data-testid="table-mui">
+      <DataGrid
+        {...props}
+        getRowClassName={getRowClassName}
+        rows={formattedData || []}
+        columns={columns || []}
+        pageSize={pageSize}
+        rowsPerPageOptions={[5]}
+        checkboxSelection={checkboxSelection}
+        disableSelectionOnClick
+        onSelectionModelChange={handleGrid}
+        sx={StylesTableMui}
+        hideFooter={true}
+        autoHeight={true}
+      />
+    </TableMuiRoot>
+  );
+};
+
+/*
+{formattedData,
   pageSize = 8,
   handleGrid,
   columns,
   checkboxSelection,
-}) => (
-  <TableMuiRoot data-testid="table-mui">
-    <DataGrid
-      rows={formattedData || []}
-      columns={columns || []}
-      pageSize={pageSize}
-      rowsPerPageOptions={[5]}
-      checkboxSelection={checkboxSelection}
-      disableSelectionOnClick
-      onSelectionModelChange={handleGrid}
-      sx={StylesTableMui}
-      hideFooter={true}
-      autoHeight={true}
-    />
-  </TableMuiRoot>
-);
+  className,
+  getRowClassName,}
+*/

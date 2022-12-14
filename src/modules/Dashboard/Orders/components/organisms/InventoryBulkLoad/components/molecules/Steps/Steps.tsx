@@ -116,6 +116,9 @@ export const Steps: FC<StepsProps> = () => {
         open={modal}
         setOpen={setModal}
         handleBtnConfirm={handleBtnConfirm}
+        textHead={t('bulk-upload.modal-confirm')}
+        textBtnConfirm={t('bulk-upload.btn-yes-continue')}
+        textBtnCancel={t('bulk-upload.btn-cancel')}
       />
     </>
   );

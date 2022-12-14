@@ -2,7 +2,7 @@ import {ACTIONS, useOrderBulkUpdate} from 'context/OrderBulkUpdateContext';
 import {FileRejection} from 'react-dropzone';
 import {useTranslation} from 'react-i18next';
 import {UseParseXlsxOrderBulkUpdateResponse} from './types';
-import {parseFile} from './useParseXlsxOrderBulkUpdate.func';
+import {parseFile, formatData} from './useParseXlsxOrderBulkUpdate.func';
 
 const reviewLength = (arr: unknown[][]): boolean => {
   let element = true;
@@ -37,6 +37,10 @@ export const useParseXlsxOrderBulkUpdate =
       ) {
         dispatch({type: ACTIONS.UPLOAD_FILE_SUCCESS});
         dispatch({type: ACTIONS.SET_IS_VALID, payload: {isValid: true}});
+        dispatch({
+          type: ACTIONS.FORMATTED_DATA,
+          payload: {formattedData: formatData(states)},
+        });
       } else {
         dispatch({
           type: ACTIONS.UPLOAD_FILE_ERROR,

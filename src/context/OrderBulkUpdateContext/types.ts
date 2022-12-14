@@ -1,4 +1,9 @@
+import {AxiosError, AxiosResponse} from 'axios';
 import {States} from 'services/models/States';
+import {
+  MassiveStatusVerification,
+  ResponseVerification,
+} from 'services/suppliers.orders/types';
 
 export interface VerifyResponseError {
   errorMessage?: string;
@@ -7,6 +12,16 @@ export interface VerifyResponseError {
 
 export type Status = 'normal' | 'error' | 'success' | 'info';
 
+export interface ResponseMassiveSave {
+  statusSuccess?: unknown;
+  statusError?: unknown;
+}
+
+export interface ParametersLoading {
+  totalArray: number;
+  totalTasks: number;
+  numberBatch: number;
+}
 export interface State {
   isValid: boolean;
   error: VerifyResponseError;
@@ -15,6 +30,13 @@ export interface State {
   statesRepeated: number;
   states: States[];
   step: number;
+  formattedData: MassiveStatusVerification[];
+  buttonStep: number;
+  responseVerification: ResponseVerification;
+  responseMassiveSave: ResponseMassiveSave;
+  countResponseMassiveSave: Promise<AxiosResponse | AxiosError>[];
+  remainingTasks: number;
+  parametersLoading: ParametersLoading;
 }
 
 export type Payload = Partial<State> & {

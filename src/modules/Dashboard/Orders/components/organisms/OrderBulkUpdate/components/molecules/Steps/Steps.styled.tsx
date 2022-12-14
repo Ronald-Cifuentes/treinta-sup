@@ -38,3 +38,7 @@ export const HelpLink = styled.a`
   color: #347af3;
   cursor: pointer;
 `;
+
+export const HeaderBannerEmpty = styled.div`
+  margin: 70px 10px 0px 10px;
+`;

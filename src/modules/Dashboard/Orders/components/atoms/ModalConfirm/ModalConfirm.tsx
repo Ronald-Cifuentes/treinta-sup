@@ -1,6 +1,5 @@
 import {Popup} from '@30sas/web-ui-kit-core';
 import {FC} from 'react';
-import {useTranslation} from 'react-i18next';
 import {
   ButtonInfo,
   ButtonSuccess,
@@ -18,28 +17,41 @@ export const ModalConfirm: FC<ModalConfirmTypes> = ({
   setOpen,
   open,
   handleBtnConfirm,
+  textHead = 'Title',
+  textBtnConfirm = 'Confirm',
+  textBtnCancel = 'Cancel',
+  dataTestId = 'modal-confirm',
+  dataTestIdBtnSuccess = 'btn-success',
+  dataTestIdBtnCancel = 'btn-cancel',
 }) => {
-  const {t} = useTranslation();
   const handleBtnCancel = (): void => {
     setOpen && setOpen(false);
   };
 
   return (
-    <Popup padding="0px" onClose={() => setOpen && setOpen(false)} open={open}>
+    <Popup
+      dataTestId={dataTestId}
+      padding="0px"
+      onClose={handleBtnCancel}
+      open={open}>
       <LayoutModal>
         <HeadModal>
           <div>
             <WarningIcon />
           </div>
-          <div>{t('bulk-upload.modal-confirm')}</div>
+          <div>{textHead}</div>
         </HeadModal>
         <BodyModal>
-          <ButtonSuccess onClick={handleBtnConfirm}>
-            {t('bulk-upload.btn-yes-continue')}
+          <ButtonSuccess
+            data-testid={dataTestIdBtnSuccess}
+            onClick={handleBtnConfirm}>
+            {textBtnConfirm}
           </ButtonSuccess>
           <WrapperButtonCancel>
-            <ButtonInfo onClick={handleBtnCancel}>
-              {t('bulk-upload.btn-cancel')}
+            <ButtonInfo
+              data-testid={dataTestIdBtnCancel}
+              onClick={handleBtnCancel}>
+              {textBtnCancel}
             </ButtonInfo>
           </WrapperButtonCancel>
         </BodyModal>

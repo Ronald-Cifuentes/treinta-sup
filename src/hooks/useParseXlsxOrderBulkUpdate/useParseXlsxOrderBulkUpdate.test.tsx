@@ -43,6 +43,8 @@ const labels = {
 
 const dispatch = jest.fn(arg => arg);
 
+jest.mock('firebase/auth', () => ({getAuth: jest.fn(() => ({}))}));
+
 jest.mock('context/OrderBulkUpdateContext', () => ({
   useOrderBulkUpdate: () => ({
     dispatch,

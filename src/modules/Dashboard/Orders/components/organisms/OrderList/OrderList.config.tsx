@@ -8,6 +8,13 @@ import {Tag} from '../../../../../../components/atoms/TagCustom';
 import {OrderStatusTags} from './OrderList.const';
 import {WrapperId} from './OrderList.styled';
 
+const handleLink = (params: GridRowParams): void => {
+  EventProvider.getInstance().logEventAmplitude('b2bs_order_detail_selected', {
+    supplier: getUser()?.supplier,
+    order_status: params.row.status.name,
+  });
+};
+
 export const columns: (GridColDef | GridActionsColDef)[] = [
   {
     field: 'id',
@@ -75,15 +82,7 @@ export const columns: (GridColDef | GridActionsColDef)[] = [
       <Link
         key={params.id}
         to={`/ordenes/${params.row.id}`}
-        onClick={() => {
-          EventProvider.getInstance().logEventAmplitude(
-            'b2bs_order_detail_selected',
-            {
-              supplier: getUser()?.supplier,
-              order_status: params.row.status.name,
-            },
-          );
-        }}>
+        onClick={() => handleLink(params)}>
         Detalle
       </Link>,
     ],
@@ -94,9 +93,9 @@ export const optionsTabs = [
   {key: 'ALL', label: 'Todos', value: '0'},
   {key: 'PLACED', label: 'Recibida', value: '1'},
   {key: 'CONFIRMED', label: 'En Proceso', value: '7'},
-  {key: 'SHIPPED', label: 'En ruta', value: '3'},
+  {key: 'SHIPPED', label: 'En Ruta', value: '3'},
   {key: 'DELIVERED', label: 'Entregada', value: '4'},
-  {key: 'CANCELED', label: 'Cancelada', value: '5'},
+  {key: 'CANCELLED', label: 'Cancelada', value: '5'},
   {key: 'RETURNED', label: 'Devuelta', value: '9'},
-  {key: 'PARTIALLY_RETURNED', label: 'Devolución parcial', value: '8'},
+  {key: 'PARTIALLY_RETURNED', label: 'Devolución Parcial', value: '8'},
 ];
