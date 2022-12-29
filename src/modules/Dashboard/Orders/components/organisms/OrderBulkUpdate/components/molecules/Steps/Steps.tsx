@@ -1,7 +1,7 @@
 import {Grid} from '@30sas/web-ui-kit-core';
 import {ACTIONS, useOrderBulkUpdate} from 'context/OrderBulkUpdateContext';
 import {ModalConfirm} from 'modules/Dashboard/Orders/components/atoms/ModalConfirm';
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect, useState, useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {setDataMassive} from '../../../OrderBulkUpdate.func';
 import {BottomNav, GoBackButton, NavBar} from '../../../OrderBulkUpdate.styled';
@@ -19,7 +19,7 @@ import {
 } from './Steps.styled';
 import {StepsProps} from './types';
 
-const handleButtonStep = ({dispatch, step, setModal}): void => {
+export const handleButtonStep = ({dispatch, step, setModal}): void => {
   if (step == 0) {
     dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
   } else if (step == 1) {
@@ -27,14 +27,19 @@ const handleButtonStep = ({dispatch, step, setModal}): void => {
   }
 };
 
-const handleGoBackButton = ({dispatch}): void => {
+export const handleGoBackButton = ({dispatch}): void => {
   dispatch({type: ACTIONS.SET_STEP, payload: {step: 0}});
   dispatch({
     type: ACTIONS.UPLOAD_FILE_RESET,
   });
 };
 
-const handleBtnConfirm = ({setModal, state, dispatch, ACTIONS}): void => {
+export const handleBtnConfirm = ({
+  setModal,
+  state,
+  dispatch,
+  ACTIONS,
+}): void => {
   setModal(() => false);
   setDataMassive({state, dispatch, ACTIONS});
 };
@@ -58,6 +63,12 @@ export const Steps: FC<StepsProps> = ({
     }
   }, [dispatch, step]);
 
+  const handleOpenVideo = useCallback((): void => {
+    const link =
+      'https://www.loom.com/share/folder/a38b77f9b4334a5392340e849ae91423';
+    window.open(link, '_blank', 'noopener');
+  }, []);
+
   return (
     <StepsContainer data-testid={dataTestId}>
       <NavBar>
@@ -79,7 +90,11 @@ export const Steps: FC<StepsProps> = ({
             <HelpQuestionIcon />
             <HelpStrong>{t('order-bulk-update.help.text-review')}</HelpStrong>
             {t('order-bulk-update.help.text-learn')}
-            <HelpLink target="_blank" rel="noreferrer">
+            <HelpLink
+              data-testid="help-link-test"
+              target="_blank"
+              rel="noreferrer"
+              onClick={handleOpenVideo}>
               <HelpPlayIcon />
               {t('order-bulk-update.help.text-link')}
             </HelpLink>

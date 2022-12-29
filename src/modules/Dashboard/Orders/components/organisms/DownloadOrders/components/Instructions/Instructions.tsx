@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import {Faq} from '../Faq';
@@ -17,6 +17,12 @@ import {
 export const Instructions: FC = () => {
   const {t} = useTranslation();
 
+  const handleOpenLink = useCallback((): void => {
+    const link =
+      'https://loom.com/share/folder/409c10b43b9a43319fdd67ba2fdd2be2';
+    window.open(link, '_blank', 'noopener');
+  }, []);
+
   return (
     <Container data-testid="instructions_test">
       <ImageContainer>
@@ -30,7 +36,7 @@ export const Instructions: FC = () => {
         <InstructionAction>2. {t('download_orders.instro2')}</InstructionAction>
         <InstructionAction>3. {t('download_orders.instro3')}</InstructionAction>
       </TextContainer>
-      <GuideContainer>
+      <GuideContainer onClick={handleOpenLink} data-testid="guide-view-video">
         <Play color="#2d79f4" />
         <GuideText>{t('download_orders.btn_title')}</GuideText>
       </GuideContainer>
