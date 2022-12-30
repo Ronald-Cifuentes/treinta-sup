@@ -65,6 +65,7 @@ export const InstructionAction = styled.p`
 export const GuideContainer = styled.div`
   width: 15%;
   display: flex;
+  cursor: pointer;
   align-items: center;
   flex-direction: row;
   justify-content: center;
