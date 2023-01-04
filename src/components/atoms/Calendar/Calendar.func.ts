@@ -3,13 +3,23 @@ import {DayOfWeekEn, DayOfWeekEs, DaysOfWeek, StartEnd} from './types';
 
 export const currentDay = new Date().getDate();
 
-export const getLastDayOfPreviousMonth = (): number => {
-  const current = new Date();
+export const getLastDayOfPreviousMonth = (date?: Date): number => {
+  let current: Date;
+  if (date) {
+    current = date;
+  } else {
+    current = new Date();
+  }
   return new Date(current.getFullYear(), current.getMonth(), 0).getDate();
 };
 
-export const getLastDayOfCurrentMonth = (): number => {
-  const current = new Date();
+export const getLastDayOfCurrentMonth = (date?: Date): number => {
+  let current: Date;
+  if (date) {
+    current = date;
+  } else {
+    current = new Date();
+  }
   return new Date(current.getFullYear(), current.getMonth() + 1, 0).getDate();
 };
 
@@ -23,7 +33,7 @@ export const getPreviousDay = (date?: Date): number => {
   const previousDay = current.getDate() - 1;
   switch (true) {
     case previousDay == 0:
-      return getLastDayOfPreviousMonth();
+      return getLastDayOfPreviousMonth(current);
     case previousDay > 0:
       return previousDay;
     default:
@@ -40,9 +50,9 @@ export const getNextDay = (date?: Date): number => {
   }
   const nextDay = current.getDate() + 1;
   switch (true) {
-    case nextDay > getLastDayOfCurrentMonth():
+    case nextDay > getLastDayOfCurrentMonth(current):
       return 1;
-    case nextDay <= getLastDayOfCurrentMonth():
+    case nextDay <= getLastDayOfCurrentMonth(current):
       return nextDay;
     default:
       return 0;

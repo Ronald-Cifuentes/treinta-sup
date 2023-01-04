@@ -13,11 +13,24 @@ export const SectionTemplates: FC<SectionTemplatesProps> = () => {
   const theme = useTheme();
 
   const handleDownloadTemplate = (): void => {
-    document.location.href = '/assets/Plantilla_carga_masiva_estados_V2.xlsx';
+    document.location.href = '/assets/Plantilla_carga_masiva_estados_V4.xlsx';
   };
 
   const handleDownloadPdf = (): void => {
-    window.open('/assets/PDF_explicativo_Cambio_de_estados_Treinta.pdf');
+    fetch(
+      '/assets/Cambio de Estados por el Portal de Proveedores - Marketplace Treinta.pdf',
+    ).then(response => {
+      response.blob().then(blob => {
+        // Creating new object of PDF file
+        const fileURL = window.URL.createObjectURL(blob);
+        // Setting various property values
+        const alink = document.createElement('a');
+        alink.href = fileURL;
+        alink.download =
+          'Cambio de Estados por el Portal de Proveedores - Marketplace Treinta.pdf';
+        alink.click();
+      });
+    });
   };
 
   return (
