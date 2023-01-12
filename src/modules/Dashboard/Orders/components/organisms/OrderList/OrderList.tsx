@@ -5,7 +5,14 @@ import {format, utcToZonedTime} from 'date-fns-tz';
 import {ColorProps} from '@30sas/web-ui-kit-theme';
 import {GridSelectionModel} from '@mui/x-data-grid';
 import {Backdrop, SearchInput} from '@30sas/web-ui-kit-core';
-import {ChangeEvent, FC, SetStateAction, useEffect, useState} from 'react';
+import {
+  ChangeEvent,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
 
 import {DashboardLayout} from 'components/templates';
 import {SpecialLineTabs} from 'components/atoms/SpecialLineTabs';
@@ -82,6 +89,7 @@ export const OrderList: FC = () => {
 
   const rows = dataRetrieve?.items?.map(item => ({
     id: item.id,
+    sequenceId: item.sequenceId,
     value: item.value,
     status: item.status,
     deliveryDate: format(
@@ -214,17 +222,21 @@ export const OrderList: FC = () => {
     setPage(1);
   };
 
-  const showModal = (): void => {
+  const showModal = useCallback((): void => {
     setShowModalGoogle(true);
-  };
+  }, []);
 
-  const closeModal = (): void => {
+  const closeModal = useCallback((): void => {
     setShowModalGoogle(false);
-  };
+  }, []);
 
   return (
     <>
-      <ModalGeneric openModal={showModalGoogle} closeModal={closeModal} />
+      <ModalGeneric
+        openModal={showModalGoogle}
+        closeModal={closeModal}
+        data-testid="open-modal-google"
+      />
       <DashboardLayout
         title={t('orders.title')}
         fancyLineProps={LINE_PROPS}

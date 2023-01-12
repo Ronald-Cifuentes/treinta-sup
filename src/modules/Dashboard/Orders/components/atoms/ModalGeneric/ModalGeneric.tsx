@@ -14,13 +14,16 @@ const REPORT_DATASTUDIO = process.env.REACT_APP_REPORT_STUDIO;
 export const ModalGeneric: FC<ModalGenericTypes> = ({
   openModal,
   closeModal,
+  dataTestId = 'modal-generic',
+  dataTestIdBtnSuccess = 'btn-success',
 }) => (
   <Popup
     width="90%"
     padding="0px"
     hideCloseButton
     onClose={() => closeModal}
-    open={openModal}>
+    open={openModal}
+    dataTestId={dataTestId}>
     <LayoutModal>
       <HeadModal>Reporte de Google Data Studio</HeadModal>
       <BodyModal>
@@ -33,6 +36,7 @@ export const ModalGeneric: FC<ModalGenericTypes> = ({
         />
         <WrapperActions>
           <Button
+            dataTestId={dataTestIdBtnSuccess}
             borderColor="secondary"
             borderColorType="700"
             color="neutrals"

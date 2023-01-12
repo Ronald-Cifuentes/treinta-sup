@@ -40,6 +40,7 @@ export interface OrderStatus {
 
 export interface Order {
   id: string;
+  sequenceId?: string;
   value: number;
   appliedDiscount?: number;
   status: OrderStatus;

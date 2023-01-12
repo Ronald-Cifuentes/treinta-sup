@@ -23,6 +23,11 @@ export const columns: (GridColDef | GridActionsColDef)[] = [
     renderCell: params => <WrapperId>{params.value}</WrapperId>,
   },
   {
+    field: 'sequenceId',
+    headerName: 'Consecutivo',
+    width: 130,
+  },
+  {
     field: 'status',
     headerName: 'Estado',
     width: 160,
