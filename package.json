@@ -74,7 +74,6 @@
     "start": "cross-env GENERATE_SOURCEMAP=false PORT=3000 react-scripts start",
     "dev": "cross-env GENERATE_SOURCEMAP=false PORT=3000 react-scripts start",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "build:sourcemap": "GENERATE_SOURCEMAP=true react-scripts build",
     "prettier": "node_modules/.bin/prettier -w \"src/**/*.{ts,tsx}\"",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:ts": "eslint \"src/**/*.{ts,tsx}\"",
