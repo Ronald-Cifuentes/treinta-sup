@@ -38,19 +38,19 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Archive Production Artifact
+      - name: Archive Production Build Artifact
         uses: actions/upload-artifact@master
         with:
           name: build
           path: |
             build
-            !build/*.map
+            !build/**/*.map
 
-      - name: Archive Sourcemaps Artifact
+      - name: Archive Sentry Sourcemap Artifact
         uses: actions/upload-artifact@master
         with:
-          name: sourcemaps
-          path: build/*.map
+          name: sourcemap
+          path: build
 
   tests:
     name: Run tests
@@ -99,7 +99,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: Download Artifact
+      - name: Download Production Build Artifact
         uses: actions/download-artifact@master
         with:
           name: build
@@ -130,8 +130,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: sourcemaps
-          path: sourcemaps
+          name: sourcemap
+          path: sourcemap
 
       - uses: actions/checkout@v2
       - name: Create Sentry release
@@ -142,4 +142,4 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: sourcemaps
+          sourcemaps: sourcemap
