@@ -34,7 +34,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build
+        run: yarn build:sourcemap
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,7 +42,16 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: build
-          path: build
+          path: |
+            build
+            !build/*.map
+
+      - name: Archive Sourcemaps Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: sourcemaps
+          path: build/*.map
+
   tests:
     name: Run tests
     runs-on: ubuntu-latest
@@ -118,6 +127,12 @@ jobs:
           no-cache: true
           private: true
 
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: sourcemaps
+          path: sourcemaps
+
       - uses: actions/checkout@v2
       - name: Create Sentry release
         uses: getsentry/action-release@v1
@@ -127,3 +142,4 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
+          sourcemaps: sourcemaps
