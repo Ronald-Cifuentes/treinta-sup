@@ -127,7 +127,7 @@ jobs:
           no-cache: true
           private: true
 
-      - name: Download Artifact
+      - name: Download Sentry Sourcemap Artifact
         uses: actions/download-artifact@master
         with:
           name: sourcemap
