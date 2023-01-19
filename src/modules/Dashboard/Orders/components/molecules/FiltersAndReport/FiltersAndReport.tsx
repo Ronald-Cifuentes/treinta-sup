@@ -1,8 +1,10 @@
 import {CalendarsInput} from '@30sas/web-ui-kit-core';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import {EventProvider} from 'providers/event-provider';
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
+import {getUser} from 'utils/infoUser';
 import {
   Actions,
   Button,
@@ -28,6 +30,12 @@ export const FiltersAndReport: FC<PropTypesFiltersAndReport> = ({
   const history = useNavigate();
 
   const handleUpdate = (): void => {
+    EventProvider.getInstance().logEventAmplitude(
+      'b2bs_orders_status_update_started',
+      {
+        supplier: getUser()?.supplier,
+      },
+    );
     history({pathname: '/ordenes/actualizar'});
   };
 

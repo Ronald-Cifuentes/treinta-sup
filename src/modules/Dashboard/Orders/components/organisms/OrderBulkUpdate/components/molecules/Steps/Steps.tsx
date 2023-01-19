@@ -1,8 +1,10 @@
 import {Grid} from '@30sas/web-ui-kit-core';
 import {ACTIONS, useOrderBulkUpdate} from 'context/OrderBulkUpdateContext';
 import {ModalConfirm} from 'modules/Dashboard/Orders/components/atoms/ModalConfirm';
+import {EventProvider} from 'providers/event-provider';
 import {FC, useEffect, useState, useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
+import {getUser} from 'utils/infoUser';
 import {setDataMassive} from '../../../OrderBulkUpdate.func';
 import {BottomNav, GoBackButton, NavBar} from '../../../OrderBulkUpdate.styled';
 import {ButtonStep} from '../../atoms/ButtonStep';
@@ -21,6 +23,12 @@ import {StepsProps} from './types';
 
 export const handleButtonStep = ({dispatch, step, setModal}): void => {
   if (step == 0) {
+    EventProvider.getInstance().logEventAmplitude(
+      'b2bs_orders_status_update_confirmed',
+      {
+        supplier: getUser()?.supplier,
+      },
+    );
     dispatch({type: ACTIONS.SET_STEP, payload: {step: step + 1}});
   } else if (step == 1) {
     setModal(true);
@@ -42,6 +50,12 @@ export const handleBtnConfirm = ({
 }): void => {
   setModal(() => false);
   setDataMassive({state, dispatch, ACTIONS});
+  EventProvider.getInstance().logEventAmplitude(
+    'b2bs_orders_status_massive_save_confirmed',
+    {
+      supplier: getUser()?.supplier,
+    },
+  );
 };
 
 export const Steps: FC<StepsProps> = ({
