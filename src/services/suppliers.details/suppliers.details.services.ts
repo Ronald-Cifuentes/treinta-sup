@@ -17,10 +17,14 @@ export class DetailServices {
   }
 
   setDetail({
-    id,
+    // id,
     data,
   }: SetDetailTypes): Promise<AxiosResponse<ResponseMutateSetDetail>> {
-    const idParam = id ? `/${id}` : '';
-    return this.api.patch(`/suppliers/orders${idParam}`, data);
+    // const idParam = id ? `/${id}` : '';
+    return this.api.patch(
+      'https://run.mocky.io/v3/c6ea5150-f4a7-4cd2-a7ed-576c5edd4579',
+      data,
+    );
+    // return this.api.patch(`/suppliers/orders${idParam}`, data);
   }
 }
