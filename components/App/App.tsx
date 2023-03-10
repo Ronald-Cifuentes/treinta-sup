@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { AppContainer } from './App.styled'
 import { AppProps } from './types'
 
@@ -37,25 +37,23 @@ export type useRefDimensionsOut = {
 
 export type useRefDimensionsProps = (ref: RefObject<HTMLElement>) => useRefDimensionsOut
 
-export const useRefDimensions: useRefDimensionsProps = ref => {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-  useEffect(() => {
-    const getResize = () => {
-      if (ref.current) {
-        const { current } = ref
-        const boundingRect = current.getBoundingClientRect()
-        const { width, height } = boundingRect
-        // if (dimensions.width !== width || dimensions.height !== height) {
-        setDimensions({ width: width, height: height })
-        // }
-      }
-    }
-    getResize()
-    // window.addEventListener('resize', getResize)
+export const useRefDimensions: useRefDimensionsProps = (ref, initRef = { width: 0, height: 0 }) => {
+  const [dimensions, setDimensions] = useState(initRef)
 
-    // return () => {
-    //   window.removeEventListener('resize', getResize)
-    // }
+  useEffect(() => {
+    if (ref.current) {
+      const { current } = ref
+      const resizeObserver = new ResizeObserver(entries => {
+        if (!Array.isArray(entries)) return
+        if (!entries.length) return
+
+        const entry = entries[0]
+        setDimensions(entry.contentRect)
+      })
+      resizeObserver.observe(current)
+
+      return () => resizeObserver.disconnect()
+    }
   }, [ref])
   return dimensions
 }
