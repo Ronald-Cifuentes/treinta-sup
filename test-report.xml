@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/ronald.cifuentes/Downloads/code2/next-boilerplate/pages/index.test.tsx">
+    <testCase name="&lt;Index /&gt; #1. exist - render correctly" duration="12"/>
+    <testCase name="&lt;Index /&gt; #2. exist - render correctly" duration="6"/>
+  </file>
+</testExecutions>
