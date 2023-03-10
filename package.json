@@ -149,7 +149,7 @@
     "lint-staged": "12.1.2",
     "node-notifier": "10.0.1",
     "prettier": "2.7.1",
-    "rimraf": "3.0.1",
+    "rimraf": "4.4.0",
     "stylelint-custom-processor-loader": "0.6.0",
     "use-reducer-logger": "1.0.2"
   },
